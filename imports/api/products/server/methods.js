@@ -1,10 +1,14 @@
 import Shopify from '/imports/api/shopify/server/shopify'
 
-export const list = () => (
+export const list = (query = {}) => (
   new Promise((resolve, reject) => {
-    Shopify.get('/admin/products.json', {}, (error, response, headers) => {
+    Shopify.get('/admin/products.json', query, (error, response, headers) => {
       console.log(arguments)
-      resolve(response.products)
+      if (error) {
+        reject(error)
+      } else {
+        resolve(response.products)
+      }
     })
   })
 )
