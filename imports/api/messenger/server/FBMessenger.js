@@ -298,7 +298,12 @@ class Bot extends EventEmitter {
   }
 
   _handleEvent(type, event) {
-    this.emit(type, event, this.sendMessage.bind(this, event.sender.id), this._getActionsObject(event))
+    this.emit(type, {
+      senderId: event.sender.id,
+      payload: event,
+      reply: this.sendMessage.bind(this, event.sender.id),
+      replyAction: this._getActionsObject(event)
+    })
   }
 }
 

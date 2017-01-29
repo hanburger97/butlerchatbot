@@ -1,9 +1,8 @@
-import Shopify from '/imports/api/shopify/server/shopify'
+import {ShopifyApi} from '/imports/api/shopify/server/shopify'
 
 export const list = (query = {}) => (
   new Promise((resolve, reject) => {
-    Shopify.get('/admin/products.json', query, (error, response, headers) => {
-      console.log(arguments)
+    ShopifyApi.get('/admin/products.json', query, (error, response, headers) => {
       if (error) {
         reject(error)
       } else {
@@ -13,8 +12,42 @@ export const list = (query = {}) => (
   })
 )
 
+export const get = (id) => (
+  new Promise((resolve, reject) => {
+    ShopifyApi.get(`/admin/products/${id}.json?fields=id,images,title`, (error, response, headers) => {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(response.product)
+      }
+    })
+  })
+)
+
+export const count = (query) => (
+  new Promise((resolve, reject) => {
+    ShopifyApi.get('/admin/products/count.json', query, (error, response, headers) => {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(response.count)
+      }
+    })
+  })
+)
+
 Meteor.methods({
   'products.list': () => {
-    return getAll()
+    return list()
   }
 })
+
+function test () {
+  import {ShopifyClient} from '/imports/api/shopify/server/shopify'
+  ShopifyClient.fetchQueryProducts({vendor: 'Alexis le gourmand'})
+    .then(products => {
+      console.log(products)
+    })
+}
+
+//Meteor.bindEnvironment(test)()

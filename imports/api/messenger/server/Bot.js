@@ -21,10 +21,10 @@ bot.setGetStartedButton([
 
 bot.setPersistentMenu([
   {
-    "type":"postback",
-    "title":"Menu principal",
-    "payload":"THREAD_GETTING_STARTED"
-  },
+    "type": "postback",
+    "title": "Menu principal",
+    "payload": "THREAD_GETTING_STARTED"
+  }
 ], (error, response) => {
   if (error) {
     console.log('Bot::setPersistentMenu::ERRORED', error)
