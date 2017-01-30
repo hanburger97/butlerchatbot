@@ -232,21 +232,26 @@ class Bot extends EventEmitter {
       let events = entry.messaging
 
       events.forEach((event) => {
-        if (this.debug) {
-          logInfo('MessengerBot::HandleMessage')
-          logInfo(event)
-        }
+
         // handle inbound messages and echos
         if (event.message) {
           if (event.message.is_echo) {
             this._handleEvent('echo', event)
           } else {
+            if (this.debug) {
+              logInfo('MessengerBot::HandleMessage')
+              logInfo(event)
+            }
             this._handleEvent('message', event)
           }
         }
 
         // handle postbacks
         if (event.postback) {
+          if (this.debug) {
+            logInfo('MessengerBot::HandlePostback')
+            logInfo(event)
+          }
           this._handleEvent('postback', event)
         }
 
