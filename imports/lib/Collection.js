@@ -9,7 +9,7 @@ class Collection extends Mongo.Collection {
       return modelInstance
     }
 
-    super(name, {transform})
+    super(name, {transform, _suppressSameNameError: true})
     this.parentInsert = this.insert
     this.insert = promisify(this.insert)
 

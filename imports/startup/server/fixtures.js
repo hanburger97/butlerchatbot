@@ -9,21 +9,21 @@ Migrations.add({
   up: function () {
     const postbacks = JSON.parse(Assets.getText('fixtures/postbacks_cleaned.json'))
 
-    const postbacksCollection = new Meteor.Collection('postbacks')
+    const postbacksCollection = new Meteor.Collection('postbacks', {_suppressSameNameError: true})
     postbacks.forEach((postback) => {
       postbacksCollection.insert(postback)
     })
 
     const responses = JSON.parse(Assets.getText('fixtures/responses_cleaned.json'))
 
-    const responsesCollection = new Meteor.Collection('responses')
+    const responsesCollection = new Meteor.Collection('responses', {_suppressSameNameError: true})
     responses.forEach((response) => {
       responsesCollection.insert(response)
     })
 
     const rooms = JSON.parse(Assets.getText('fixtures/rooms_cleaned.json'))
 
-    const roomsCollection = new Meteor.Collection('rooms')
+    const roomsCollection = new Meteor.Collection('rooms', {_suppressSameNameError: true})
     rooms.forEach((room) => {
       roomsCollection.insert(room)
     })
