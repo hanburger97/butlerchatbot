@@ -1,0 +1,134 @@
+[
+  {
+    "trigger": "hello",
+    "response": {
+      "text": "Hello! "
+    },
+    "action": {}
+  },
+  {
+    "trigger": "button",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "What do you want to do next?",
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "View subtotal",
+              "payload": "SUB"
+            },
+            {
+              "type": "postback",
+              "title": "Checkout",
+              "payload": "CHECKOUT"
+            }
+          ]
+        }
+      }
+    },
+    "action": {
+      "value": null,
+      "operation": ""
+    }
+  },
+  {
+    "trigger": "hi",
+    "response": {
+      "text": "How can I help you today?:",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "I want to find a service for my room.",
+          "payload": "SERVICES"
+        },
+        {
+          "content_type": "text",
+          "title": "I want to talk to a human",
+          "payload": "DEVELOPER_DEFINED_PAYLOAD_REQUEST_SUPPORT"
+        }
+      ]
+    },
+    "action": {
+      "value": null,
+      "operation": ""
+    }
+  },
+  {
+    "trigger": "find",
+    "response": {
+      "text": "What would you like to find?",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Option 1",
+          "payload": "OPTION_1"
+        },
+        {
+          "content_type": "text",
+          "title": "Option 2",
+          "payload": "OPTION_2"
+        }
+      ]
+    },
+    "action": {}
+  },
+  {
+    "trigger": "help",
+    "response": {
+      "text": "Hang in there... I am forwarding this to a human"
+    },
+    "action": {
+      "value": 15,
+      "operation": "Timeout"
+    }
+  },
+  {
+    "trigger": "confused",
+    "response": {
+      "text": "standby, I am transfering this to a human"
+    },
+    "action": {
+      "value": 10,
+      "operation": "Timeout"
+    }
+  },
+  {
+    "trigger": "ok",
+    "response": {
+      "text": "standby, I am transfering this to a human"
+    },
+    "action": {
+      "value": 10,
+      "operation": "Timeout"
+    }
+  },
+  {
+    "trigger": "dev201",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "What do you want to do next?",
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Get Started",
+              "payload": "START"
+            },
+            {
+              "type": "web_url",
+              "url": "https://shrouded-beyond-46149.herokuapp.com/#/table",
+              "title": "View Table(developer)",
+              "webview_height_ratio": "compact"
+            }
+          ]
+        }
+      }
+    },
+    "action": {}
+  }
+]
