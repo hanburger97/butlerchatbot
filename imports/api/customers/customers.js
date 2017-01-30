@@ -12,6 +12,7 @@ class Customers extends Collection {
 class Customer extends Model {
   constructor() {
     super(customersCollection)
+    this.cart = []
   }
 
   getCart() {
