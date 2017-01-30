@@ -6,6 +6,7 @@ import Rooms from '/imports/api/rooms/Rooms'
 class DefaultModule extends BaseHandler {
   constructor() {
     super()
+    console.log('new default module')
     this.pausedUsers = []
     this.recordRoom = []
     this.recordParking = []
@@ -56,24 +57,21 @@ class DefaultModule extends BaseHandler {
 
       } else if (_this.recordParking[senderId] && _this.recordParking[senderId] == 'Yes') {
 
-        User.findOneAndUpdate({id: JSON.stringify(senderId)}, {
-          parking: payload.message.text
-        }, function (error) {
-          if (error) {
-            console.log(error)
-          }
-          reply({
+        customer.set('parking', payload.message.text)
+        customer.save()
+        reply({
+          message: {
             'text': 'Parfait! Vous pouvez continuer', quick_replies: [
               {
-                content_type: text,
+                content_type: "text",
                 title: "Continuer",
                 payload: "CARWASH_PROCEED"
               }
             ]
-          });
-          _this.stopAutoReply = true;
-          delete _this.recordParking[senderId];
-        })
+          }
+        });
+        _this.stopAutoReply = true;
+        delete _this.recordParking[senderId];
       }
       /**Expired Timeout section**/
       else {
@@ -84,30 +82,31 @@ class DefaultModule extends BaseHandler {
 
       if (payload.message && payload.message.quick_reply) {
         console.log('In quickreply elif');
-        Postbacks.findOne({trigger: payload.message.quick_reply.payload}).then(postback => {
+        Postbacks.findOne({trigger: payload.message.quick_reply.payload})
+          .then(postback => {
 
-          if (postback.action && postback.action.operation == 'RecordDay') {
-            customer.set('service', {
-              day: postback.action.value
-            })
-            customer.save()
-            reply({message: postback.response})
-
-
-          } else if (postback.action && postback.action.operation == 'AddDetail') {
-            customer.set('detail', postback.action.value)
-            customer.save()
-            reply({message: postback.response})
+            if (postback.action && postback.action.operation == 'RecordDay') {
+              customer.set('service', {
+                day: postback.action.value
+              })
+              customer.save()
+              reply({message: postback.response})
 
 
-          } else if (postback.action && postback.action.operation == 'ConfirmService') {
-            reply({message: {'text': 'Parfait'}})
+            } else if (postback.action && postback.action.operation == 'AddDetail') {
+              customer.set('detail', postback.action.value)
+              customer.save()
+              reply({message: postback.response})
 
-          } else {
-            reply({message: postback.response})
 
-          }
-        })
+            } else if (postback.action && postback.action.operation == 'ConfirmService') {
+              reply({message: {'text': 'Parfait'}})
+
+            } else {
+              reply({message: postback.response})
+
+            }
+          })
           .catch(err => {
             reply({
               message: {
@@ -196,15 +195,6 @@ class DefaultModule extends BaseHandler {
                 let until = new Date(new Date().getTime() + (Number(data.action.value) * 1000));
                 _this.pausedUsers[senderId] = until
               }
-              else if (data.action && data.action.operation == 'RecordUser') {
-                User.findOneAndUpdate({id: JSON.stringify(senderId)}, {
-                  id: JSON.stringify(senderId)
-                }, {upsert: true}, function (error) {
-                  if (error) {
-                    console.log('There was an error registering the user' + error)
-                  }
-                });
-              }
               else if (data.action && data.action.operation == 'AddCart') {
                 //AddCart action has to be added to the confirmation msg of each item
                 //Check if user already exists else upsert
@@ -213,85 +203,74 @@ class DefaultModule extends BaseHandler {
                 customer.save()
 
               } else if (data.action && (data.action.operation == 'CheckOut' || data.action.operation == 'SubTotal')) {
-                User.findOne({id: JSON.stringify(senderId)}).exec(function (error, result) {
-                  if (error) {
-                    console.log(error)
-                  } else {
-                    let total = result.cart.reduce((a, b) => a + b, 0);
-                    console.log('total is ' + JSON.stringify(total));
-                    reply({message: {'text': 'Your total is $' + JSON.stringify(total)}});
+                let total = customer.cart.reduce((a, b) => a + b, 0);
+                console.log('total is ' + JSON.stringify(total));
+                reply({message: {'text': 'Your total is $' + JSON.stringify(total)}});
 
-                    if (data.action.operation == 'CheckOut') {
-                      //Clear cart only at checkout
-                      customer.cart = []
-                      customer.save()
-                    }
-                  }
-                })
+                if (data.action.operation == 'CheckOut') {
+                  //Clear cart only at checkout
+                  customer.cart = []
+                  customer.save()
+                }
+
+
               } else if (data.action && data.action.operation == 'RecordParking') {
 
-                User.findOne({id: JSON.stringify(senderId)}).exec(function (error, result) {
-                  if (error) {
-                    console.log(error)
-                  } else if (!result.parking) {
-                    reply({message: {'text': 'Quel est votre numéro de stationnement?'}})
-                    this.recordParking[senderId] = 'Yes'
-                  } else {
-                    let rmsg = {
-                      attachment: {
-                        type: "template",
-                        payload: {
-                          template_type: "button",
-                          text: "Veuillez confirmer que votre numéro de stationnement est " + JSON.stringify(result.parking),
-                          buttons: [
-                            {
-                              type: "postback",
-                              title: "Confirmer",
-                              payload: "CARWASH_PROCEED"
-                            },
-                            {
-                              type: "postback",
-                              title: "Changer",
-                              payload: "CHANGE_PARKING"
-                            }
-                          ]
-                        }
+                if (!customer.parking) {
+                  reply({message: {'text': 'Quel est votre numéro de stationnement?'}})
+                  this.recordParking[senderId] = 'Yes'
+                } else {
+                  let rmsg = {
+                    attachment: {
+                      type: "template",
+                      payload: {
+                        template_type: "button",
+                        text: "Veuillez confirmer que votre numéro de stationnement est " + JSON.stringify(customer.parking),
+                        buttons: [
+                          {
+                            type: "postback",
+                            title: "Confirmer",
+                            payload: "CARWASH_PROCEED"
+                          },
+                          {
+                            type: "postback",
+                            title: "Changer",
+                            payload: "CHANGE_PARKING"
+                          }
+                        ]
                       }
-                    };
-                    reply(rmsg)
+                    }
+                  };
+                  reply({message:rmsg})
+                }
 
 
-                  }
-                });
               } else if (data.action && data.action.operation == 'ChangeParking') {
                 _this.recordParking[senderId] = 'Yes';
 
-              } else if (data.action && data.action.operation == 'CarWashConfirm') {
-                User.findOne({id: JSON.stringify(senderId)}).exec(function (error, result) {
-                  if (error) {
-                    console.log(error)
-                  } else {
-                    reply({
-                      message: {
-                        attachment: {
-                          type: "template",
-                          payload: {
-                            template_type: "button",
-                            text: `À votre service, donc ${result.service.day}, ${result.detail}.`,
-                            buttons: [
-                              {
-                                type: "postback",
-                                title: "Confirmer",
-                                payload: "LAVE_AUTO_FINISH"
-                              }
 
-                            ]
+              } else if (data.action && data.action.operation == 'CarWashConfirm') {
+                reply({
+                  message: {
+                    attachment: {
+                      type: "template",
+                      payload: {
+                        template_type: "button",
+                        text: `À votre service, donc ${customer.service.day}, ${customer.detail}.`,
+                        buttons: [
+                          {
+                            type: "postback",
+                            title: "Confirmer",
+                            payload: "LAVE_AUTO_FINISH"
                           }
-                        }
+
+                        ]
                       }
-                    })
+                    }
                   }
                 })
+
+
               } else if (data.action && data.action.operation == 'RecordRoom') {
                 if (!customer.room) {
                   _this.recordRoom[senderId] = 'Yes'
@@ -360,30 +339,30 @@ class DefaultModule extends BaseHandler {
                     customer.save()
                   })
                   .catch(err => {
-                      console.log(err)
-                      let msg = {
-                        attachment: {
-                          type: "template",
-                          payload: {
-                            template_type: "button",
-                            text: `Oops, nous n'avons pas réussis à trouver la porte ${customer.room} dans notre base de données.`,
-                            buttons: [
-                              {
-                                type: "postback",
-                                title: "Ré-essayer",
-                                payload: "CHANGE_ROOM"
-                              },
-                              {
-                                content_type: "text",
-                                title: "Parler à un humain",
-                                payload: "HUMAN"
-                              }
-                            ]
-                          }
+                    console.log(err)
+                    let msg = {
+                      attachment: {
+                        type: "template",
+                        payload: {
+                          template_type: "button",
+                          text: `Oops, nous n'avons pas réussis à trouver la porte ${customer.room} dans notre base de données.`,
+                          buttons: [
+                            {
+                              type: "postback",
+                              title: "Ré-essayer",
+                              payload: "CHANGE_ROOM"
+                            },
+                            {
+                              content_type: "text",
+                              title: "Parler à un humain",
+                              payload: "HUMAN"
+                            }
+                          ]
                         }
-                      };
-                      reply({message: msg})
-                    })
+                      }
+                    };
+                    reply({message: msg})
+                  })
               }
 
               reply({message: data.response});
@@ -396,12 +375,12 @@ class DefaultModule extends BaseHandler {
                 text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
                 quick_replies: [
                   {
-                    content_type: text,
+                    content_type: "text",
                     title: "Oui",
                     payload: "HUMAN"
                   },
                   {
-                    content_type: text,
+                    content_type: "text",
                     title: "Retour au Menu",
                     payload: "SERVICES"
                   }
