@@ -30,7 +30,18 @@ class Model {
   }
 
   save() {
-    this._collection.update(this._id, {$set: this._attrs})
+    const _this = this
+    const promise = new Promise((resolve, reject) => {
+      const updated = this._collection.update(this._id, {$set: this._attrs})
+      if (updated) {
+        resolve(_this)
+      } else {
+        reject(new Meteor.Error('NOT_FOUND', updated))
+      }
+
+    })
+
+    return promise
   }
 }
 
