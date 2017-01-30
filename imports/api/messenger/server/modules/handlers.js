@@ -1,10 +1,9 @@
-class ProductModule {
+export class BaseHandler {
   constructor() {
 
   }
-}
 
+  handle() {
 
-const addProductToCart = () => {
-  import {} from '/imports/api/carts/server/methods'
+  }
 }
