@@ -39,7 +39,7 @@ class Collection extends Mongo.Collection {
         reject(new Meteor.Error(
           'NOT_FOUND',
           '404: Not found',
-          `Document with selector ${args[0]} could not be found in the collection ${this.name}`)
+          `Document with selector ${args[0]} could not be found in the collection ${this._name}`)
         )
       }
     }).bind(this)
