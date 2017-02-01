@@ -8,9 +8,19 @@ class ProductHandler extends BaseHandler {
   handle({payload, reply, senderId, customer}) {
     const promise = new Promise(() => {
       import {list as listProduct, count as countProducts} from '/imports/api/products/server/methods'
-      const postbackurl = payload.postback.payload
+      import {get as getProduct} from '/imports/api/products/server/methods'
+
+      let postbackurl = ""
+
+      if (payload.postback && payload.postback.payload) {
+        postbackurl = payload.postback.payload
+      } else if (payload.message && payload.message.quick_reply) {
+        postbackurl = payload.message.quick_reply.payload
+      }
+
       let SHOW_PRODUCTS = '//SHOW_PRODUCTS/'
-      let PRODUCT_ADD_TO_CART = '//PRODUCT_ADD_TO_CART/'
+      let PRODUCT_ADD_TO_CART = '//PRODUCTS/CART/ADD_TO_CART/'
+      const PRODUCTS_CART_UPDATE_QUANTITY = '//PRODUCTS/CART/CHANGE_QUANTITY/'
 
       if (postbackurl.indexOf(SHOW_PRODUCTS) == 0) {
 
@@ -36,18 +46,18 @@ class ProductHandler extends BaseHandler {
                   const elements = []
 
                   products.forEach((product) => {
+                    let subtitle = product.body_html
+                    subtitle = subtitle.replace('<p>', '')
+                    subtitle = subtitle.replace('</p>', '')
+
                     elements.push({
-                      title: product.title,
-                      image_url: product.image ? product.image.src : "https://placehold.it/200x100",
-                      subtitle: product.body_html,
+                      title: `${product.title} - (${product.variants[0].price}$)`,
+                      image_url: product.image ? product.image.src : "https://placehold.it/100x75",
+                      subtitle: subtitle,
                       buttons: [{
                         type: "postback",
                         title: "Ajouter à mon panier",
-                        payload: "//PRODUCT_ADD_TO_CART/" +
-                        JSON.stringify(
-                          product.variants[0],
-                          null, 0
-                        )
+                        payload: PRODUCT_ADD_TO_CART + JSON.stringify(product.variants[0], null, 0)
                       }]
                     })
                   })
@@ -90,9 +100,9 @@ class ProductHandler extends BaseHandler {
       else if (postbackurl.indexOf(PRODUCT_ADD_TO_CART) == 0) {
 
 
-        let query = postbackurl.substring(PRODUCT_ADD_TO_CART.length)
-        if (query) {
-          query = JSON.parse(query)
+        let productVariant = postbackurl.substring(PRODUCT_ADD_TO_CART.length)
+        if (productVariant) {
+          productVariant = JSON.parse(productVariant)
         }
 
         return customer.getCart()
@@ -101,34 +111,121 @@ class ProductHandler extends BaseHandler {
           })
           .then(cart => {
 
-            return cart.addProduct(query)
+            return cart.addProductVariant(productVariant)
               .then(cart => {
-                import {get as getProduct} from '/imports/api/products/server/methods'
-                getProduct(query.product_id)
+
+                getProduct(productVariant.product_id)
                   .then((product) => {
                     reply({
                       message: {
-                        "attachment": {
-                          "type": "template",
-                          "payload": {
-                            "template_type": "button",
-                            "text": `${product.title} a été ajouté à votre panier.`,
-                            "buttons": [
-                              {
-                                "type": "web_url",
-                                "url": cart.checkoutUrl,
-                                "title": "Voir mon panier",
-                                "webview_height_ratio": "full"
-                              }
-                            ]
+                        "text": `(1) ${product.title} a été ajouté à votre panier.`,
+                        "quick_replies": [
+                          {
+                            "content_type": "text",
+                            "title": "Changer la quantité",
+                            "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({variant_id: productVariant.id, product_id: product.id}),
                           }
-                        }
+
+                        ]
                       }
                     })
                   })
                 return cart
               })
           })
+      }
+      else if (postbackurl.indexOf(PRODUCTS_CART_UPDATE_QUANTITY) == 0) {
+        let query = postbackurl.substring(PRODUCTS_CART_UPDATE_QUANTITY.length)
+        if (query) {
+          query = JSON.parse(query)
+          if (!query.variant_id) {
+            throw new Meteor.Error('MISSING_PARAM', 'Missing parameter', "Missing parameter product_id.")
+          }
+        }
+
+        if (query.quantity) {
+          return getProduct(productVariant.product_id)
+            .then(product => {
+              const quantity = query.quantity
+              if (quantity == 0) {
+                return customer.cart.removeProductId(query.productVariant.id)
+                  .then(() => {
+                    return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
+                  })
+
+              } else {
+                return customer.cart.updateVariantQuantity(query.productVariant.id, quantity)
+                  .then(() => {
+                    return reply({message: {text: `Vous avez désormais ${quantity} x ${product.title} dans votre panier.`}})
+                  })
+
+              }
+            })
+
+        } else {
+          reply({
+            message: {
+              text: "Veuillez choisir la quantité",
+              "quick_replies": [
+                {
+                  "content_type": "text",
+                  "title": "1",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 1}, query)),
+                },
+                {
+                  "content_type": "text",
+                  "title": "2",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 2}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "3",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 3}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "4",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 4}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "5",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 5}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "6",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 6}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "7",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 7}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "8",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 8}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "9",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 9}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "10",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 10}, query),
+                },
+                {
+                  "content_type": "text",
+                  "title": "Retirer",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 0}, query),
+                },
+              ]
+            }
+          })
+        }
 
 
       }
@@ -141,3 +238,10 @@ class ProductHandler extends BaseHandler {
 }
 
 export default new ProductHandler()
+
+
+class Action {
+
+
+
+}
