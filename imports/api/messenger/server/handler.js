@@ -3,7 +3,8 @@ import Bot from './Bot'
 import {get as getCustomer, create as createCustomer} from '/imports/api/customers/server/methods'
 
 Bot.on('message', ({payload, reply, senderId}) => {
-  import defaultHandler from './modules/default'
+
+  /*import defaultHandler from './modules/default'
 
   let customerData = {'sender_id': senderId};
   getCustomer(customerData)
@@ -16,11 +17,11 @@ Bot.on('message', ({payload, reply, senderId}) => {
     })
     .then(customer => {
       defaultHandler.handle({payload, reply, senderId, customer})
-    })
+    })*/
 
 
 
-  /*reply({
+  reply({
     message: {
       "attachment": {
         "type": "template",
@@ -37,12 +38,17 @@ Bot.on('message', ({payload, reply, senderId}) => {
               "type": "postback",
               "title": "Alimentation maison",
               "payload": '//SHOW_PRODUCTS/{"vendor":"Alimentation maison"}',
+            },
+            {
+              "type": "postback",
+              "title": "Afficher panier",
+              "payload": '//SHOW_CART/',
             }
           ]
         }
       }
     }
-  })*/
+  })
 })
 
 Bot.on('postback', ({payload, reply, senderId}) => {
@@ -59,8 +65,8 @@ Bot.on('postback', ({payload, reply, senderId}) => {
         })
     })
     .then(customer => {
-      //return productHandler.handle({payload, reply, senderId, customer})
-      return defaultHandler.handle({payload, reply, senderId, customer})
+      return productHandler.handle({payload, reply, senderId, customer})
+      //return defaultHandler.handle({payload, reply, senderId, customer})
     })
     .catch(err => {
       if (process.env.DEBUG) {

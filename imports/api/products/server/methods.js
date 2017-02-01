@@ -24,6 +24,18 @@ export const get = (id) => (
   })
 )
 
+export const getFromVarId = (id) => (
+    new Promise((resolve, reject) => {
+        ShopifyApi.get(`/admin/variants/${id}.json`, (error, response, headers) => {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(get(response.variant.product_id))
+            }
+        })
+    })
+)
+
 export const count = (query) => (
   new Promise((resolve, reject) => {
     ShopifyApi.get('/admin/products/count.json', query, (error, response, headers) => {
