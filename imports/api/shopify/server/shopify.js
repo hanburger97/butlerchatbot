@@ -1,9 +1,9 @@
 import shopifyNodeAPI from 'shopify-node-api'
 
 export const ShopifyApi = new shopifyNodeAPI({
-  shop: 'ConciergeAlbert', // MYSHOP.myshopify.com
-  shopify_api_key: '826b1a9ca84e1575734c9cfe28edc5ba', // Your API key
-  access_token: '12b97decc2caf438a340d5748e43a768'
+  shop: Meteor.settings.public.shopify.store_name, // MYSHOP.myshopify.com
+  shopify_api_key: Meteor.settings.private.shopify.api_key, // Your API key
+  access_token:  Meteor.settings.private.shopify.access_token
 });
 
 
@@ -11,7 +11,7 @@ export const ShopifyApi = new shopifyNodeAPI({
 import ShopifyBuy from 'shopify-buy'
 
 export const ShopifyClient = ShopifyBuy.buildClient({
-  apiKey: '23386c1b44d63dc361ff31db7f0978e3',
+  apiKey: Meteor.settings.public.shopify.api_key,
   appId: 6,
-  domain: 'conciergealbert.myshopify.com'
+  domain: `${Meteor.settings.public.shopify.store_name}.myshopify.com`
 })
