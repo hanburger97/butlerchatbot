@@ -6,7 +6,7 @@ class ProductHandler extends BaseHandler {
   }
 
   handle({payload, reply, senderId, customer}) {
-    const promise = new Promise(() => {
+    const promise = new Promise((resolve, reject) => {
       import {list as listProduct, count as countProducts} from '/imports/api/products/server/methods'
       import {get as getProduct} from '/imports/api/products/server/methods'
 
@@ -163,7 +163,7 @@ class ProductHandler extends BaseHandler {
             })
 
         } else {
-          reply({
+          return reply({
             message: {
               text: "Veuillez choisir la quantité",
               "quick_replies": [
@@ -229,6 +229,7 @@ class ProductHandler extends BaseHandler {
 
 
       }
+      reject(new Meteor.Error('NOT_HANDLED', 'Not handled by product handler'))
     })
 
 
