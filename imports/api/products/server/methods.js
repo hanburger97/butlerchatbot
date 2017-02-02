@@ -1,4 +1,4 @@
-import {ShopifyApi} from '/imports/api/shopify/server/shopify'
+import {ShopifyApi, ShopifyClient} from '/imports/api/shopify/server/shopify'
 
 export const list = (query = {}) => (
   new Promise((resolve, reject) => {
@@ -22,6 +22,13 @@ export const get = (id) => (
       }
     })
   })
+)
+
+export const get2 = (id) => (
+  ShopifyClient.fetchProduct(id)
+    .then(productWrapper => {
+      return productWrapper.attrs
+    })
 )
 
 export const count = (query) => (
