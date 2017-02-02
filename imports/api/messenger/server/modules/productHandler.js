@@ -8,8 +8,10 @@ class ProductHandler extends BaseHandler {
   handle({payload, reply, senderId, customer}) {
     const promise = new Promise((resolve, reject) => {
       import {list as listProduct, count as countProducts} from '/imports/api/products/server/methods'
-
       let SHOW_CART = '//SHOW_CART/'
+
+
+      //let CHECKOUT = '//CHECKOUT/'
 
       import {get as getProduct} from '/imports/api/products/server/methods'
 
@@ -20,7 +22,6 @@ class ProductHandler extends BaseHandler {
       } else if (payload.message && payload.message.quick_reply) {
         postbackurl = payload.message.quick_reply.payload
       }
-
       let SHOW_PRODUCTS = '//SHOW_PRODUCTS/'
       let PRODUCT_ADD_TO_CART = '//PRODUCTS/CART/ADD_TO_CART/'
       const PRODUCTS_CART_UPDATE_QUANTITY = '//PRODUCTS/CART/CHANGE_QUANTITY/'
@@ -100,8 +101,7 @@ class ProductHandler extends BaseHandler {
               throw err
             })
 
-      }
-      else if (postbackurl.indexOf(PRODUCT_ADD_TO_CART) == 0) {
+      } else if (postbackurl.indexOf(PRODUCT_ADD_TO_CART) == 0) {
 
 
         let productVariant = postbackurl.substring(PRODUCT_ADD_TO_CART.length)
@@ -242,7 +242,8 @@ class ProductHandler extends BaseHandler {
         }
 
 
-      } else if (postbackurl.indexOf(SHOW_CART) == 0) {
+      }
+      else if (postbackurl.indexOf(SHOW_CART) == 0) {
 
         return customer.getCart()
             .catch(err => {
@@ -303,12 +304,37 @@ class ProductHandler extends BaseHandler {
                           "type": "template",
                           "payload": {
                             "template_type": "list",
+                            "top_element_style":"compact",
                             "elements": elements,
                             "buttons": [
                               {
                                 "title": "View More",
                                 "type": "postback",
                                 "payload": "payload"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    })
+                    reply({
+                      message: {
+                        "attachment":{
+                          "type":"template",
+                          "payload":{
+                            "template_type":"button",
+                            "text":"Que voulez-vous faire ensuite?",
+                            "buttons":[
+                              {
+                                "type":"web_url",
+                                "url":cart.checkoutUrl,
+                                "title":"Proceder au payment",
+                                "webview_height_ratio": "tall"
+                              },
+                              {
+                                "type":"postback",
+                                "title":"Retour aux produits",
+                                "payload": SHOW_PRODUCTS
                               }
                             ]
                           }
