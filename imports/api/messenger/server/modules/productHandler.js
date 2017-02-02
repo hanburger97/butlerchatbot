@@ -9,7 +9,6 @@ class ProductHandler extends BaseHandler {
     const promise = new Promise((resolve, reject) => {
       import {list as listProduct, count as countProducts} from '/imports/api/products/server/methods'
 
-      const postbackurl = payload.postback.payload
       let SHOW_CART = '//SHOW_CART/'
 
       import {get as getProduct} from '/imports/api/products/server/methods'
@@ -34,72 +33,72 @@ class ProductHandler extends BaseHandler {
         }
         console.log(query)
         return countProducts(query)
-          .then((count) => {
-            console.log(query)
-            if (query['page'] === undefined)
-              query['page'] = 1
+            .then((count) => {
+              console.log(query)
+              if (query['page'] === undefined)
+                query['page'] = 1
 
-            if (query['limit'] === undefined)
-              query['limit'] = 9
+              if (query['limit'] === undefined)
+                query['limit'] = 9
 
-            return listProduct(query)
-              .then((products) => {
-                if (products.length == 0) {
-                  reply({message: {text: "Il n'y a pas de produit chez ce marchand."}})
-                } else {
+              return listProduct(query)
+                  .then((products) => {
+                    if (products.length == 0) {
+                      reply({message: {text: "Il n'y a pas de produit chez ce marchand."}})
+                    } else {
 
-                  const elements = []
+                      const elements = []
 
-                  products.forEach((product) => {
-                    let subtitle = product.body_html
-                    subtitle = subtitle.replace('<p>', '')
-                    subtitle = subtitle.replace('</p>', '')
+                      products.forEach((product) => {
+                        let subtitle = product.body_html
+                        subtitle = subtitle.replace('<p>', '')
+                        subtitle = subtitle.replace('</p>', '')
 
-                    elements.push({
-                      title: `${product.title} - (${product.variants[0].price}$)`,
-                      image_url: product.image ? product.image.src : "https://placehold.it/100x75",
-                      subtitle: subtitle,
-                      buttons: [{
-                        type: "postback",
-                        title: "Ajouter à mon panier",
-                        payload: PRODUCT_ADD_TO_CART + JSON.stringify(product.variants[0], null, 0)
-                      }]
-                    })
-                  })
+                        elements.push({
+                          title: `${product.title} - (${product.variants[0].price}$)`,
+                          image_url: product.image ? product.image.src : "https://placehold.it/100x75",
+                          subtitle: subtitle,
+                          buttons: [{
+                            type: "postback",
+                            title: "Ajouter à mon panier",
+                            payload: PRODUCT_ADD_TO_CART + JSON.stringify(product.variants[0], null, 0)
+                          }]
+                        })
+                      })
 
-                  if (count > (query.page * query.limit)) {
-                    let viewMorePayload = Object.assign({}, query, {page: query.page + 1})
-                    elements.push({
-                      title: `Page ${query.page} sur ${Math.ceil(count / query.limit)}`,
-                      buttons: [{
-                        type: "postback",
-                        title: "Prochaine page",
-                        payload: SHOW_PRODUCTS + JSON.stringify(viewMorePayload, null, 0)
-                      }]
-                    })
-                  }
-
-                  reply({
-                    "message": {
-                      "attachment": {
-                        "type": "template",
-                        "payload": {
-                          "template_type": "generic",
-                          "elements": elements
-                        }
+                      if (count > (query.page * query.limit)) {
+                        let viewMorePayload = Object.assign({}, query, {page: query.page + 1})
+                        elements.push({
+                          title: `Page ${query.page} sur ${Math.ceil(count / query.limit)}`,
+                          buttons: [{
+                            type: "postback",
+                            title: "Prochaine page",
+                            payload: SHOW_PRODUCTS + JSON.stringify(viewMorePayload, null, 0)
+                          }]
+                        })
                       }
+
+                      reply({
+                        "message": {
+                          "attachment": {
+                            "type": "template",
+                            "payload": {
+                              "template_type": "generic",
+                              "elements": elements
+                            }
+                          }
+                        }
+                      })
+
+
                     }
                   })
+            })
+            .catch((err) => {
 
-
-                }
-              })
-          })
-          .catch((err) => {
-
-            console.log(error)
-            throw err
-          })
+              console.log(error)
+              throw err
+            })
 
       }
       else if (postbackurl.indexOf(PRODUCT_ADD_TO_CART) == 0) {
@@ -111,40 +110,43 @@ class ProductHandler extends BaseHandler {
         }
 
         return customer.getCart()
-          .catch(err => {
-            return customer.createCart()
-          })
-          .then(cart => {
+            .catch(err => {
+              return customer.createCart()
+            })
+            .then(cart => {
 
-            return cart.addProductVariant(productVariant)
-              .then(cart => {
+              return cart.addProductVariant(productVariant)
+                  .then(cart => {
 
-                getProduct(productVariant.product_id)
-                  .then((product) => {
-                    reply({
-                      message: {
-                        "text": `(1) ${product.title} a été ajouté à votre panier.`,
-                        "quick_replies": [
-                          {
-                            "content_type": "text",
-                            "title": "Changer la quantité",
-                            "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({variant_id: productVariant.id, product_id: product.id}),
+                    getProduct(productVariant.product_id)
+                        .then((product) => {
+                          reply({
+                            message: {
+                              "text": `(1) ${product.title} a été ajouté à votre panier.`,
+                              "quick_replies": [
+                                {
+                                  "content_type": "text",
+                                  "title": "Changer la quantité",
+                                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
+                                    variant_id: productVariant.id,
+                                    product_id: product.id
+                                  }),
 
-                          },
-                          {
-                            "content_type": "text",
-                            "title": "Changer la quantité",
-                            "payload": '//SHOW_CART/',
+                                },
+                                {
+                                  "content_type": "text",
+                                  "title": "Voir Panier",
+                                  "payload": '//SHOW_CART/',
 
-                          }
+                                }
 
-                        ]
-                      }
-                    })
+                              ]
+                            }
+                          })
+                        })
+                    return cart
                   })
-                return cart
-              })
-          })
+            })
       }
       else if (postbackurl.indexOf(PRODUCTS_CART_UPDATE_QUANTITY) == 0) {
         let query = postbackurl.substring(PRODUCTS_CART_UPDATE_QUANTITY.length)
@@ -157,22 +159,22 @@ class ProductHandler extends BaseHandler {
 
         if (query.quantity) {
           return getProduct(productVariant.product_id)
-            .then(product => {
-              const quantity = query.quantity
-              if (quantity == 0) {
-                return customer.cart.removeProductId(query.productVariant.id)
-                  .then(() => {
-                    return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
-                  })
+              .then(product => {
+                const quantity = query.quantity
+                if (quantity == 0) {
+                  return customer.cart.removeProductId(query.productVariant.id)
+                      .then(() => {
+                        return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
+                      })
 
-              } else {
-                return customer.cart.updateVariantQuantity(query.productVariant.id, quantity)
-                  .then(() => {
-                    return reply({message: {text: `Vous avez désormais ${quantity} x ${product.title} dans votre panier.`}})
-                  })
+                } else {
+                  return customer.cart.updateVariantQuantity(query.productVariant.id, quantity)
+                      .then(() => {
+                        return reply({message: {text: `Vous avez désormais ${quantity} x ${product.title} dans votre panier.`}})
+                      })
 
-              }
-            })
+                }
+              })
 
         } else {
           return reply({
@@ -240,113 +242,62 @@ class ProductHandler extends BaseHandler {
         }
 
 
-      } else if ( postbackurl.indexOf(SHOW_CART) == 0){
+      } else if (postbackurl.indexOf(SHOW_CART) == 0) {
 
         return customer.getCart()
-            .catch( err => {
+            .catch(err => {
               return customer.createCart()
             })
-            .then( cart => {
-              import {getFromVarId} from '/imports/api/products/server/methods'
-              console.log(cart)
-              const lineItems = cart.shopifyCart.attrs.line_items
+            .then(cart => {
+                  import {getFromVarId} from '/imports/api/products/server/methods'
+                  console.log(cart)
+                  const lineItems = cart.shopifyCart.attrs.line_items
 
-              const promises = []
-              lineItems.forEach( item => {
-                promises.push(getFromVarId(item.variant_id))
-              })
-              console.log(promises)
-              //var productsPage = []
-              return Promise.all(promises).then( products => {
-                /*if (products.length <= 3)
-                  productsPage.push(products)
-                else
-                  productsPage.push(products.splice)*/
-                if (products.length == 0)
-                  reply({
-                    message: {
-                      "text":"Votre panier est vide"
+                  const promises = []
+                  lineItems.forEach(item => {
+                    promises.push(getFromVarId(item.variant_id))
+                  })
+                  console.log(promises)
+                  //var productsPage = []
+                  return Promise.all(promises).then(products => {
+                    /*if (products.length <= 3)
+                     productsPage.push(products)
+                     else
+                     productsPage.push(products.splice)*/
+                    if (products.length == 0)
+                      reply({
+                        message: {
+                          "text": "Votre panier est vide"
+                        }
+
+                      })
+                    console.log(products)
+                    console.log(lineItems)
+                    const elements = []
+                    for (var i = 0; i < products.length; i++) {
+                      var product = products[i]
+                      var lineItem = lineItems[i]
+                      elements.push({
+                        "title": product.title,
+                        "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
+                        "subtitle": lineItem.price,
+                        "buttons":[
+                          {
+                            "type":"postback",
+                            "title":"Modifier",
+                            "payload":PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
+                              variant_id: lineItem.id,
+                              product_id: product.id
+                            })
+                          }
+                        ]
+                      })
+                      console.log(lineItems)
                     }
 
-                  })
-                console.log(products)
-                console.log(lineItems)
-                const elements = []
-                for (var i = 0; i < 3; i++) {
-                  var product = products[i]
-                  var lineItem = lineItems[i]
-                  elements.push({
-                    "title": product.title,
-                    "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                    "subtitle": lineItem.price,
-                  })
-                console.log(products)
-                console.log(lineItems)
-                const elements = []
-                /*for (i = 0; i < 3; i++) {
-                  var product = products[i]
-                  var lineItem = lineItems[i]
-                  elements.push({
-                    "title": product.title,
-                    "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                    "subtitle": lineItem.price,
-                    "buttons": [
-                      {
-                        "title": 'Enlever',
-                        "type": 'postback',
-                        "payload": 'TO_BE_DEFINED'
-                      }
-                    ]
-
-                  })
-                }
-
-                console.log(elements)*/
-
-
-                products.forEach(product => {
-                  //console.log(type(product.title))
-                  elements.push({
-                    "title": product.title,
-                    "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                    "buttons": [
-                      {
-                        "title": 'Enlever',
-                        "type": 'postback',
-                        "payload": 'TO_BE_DEFINED'
-                      }
-                    ]
-
-                  })
-                }
-                console.log(elements)
-
-
-                /*products.forEach(product => {
-                  //console.log(type(product.title))
-                  elements.push({
-                    "title": product.title,
-                    "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                    "buttons": [
-                      {
-                        "title": 'Enlever',
-                        "type": 'postback',
-                        "payload": 'TO_BE_DEFINED'
-                      }
-                    ]
-
-                  })
-                })*/
-                console.log(elements)
-               /* elements.push({
-                  "title": ""
-                })*/
-
-
-                console.log(lineItems)
-                console.log(elements)
-
-                reply ({
+                    console.log(elements)
+                    debugger
+                    reply({
                       message: {
                         "attachment": {
                           "type": "template",
@@ -363,46 +314,13 @@ class ProductHandler extends BaseHandler {
                           }
                         }
                       }
-                })
+                    })
 
+                    console.log(elements)
+                  })
+                }
+            )
 
-              })
-                })
-
-
-                console.log(elements)
-               /* elements.push({
-                  "title": ""
-                })*/
-
-
-                console.log(lineItems)
-                console.log(elements)
-
-                reply ({
-                      message: {
-                        "attachment": {
-                          "type": "template",
-                          "payload": {
-                            "template_type": "list",
-                            "elements": elements,
-                            "buttons": [
-                              {
-                                "title": "View More",
-                                "type": "postback",
-                                "payload": "payload"
-                              }
-                            ]
-                          }
-                        }
-                      }
-                })
-
-
-              })
-
-
-            })
       }
       reject(new Meteor.Error('NOT_HANDLED', 'Not handled by product handler'))
     })
@@ -417,7 +335,6 @@ export default new ProductHandler()
 
 
 class Action {
-
 
 
 }

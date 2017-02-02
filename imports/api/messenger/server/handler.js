@@ -7,9 +7,8 @@ import defaultHandler from './modules/default'
 Bot.on('message', ({payload, reply, senderId}) => {
 
 
-  /*import defaultHandler from './modules/default'
-=======
->>>>>>> origin/master
+  import defaultHandler from './modules/default'
+
 
   let customerData = {'sender_id': senderId};
   getCustomer(customerData)
@@ -21,10 +20,6 @@ Bot.on('message', ({payload, reply, senderId}) => {
         })
     })
     .then(customer => {
-<<<<<<< HEAD
-      defaultHandler.handle({payload, reply, senderId, customer})
-    })*/
-
       productHandler.handle({payload, reply, senderId, customer})
         .catch(err => {
           return defaultHandler.handle({payload, reply, senderId, customer})
@@ -34,7 +29,7 @@ Bot.on('message', ({payload, reply, senderId}) => {
 
 
 
-  reply({
+  /*reply({
     message: {
       "attachment": {
         "type": "template",
@@ -60,7 +55,7 @@ Bot.on('message', ({payload, reply, senderId}) => {
           ]
         }
       }
-    }
+    }*/
   })
 
 
@@ -81,7 +76,7 @@ Bot.on('postback', ({payload, reply, senderId}) => {
 
       productHandler.handle({payload, reply, senderId, customer})
         .catch(err => {
-          return defaultHandler.handle({payload, reply, senderId, customer})
+          return defaultHandler.handle({payload, reply, senderId, customer});
         })
 
     })
