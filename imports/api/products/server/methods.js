@@ -35,6 +35,13 @@ export const getFromVarId = (id) => (
         })
     })
 )
+export const cartPaging = (nb, total) => {
+  var pl = total - ((nb -1)* 4)
+  if (pl <= 4)
+    return pl
+  else
+    return 4
+}
 
 export const count = (query) => (
   new Promise((resolve, reject) => {
