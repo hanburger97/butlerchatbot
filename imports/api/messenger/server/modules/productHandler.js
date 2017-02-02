@@ -286,7 +286,7 @@ class ProductHandler extends BaseHandler {
                             "type":"postback",
                             "title":"Modifier",
                             "payload":PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
-                              variant_id: lineItem.id,
+                              variant_id: lineItem.variant_id,
                               product_id: product.id
                             })
                           }
