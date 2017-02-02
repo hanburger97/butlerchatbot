@@ -28,129 +28,188 @@ class Bot extends EventEmitter {
   }
 
   getProfile(id, cb) {
-    if (!cb) cb = Function.prototype
+    const _this = this
 
-    request({
-      method: 'GET',
-      uri: `https://graph.facebook.com/v2.6/${id}`,
-      qs: {
-        fields: 'first_name,last_name,profile_pic,locale,timezone,gender',
-        access_token: this.token
-      },
-      json: true
-    }, (err, res, body) => {
-      if (err) return cb(err)
-      if (body.error) return cb(body.error)
+    const promise = new Promise((resolve, reject) => {
+      if (!cb) cb = Function.prototype
 
-      cb(null, body)
+      request({
+        method: 'GET',
+        uri: `https://graph.facebook.com/v2.6/${id}`,
+        qs: {
+          fields: 'first_name,last_name,profile_pic,locale,timezone,gender',
+          access_token: _this.token
+        },
+        json: true
+      }, (err, res, body) => {
+        if (err) {
+          reject(err)
+          return cb(err)
+        }
+        if (body.error) {
+          reject(body.error)
+          return cb(body.error)
+        }
+
+
+        return cb(null, body)
+      })
     })
+    return promise
   }
 
   sendMessage(recipient, {message, notification_type = NOTIFICATION_TYPE.REGULAR}, cb) {
-    if (!cb) cb = Function.prototype
+    const _this = this
 
-    if (this.debug) {
-      logInfo('MessengerBot::sendMessage')
-      logInfo(message)
-    }
-    request({
-      method: 'POST',
-      uri: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: {
-        access_token: this.token
-      },
-      json: {
-        recipient: {id: recipient},
-        message: message,
-        notification_type: notification_type
-      }
-    }, (err, res, body) => {
-      if (err) {
-        if (this.debug) {
-          logInfo('MessengerBot::sendMessage::ERROR')
-          logInfo(err)
-        }
-        return cb(err)
-      }
-      if (body.error) {
-        if (this.debug) {
-          logInfo('MessengerBot::sendMessage::ERROR')
-          logInfo(body.error)
-        }
-        return cb(body.error)
-      }
+    const promise = new Promise((resolve, reject) => {
+      if (!cb) cb = Function.prototype
 
-      cb(null, body)
+      if (_this.debug) {
+        logInfo('MessengerBot::sendMessage')
+        logInfo(message)
+      }
+      request({
+        method: 'POST',
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {
+          access_token: _this.token
+        },
+        json: {
+          recipient: {id: recipient},
+          message: message,
+          notification_type: notification_type
+        }
+      }, (err, res, body) => {
+        if (err) {
+          if (_this.debug) {
+            logInfo('MessengerBot::sendMessage::ERROR')
+            logInfo(err.message)
+          }
+          reject(err)
+          return cb(err)
+
+        }
+        if (body.error) {
+          if (_this.debug) {
+            logInfo('MessengerBot::sendMessage::ERROR')
+            logInfo(body.error.message)
+          }
+          reject(body.error)
+          return cb(body.error)
+
+        }
+
+        resolve(body)
+        cb(null, body)
+      })
     })
+
+    return promise
+
   }
 
   sendSenderAction(recipient, senderAction, cb) {
-    if (!cb) cb = Function.prototype
+    const _this = this
+    const promise = new Promise((resolve, reject) => {
+      if (!cb) cb = Function.prototype
 
-    request({
-      method: 'POST',
-      uri: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: {
-        access_token: this.token
-      },
-      json: {
-        recipient: {
-          id: recipient
+      request({
+        method: 'POST',
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {
+          access_token: _this.token
         },
-        sender_action: senderAction
-      }
-    }, (err, res, body) => {
-      if (err) return cb(err)
-      if (body.error) return cb(body.error)
-
-      cb(null, body)
+        json: {
+          recipient: {
+            id: recipient
+          },
+          sender_action: senderAction
+        }
+      }, (err, res, body) => {
+        if (err) {
+          reject(err)
+          return cb(err)
+        }
+        if (body.error) {
+          reject(body.error)
+          return cb(body.error)
+        }
+        resolve(body)
+        cb(null, body)
+      })
     })
+
   }
 
   setThreadSettings({setting_type, threadState, settings}, cb) {
-    if (!cb) cb = Function.prototype
 
-    request({
-      method: 'POST',
-      uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-      qs: {
-        access_token: this.token
-      },
-      json: {
-        setting_type: setting_type,
-        thread_state: threadState,
-        [setting_type]: settings
-      }
-    }, (err, res, body) => {
-      if (err) return cb(err)
-      if (body.error) return cb(body.error)
+    const _this = this
 
-      cb(null, body)
+    const promise = new Promise((resolve, reject) => {
+      if (!cb) cb = Function.prototype
+
+      request({
+        method: 'POST',
+        uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+        qs: {
+          access_token: _this.token
+        },
+        json: {
+          setting_type: setting_type,
+          thread_state: threadState,
+          [setting_type]: settings
+        }
+      }, (err, res, body) => {
+        if (err) {
+          reject(err)
+          return cb(err)
+        }
+        if (body.error) {
+          reject(body.error)
+          return cb(body.error)
+        }
+        resolve(body)
+        return cb(null, body)
+      })
     })
+
+    return promise
+
   }
 
   removeThreadSettings(threadState, cb) {
-    if (!cb) cb = Function.prototype
+    const _this = this
 
-    request({
-      method: 'DELETE',
-      uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
-      qs: {
-        access_token: this.token
-      },
-      json: {
-        setting_type: 'call_to_actions',
-        thread_state: threadState
-      }
-    }, (err, res, body) => {
-      if (err) {
-        logError(new Error(err))
-        return cb(err)
-      }
-      if (body.error) return cb(body.error)
+    const promise = new Promise((resolve, reject) => {
+      if (!cb) cb = Function.prototype
 
-      cb(null, body)
+      request({
+        method: 'DELETE',
+        uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+        qs: {
+          access_token: _this.token
+        },
+        json: {
+          setting_type: 'call_to_actions',
+          thread_state: threadState
+        }
+      }, (err, res, body) => {
+        if (err) {
+          reject(err)
+          logError(new Error(err))
+          return cb(err)
+        }
+        if (body.error) {
+          reject(body.error)
+          return cb(body.error)
+        }
+        resolve(body)
+        return cb(null, body)
+      })
     })
+
+    return promise
+
   }
 
   setGetStartedButton(payload, cb) {
@@ -189,40 +248,6 @@ class Bot extends EventEmitter {
     if (!cb) cb = Function.prototype
 
     return this.removeThreadSettings('existing_thread', cb)
-  }
-
-  middleware() {
-    return (req, res) => {
-      // we always write 200, otherwise facebook will keep retrying the request
-      res.writeHead(200, {'Content-Type': 'application/json'})
-      if (req.url === '/_status') return res.end(JSON.stringify({status: 'ok'}))
-      if (this.verify_token && req.method === 'GET') return this._verify(req, res)
-      if (req.method !== 'POST') return res.end()
-
-      let body = ''
-
-      req.on('data', (chunk) => {
-        body += chunk
-      })
-
-      req.on('end', () => {
-        // check message integrity
-        if (this.app_secret) {
-          let hmac = crypto.createHmac('sha1', this.app_secret)
-          hmac.update(body)
-
-          if (req.headers['x-hub-signature'] !== `sha1=${hmac.digest('hex')}`) {
-            this.emit('error', new Error('Message integrity check failed'))
-            return res.end(JSON.stringify({status: 'not ok', error: 'Message integrity check failed'}))
-          }
-        }
-
-        let parsed = JSON.parse(body)
-        this._handleMessage(parsed)
-
-        res.end(JSON.stringify({status: 'ok'}))
-      })
-    }
   }
 
   _handleMessage(json) {

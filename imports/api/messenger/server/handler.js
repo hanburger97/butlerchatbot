@@ -1,10 +1,15 @@
 import Bot from './Bot'
 
 import {get as getCustomer, create as createCustomer} from '/imports/api/customers/server/methods'
+import productHandler from './modules/productHandler'
+import defaultHandler from './modules/default'
 
 Bot.on('message', ({payload, reply, senderId}) => {
 
+
   /*import defaultHandler from './modules/default'
+=======
+>>>>>>> origin/master
 
   let customerData = {'sender_id': senderId};
   getCustomer(customerData)
@@ -16,8 +21,16 @@ Bot.on('message', ({payload, reply, senderId}) => {
         })
     })
     .then(customer => {
+<<<<<<< HEAD
       defaultHandler.handle({payload, reply, senderId, customer})
     })*/
+
+      productHandler.handle({payload, reply, senderId, customer})
+        .catch(err => {
+          return defaultHandler.handle({payload, reply, senderId, customer})
+        })
+    })
+
 
 
 
@@ -49,12 +62,9 @@ Bot.on('message', ({payload, reply, senderId}) => {
       }
     }
   })
-})
+
 
 Bot.on('postback', ({payload, reply, senderId}) => {
-  import productHandler from './modules/productHandler'
-  import defaultHandler from './modules/default'
-
   let customerData = {'sender_id': senderId};
   getCustomer(customerData)
     .catch(err => {
@@ -65,8 +75,15 @@ Bot.on('postback', ({payload, reply, senderId}) => {
         })
     })
     .then(customer => {
+
       return productHandler.handle({payload, reply, senderId, customer})
       //return defaultHandler.handle({payload, reply, senderId, customer})
+
+      productHandler.handle({payload, reply, senderId, customer})
+        .catch(err => {
+          return defaultHandler.handle({payload, reply, senderId, customer})
+        })
+
     })
     .catch(err => {
       if (process.env.DEBUG) {

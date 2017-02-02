@@ -10,7 +10,7 @@
             {
               "title": "Bonjour, que puis-je faire pour vous aujourd'hui?",
               "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484877846/71-v-Appartements_a_louer_a_Griffintown__Location_Hexagone_vpq0eh.jpg",
-              "subtitle": "La gratuité de 20$ sera automatiquement répartie sur vos 2 premières commandes.",
+              "subtitle": "",
               "buttons": [
                 {
                   "type": "postback",
@@ -103,7 +103,7 @@
             },
             {
               "title": "Gourmand",
-              "subtitle": "Les meilleurs produits et fournisseurs, locaux lorsque possible.",
+              "subtitle": "Les meilleurs produits et fournisseurs.",
               "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878900/41640817-variety-of-organic-vegetables-and-fruits-in-wicker-basket-isolated-on-white_mzqfjh.jpg",
               "buttons": [
                 {
@@ -119,13 +119,13 @@
                 {
                   "type": "postback",
                   "title": "Épicerie Fine",
-                  "payload": "G_PRODUCT"
+                  "payload": "//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}"
                 }
               ]
             },
             {
               "title": "Travaux manuels: Peu importe la tâche, j'ai le meilleur pour le faire",
-              "subtitle": "Nos hommes à tout faire, très compétents,  chargent environ 25$/heure",
+              "subtitle": "Nos hommes à tout faire, très compétents, chargent environ 25$/heure",
               "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878803/IMG-Handyman-Skills_f2tjmp.jpg",
               "buttons": [
                 {
@@ -142,7 +142,7 @@
             },
             {
               "title": "Soins et esthétique",
-              "subtitle": "Les meilleurs, pour votre style, dans le confort de votre condo.   Essayez!",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
               "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
               "buttons": [
                 {
@@ -176,7 +176,7 @@
   {
     "trigger": "SERVICE_LAVE_AUTO",
     "response": {
-      "text": "Quand voulez-vous que nous venions laver votre auto?  Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
+      "text": "Quand désirez-vous faire laver votre auto? Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
       "quick_replies": [
         {
           "content_type": "text",
@@ -255,7 +255,7 @@
   {
     "trigger": "SERVICE_ENTRETIEN",
     "response": {
-      "text": "Veuillez entrer votre numéro d'appartement"
+      "text": "Veuillez entrer votre numéro d'appartement:"
     },
     "action": {
       "operation": "RecordRoom"
@@ -264,7 +264,7 @@
   {
     "trigger": "CHANGE_ROOM",
     "response": {
-      "text": "Veuillez entrer votre nouveau numéro de chambre"
+      "text": "Veuillez entrer votre nouveau numéro de chambre:"
     },
     "action": {
       "operation": "ChangeRoom"
@@ -280,7 +280,7 @@
   {
     "trigger": "CARWASH_MONDAY",
     "response": {
-      "text": "Parfait et voulez-vous un lavage extérieur seulement, ou complet? ",
+      "text": "Voulez-vous un lavage seulement extérieur ou complet?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -312,7 +312,7 @@
   {
     "trigger": "CARWASH_WEDNESDAY",
     "response": {
-      "text": "Parfait et voulez-vous un lavage extérieur seulement, ou complet? ",
+      "text": "Voulez-vous un lavage seulement extérieur ou complet? ",
       "quick_replies": [
         {
           "content_type": "text",
@@ -344,7 +344,7 @@
   {
     "trigger": "CARWASH_FRIDAY",
     "response": {
-      "text": "Parfait et voulez-vous un lavage extérieur seulement, ou complet? ",
+      "text": "Voulez-vous un lavage seulement extérieur ou complet? ",
       "quick_replies": [
         {
           "content_type": "text",
@@ -392,7 +392,7 @@
       }
     },
     "action": {
-      "value": "votre voiture sera lavée le soir directement dans son espace de stationnement, vous recevrez un message lorsque nous aurons terminé.  Veuillez vous assurer qu'elle soit bien centrée dans son espace. Au plaisir de vous servir!",
+      "value": "Votre voiture sera lavée le soir directement dans son espace de stationnement, vous recevrez un message lorsque nous aurons terminé. Veuillez vous assurer qu'elle soit bien centrée dans son espace. Au plaisir de vous servir!",
       "operation": "AddDetail"
     }
   },
@@ -422,14 +422,14 @@
       }
     },
     "action": {
-      "value": "je serai à votre porte entre 18h30 et 19h30 afin récupérer votre clef de voiture.  Au plaisir de vous servir!",
+      "value": "Je serai à votre porte entre 18h30 et 19h30 afin récupérer votre clef de voiture. Au plaisir de vous servir!",
       "operation": "AddDetail"
     }
   },
   {
     "trigger": "CHANGE_PARKING",
     "response": {
-      "text": "Veuillez entrer votre numéro de stationement"
+      "text": "Veuillez entrer votre numéro de stationement:"
     },
     "action": {
       "operation": "ChangeParking"
@@ -452,7 +452,7 @@
   {
     "trigger": "CARWASH_CANCEL",
     "response": {
-      "text": "Votre commande de lave-auto a bel et bien été cancellée. Au plaisir de vous servir "
+      "text": "Votre commande de lave-auto a belle et bien été annulée. Au plaisir de vous servir."
     }
   },
   {
@@ -462,7 +462,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "Notre méthode innovante et éco-responsable  garantit une peinture étincelante et un habitacle totalement désinfecté et sans contaminants.  La voiture est lavée dans son espace de stationnement (20$), nous venons chercher vos clefs si vous voulez que nous lavions aussi l'intérieur ( 26$ ). ",
+          "text": "Notre méthode innovante et éco-responsable garantit une peinture étincelante et un habitacle totalement désinfecté et sans contaminants. La voiture est lavée dans son espace de stationnement (20$), nous venons chercher vos clefs si vous voulez que nous lavions aussi l'intérieur (26$).",
           "buttons": [
             {
               "type": "postback",
@@ -492,7 +492,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "Méthode de plus en plus répandue, la vapeur sèche permet de ne consommer qu'entre 5 et 10 litres d'eau par lavage, contre plus de 300 litres pour un lavage traditionnel!  De plus, cette technologie nous permet de réduire au minimum les produits chimiques et contaminants, en particulier dans l'habitacle. ",
+          "text": "Méthode de plus en plus répandue, la vapeur sèche permet de ne consommer qu'entre 5 et 10 litres d'eau par lavage, contre plus de 300 litres pour un lavage traditionnel! De plus, cette technologie nous permet de réduire au minimum les produits chimiques et contaminants, en particulier dans l'habitacle.",
           "buttons": [
             {
               "type": "postback",
@@ -519,7 +519,7 @@
   {
     "trigger": "CLEANER",
     "response": {
-      "text": "Quand aimeriez-vous que je vienne chercher vos vêtements?  Nous passons tous les Lundis, Mercredis et Vendredis entre 18h30 et 20h30.",
+      "text": "Quand aimeriez-vous que je vienne chercher vos vêtements? Nous passons tous les Lundis, Mercredis et Vendredis entre 18h30 et 20h30.",
       "quick_replies": [
         {
           "content_type": "text",
@@ -547,7 +547,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "À votre service, je serai à votre porte Lundi soir pour récupérer vos vêtements. ",
+          "text": "À votre service, je serai à votre porte Lundi soir pour récupérer vos vêtements.",
           "buttons": [
             {
               "type": "postback",
@@ -561,7 +561,7 @@
             },
             {
               "type": "postback",
-              "title": "Voir Tarifs",
+              "title": "Voir tarifs",
               "payload": "CLEANER_QUOTE"
             }
           ]
@@ -580,7 +580,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "À votre service, je serai à votre porte Mercredi soir pour récupérer vos vêtements. ",
+          "text": "À votre service, je serai à votre porte Mercredi soir pour récupérer vos vêtements.",
           "buttons": [
             {
               "type": "postback",
@@ -613,7 +613,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "À votre service, je serai à votre porte Vendredi soir pour récupérer vos vêtements. ",
+          "text": "À votre service, je serai à votre porte Vendredi soir pour récupérer vos vêtements.",
           "buttons": [
             {
               "type": "postback",
@@ -670,7 +670,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "Parfait, au plaisir de vous servir ",
+          "text": "Parfait, au plaisir de vous servir.",
           "buttons": [
             {
               "type": "postback",
