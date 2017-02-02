@@ -12,7 +12,7 @@ class Customers extends Collection {
 class Customer extends Model {
   constructor() {
     super(customersCollection)
-    this.cart = []
+    this.set('cart', [])
   }
 
   getCart() {
@@ -21,11 +21,11 @@ class Customer extends Model {
 
   createCart () {
     const _this = this
-    return createCart()
-      .then(cart => {
-        _this.set('cart_id', cart.id)
+    return createCart(this._id)
+      .then(cartId => {
+        _this.set('cart_id', cartId)
         _this.save()
-        return cart
+        return this.getCart()
       })
   }
 }
