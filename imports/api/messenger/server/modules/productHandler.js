@@ -177,6 +177,36 @@ class ProductHandler extends BaseHandler {
                     "title": product.title,
                     "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
                     "subtitle": lineItem.price,
+                  })
+                console.log(products)
+                console.log(lineItems)
+                const elements = []
+                /*for (i = 0; i < 3; i++) {
+                  var product = products[i]
+                  var lineItem = lineItems[i]
+                  elements.push({
+                    "title": product.title,
+                    "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
+                    "subtitle": lineItem.price,
+                    "buttons": [
+                      {
+                        "title": 'Enlever',
+                        "type": 'postback',
+                        "payload": 'TO_BE_DEFINED'
+                      }
+                    ]
+
+                  })
+                }
+
+                console.log(elements)*/
+
+
+                products.forEach(product => {
+                  //console.log(type(product.title))
+                  elements.push({
+                    "title": product.title,
+                    "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
                     "buttons": [
                       {
                         "title": 'Enlever',
@@ -205,6 +235,39 @@ class ProductHandler extends BaseHandler {
 
                   })
                 })*/
+                console.log(elements)
+               /* elements.push({
+                  "title": ""
+                })*/
+
+
+                console.log(lineItems)
+                console.log(elements)
+
+                reply ({
+                      message: {
+                        "attachment": {
+                          "type": "template",
+                          "payload": {
+                            "template_type": "list",
+                            "elements": elements,
+                            "buttons": [
+                              {
+                                "title": "View More",
+                                "type": "postback",
+                                "payload": "payload"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                })
+
+
+              })
+                })
+
+
                 console.log(elements)
                /* elements.push({
                   "title": ""
