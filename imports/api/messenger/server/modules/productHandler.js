@@ -8,7 +8,7 @@ class ProductHandler extends BaseHandler {
   handle({payload, reply, senderId, customer}) {
     const promise = new Promise((resolve, reject) => {
       import {list as listProduct, count as countProducts} from '/imports/api/products/server/methods'
-      import {get as getProduct} from '/imports/api/products/server/methods'
+      import {get as getProduct, get2 as getProduct2} from '/imports/api/products/server/methods'
 
       let postbackurl = ""
 
@@ -57,7 +57,7 @@ class ProductHandler extends BaseHandler {
                       buttons: [{
                         type: "postback",
                         title: "Ajouter à mon panier",
-                        payload: PRODUCT_ADD_TO_CART + JSON.stringify(product.variants[0], null, 0)
+                        payload: PRODUCT_ADD_TO_CART + JSON.stringify({product_id: product.id}, null, 0)
                       }]
                     })
                   })
@@ -99,38 +99,38 @@ class ProductHandler extends BaseHandler {
       }
       else if (postbackurl.indexOf(PRODUCT_ADD_TO_CART) == 0) {
 
-
-        let productVariant = postbackurl.substring(PRODUCT_ADD_TO_CART.length)
-        if (productVariant) {
-          productVariant = JSON.parse(productVariant)
+        let productId
+        let query = postbackurl.substring(PRODUCT_ADD_TO_CART.length)
+        if (query) {
+          productId = JSON.parse(query).product_id
         }
 
-        return customer.getCart()
-          .catch(err => {
-            return customer.createCart()
-          })
-          .then(cart => {
-
-            return cart.addProductVariant(productVariant)
+        return getProduct2(productId)
+          .then(product => {
+            return customer.getCart()
+              .catch(err => {
+                return customer.createCart()
+              })
               .then(cart => {
-
-                getProduct(productVariant.product_id)
-                  .then((product) => {
-                    reply({
-                      message: {
-                        "text": `(1) ${product.title} a été ajouté à votre panier.`,
-                        "quick_replies": [
-                          {
-                            "content_type": "text",
-                            "title": "Changer la quantité",
-                            "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({variant_id: productVariant.id, product_id: product.id}),
-                          }
-
-                        ]
-                      }
-                    })
+                cart.addProduct(product)
+                  .catch(err => {
+                    console.log(err)
                   })
-                return cart
+                reply({
+                  message: {
+                    "text": `${cart.getQuantityOfProduct(product)} x "${product.title}" est dans votre panier.`,
+                    "quick_replies": [
+                      {
+                        "content_type": "text",
+                        "title": "Changer la quantité",
+                        "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
+                          product_id: product.product_id
+                        }),
+                      }
+
+                    ]
+                  }
+                })
               })
           })
       }
@@ -138,25 +138,32 @@ class ProductHandler extends BaseHandler {
         let query = postbackurl.substring(PRODUCTS_CART_UPDATE_QUANTITY.length)
         if (query) {
           query = JSON.parse(query)
-          if (!query.variant_id) {
+          if (!query.product_id) {
             throw new Meteor.Error('MISSING_PARAM', 'Missing parameter', "Missing parameter product_id.")
           }
+
         }
 
-        if (query.quantity) {
-          return getProduct(productVariant.product_id)
+        if (query.quantity || query.quantity == 0) {
+          return getProduct(query.product_id)
             .then(product => {
               const quantity = query.quantity
               if (quantity == 0) {
-                return customer.cart.removeProductId(query.productVariant.id)
-                  .then(() => {
+                return customer.getCart()
+                  .then((cart) => {
+                    cart.removeProductId(query.product_id)
                     return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
                   })
 
               } else {
-                return customer.cart.updateVariantQuantity(query.productVariant.id, quantity)
-                  .then(() => {
-                    return reply({message: {text: `Vous avez désormais ${quantity} x ${product.title} dans votre panier.`}})
+                return customer.getCart()
+                  .then(cart => {
+                    cart.updateProductId(query.product_id, quantity)
+                    return reply({message: {text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier.`}})
+                  })
+                  .catch(err => {
+                    console.log(err)
+                    throw err
                   })
 
               }
@@ -175,58 +182,57 @@ class ProductHandler extends BaseHandler {
                 {
                   "content_type": "text",
                   "title": "2",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 2}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 2}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "3",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 3}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 3}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "4",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 4}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 4}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "5",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 5}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 5}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "6",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 6}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 6}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "7",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 7}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 7}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "8",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 8}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 8}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "9",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 9}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 9}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "10",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 10}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 10}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "Retirer",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 0}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 0}, query)),
                 },
               ]
             }
           })
         }
-
 
       }
       reject(new Meteor.Error('NOT_HANDLED', 'Not handled by product handler'))
@@ -240,9 +246,9 @@ class ProductHandler extends BaseHandler {
 
 export default new ProductHandler()
 
+import BaseAction from './actions/BaseAction'
 
-class Action {
-
+class ChangeQuantityAction extends BaseAction {
 
 
 }
