@@ -9,7 +9,7 @@ console.log('Bot::Init')
 
 bot.setGetStartedButton([
   {
-    "payload": "THREAD_GETTING_STARTED"
+    "payload": "start"
   }
 ], (error, response) => {
   if (error) {
@@ -21,10 +21,22 @@ bot.setGetStartedButton([
 
 bot.setPersistentMenu([
   {
-    "type": "postback",
-    "title": "Menu principal",
-    "payload": "THREAD_GETTING_STARTED"
-  }
+    "type":"postback",
+    "title":"Voir services",
+    "payload":"START"
+  },
+  {
+    "type":"postback",
+    "title":"Aide",
+    "payload":"help"
+  },
+  /*{
+    "type":"web_url",
+    "title":"Checkout",
+    "url":"http://petersapparel.parseapp.com/checkout",
+    "webview_height_ratio": "full",
+    "messenger_extensions": true
+  }*/
 ], (error, response) => {
   if (error) {
     console.log('Bot::setPersistentMenu::ERRORED', error)
