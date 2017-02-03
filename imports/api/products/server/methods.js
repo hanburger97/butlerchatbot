@@ -36,7 +36,10 @@ export const getFromVarId = (id) => (
     })
 )
 export const cartPaging = (nb, total) => {
-  var pl = total - ((nb -1)* 4)
+  //nb += 1
+  if (total <= 4)
+    return total
+  var pl = total - (nb* 4)
   if (pl <= 4)
     return pl
   else

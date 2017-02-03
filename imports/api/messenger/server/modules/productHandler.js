@@ -242,48 +242,131 @@ class ProductHandler extends BaseHandler {
         }
 
 
-      }
-      else if (postbackurl.indexOf(SHOW_CART) == 0) {
+      } else if (postbackurl.indexOf(SHOW_CART) == 0) {
         var pageNb = 0
-        if (postbackurl.substring(SHOW_CART.length)!=='' )
+        if (postbackurl.substring(SHOW_CART.length) !== '')
           pageNb = Number(postbackurl.substring(SHOW_CART.length))
-
+        console.log(pageNb)
         return customer.getCart()
             .catch(err => {
               return customer.createCart()
             })
             .then(cart => {
+                  console.log(pageNb)
                   import {getFromVarId} from '/imports/api/products/server/methods'
-                  console.log(cart)
                   const lineItems = cart.shopifyCart.attrs.line_items
-
                   const promises = []
                   lineItems.forEach(item => {
                     promises.push(getFromVarId(item.variant_id))
                   })
                   console.log(promises)
-                  //var productsPage = []
                   return Promise.all(promises).then(products => {
-                    if (products.length == 0){
-                      reply({
-                        message: {
-                          "text": "Votre panier est vide"
-                        }
-
-                      })
-                    }
-                    else if (products.length == 1) {
-                      var product = products[0]
-                      var lineItem = lineItems[0]
+                    console.log(pageNb)
+                    const elements = []
+                    import {cartPaging} from '/imports/api/products/server/methods'
+                    var rmdr = cartPaging(pageNb, products.length)
+                    console.log(rmdr)
+                    console.log(pageNb)
+                    if (rmdr == 1) {
+                      const ind = (pageNb*4)
+                      var product = products[ind]
+                      var lineItem = lineItems[ind]
                       reply({
                         message: {
                           "attachment": {
                             "type": "template",
                             "payload": {
                               "template_type": "generic",
-                              "text": product.title,
-                              "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                              "subtitle": lineItem.price,
+                              "elements":[
+                                {
+                                  "text": product.title,
+                                  "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
+                                  "subtitle": lineItem.price,
+                                  "buttons": [
+                                    {
+                                      "type": "web_url",
+                                      "url": cart.checkoutUrl,
+                                      "title": "Proceder au payment",
+                                      "webview_height_ratio": "tall"
+                                    },
+                                    {
+                                      "type": "postback",
+                                      "title": "Retour aux produits",
+                                      "payload": '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
+                                    }
+                                  ]
+                                }
+                              ]
+
+                            }
+                          }
+                        }
+
+                      })
+                    } else if (rmdr == 0) {
+                      reply({
+                        message: {
+                          "text": "Votre panier est vide"
+                        }
+
+                      })
+                    } else {
+                      //Send only block
+                      for (var i = (pageNb * 4); i < (pageNb * 4) + rmdr; i++) {
+                        var product = products[i]
+                        var lineItem = lineItems[i]
+                        var img = ''
+                        if (product.images && product.images.length > 0) {
+                          img = product.images[0].src
+                        } else {
+                          img = "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg"
+                        }
+                        elements.push({
+                          "title": product.title,
+                          "image_url": img,
+                          "subtitle": lineItem.price,
+                          "buttons": [
+                            {
+                              "type": "postback",
+                              "title": "Modifier",
+                              "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
+                                variant_id: lineItem.variant_id,
+                                product_id: product.id
+                              })
+                            }
+                          ]
+                        })
+                      }
+                      reply({
+                        message: {
+                          "attachment": {
+                            "type": "template",
+                            "payload": {
+                              "template_type": "list",
+                              "top_element_style": "compact",
+                              "elements": elements,
+                              "buttons": [
+                                {
+                                  "title": "View More",
+                                  "type": "postback",
+                                  "payload": SHOW_CART + JSON.stringify((pageNb+1))
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      })
+
+
+                      console.log(elements)
+
+                      reply({
+                        message: {
+                          "attachment": {
+                            "type": "template",
+                            "payload": {
+                              "template_type": "button",
+                              "text": "Que voulez-vous faire ensuite?",
                               "buttons": [
                                 {
                                   "type": "web_url",
@@ -300,89 +383,8 @@ class ProductHandler extends BaseHandler {
                             }
                           }
                         }
-
                       })
-                    } else {
-                      const elements = []
-                      import {cartPaging} from '/imports/api/products/server/methods'
-                      var rmdr = cartPaging(pageNb, products.length)
-                      if (rmdr == 1)
-                        //Send only block
-
-                      for (var i = 0; i < products.length; i++) { //TODO: change for var i = (pageNb*4); i < (pageNb*4) + rmdr; i++
-                                ///RUNTIME ERROR: NEED TO IMPLEMENT WHEN TOTAL IS SMALLER THAN 4
-                        var product = products[i]
-                        var lineItem = lineItems[i]
-                        var img =''
-                        if (product.images && product.images.length > 0) {
-                          img = product.images[0].src
-                        } else {
-                          img = "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg"
-                        }
-                        elements.push({
-                          "title": product.title,
-                          "image_url": img,
-                          "subtitle": lineItem.price,
-                          "buttons":[
-                            {
-                              "type":"postback",
-                              "title":"Modifier",
-                              "payload":PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
-                                variant_id: lineItem.variant_id,
-                                product_id: product.id
-                              })
-                            }
-                          ]
-                        })
-                        console.log(lineItems)
-                        reply({
-                          message: {
-                            "attachment": {
-                              "type": "template",
-                              "payload": {
-                                "template_type": "list",
-                                "top_element_style":"compact",
-                                "elements": elements,
-                                "buttons": [
-                                  {
-                                    "title": "View More",
-                                    "type": "postback",
-                                    "payload": "payload"
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        })
-
-                      }
-
-                      console.log(elements)
                     }
-                    reply({
-                      message: {
-                        "attachment":{
-                          "type":"template",
-                          "payload":{
-                            "template_type":"button",
-                            "text":"Que voulez-vous faire ensuite?",
-                            "buttons":[
-                              {
-                                "type":"web_url",
-                                "url":cart.checkoutUrl,
-                                "title":"Proceder au payment",
-                                "webview_height_ratio": "tall"
-                              },
-                              {
-                                "type":"postback",
-                                "title":"Retour aux produits",
-                                "payload": '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    })
 
                   })
                 }
