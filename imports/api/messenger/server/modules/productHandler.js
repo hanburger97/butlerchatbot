@@ -136,7 +136,7 @@ class ProductHandler extends BaseHandler {
                                 {
                                   "content_type": "text",
                                   "title": "Voir Panier",
-                                  "payload": '//SHOW_CART/',
+                                  "payload": SHOW_CART,
 
                                 }
 
@@ -279,8 +279,8 @@ class ProductHandler extends BaseHandler {
                               "template_type": "generic",
                               "elements":[
                                 {
-                                  "text": product.title,
-                                  "image_url": product.images[0].src || "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
+                                  "title": product.title,
+                                  "image_url":  product.images.length ? product.images[0].src : "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
                                   "subtitle": lineItem.price,
                                   "buttons": [
                                     {
