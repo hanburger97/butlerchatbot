@@ -21,6 +21,7 @@ class ProductHandler extends BaseHandler {
       let SHOW_PRODUCTS = '//SHOW_PRODUCTS/'
       let PRODUCT_ADD_TO_CART = '//PRODUCTS/CART/ADD_TO_CART/'
       const PRODUCTS_CART_UPDATE_QUANTITY = '//PRODUCTS/CART/CHANGE_QUANTITY/'
+      const PRODUCTS_VIEW_CHECKOUT = '//PRODUCT/CART/CHECKOUT'
 
       if (postbackurl.indexOf(SHOW_PRODUCTS) == 0) {
 
@@ -74,7 +75,7 @@ class ProductHandler extends BaseHandler {
                     })
                   }
 
-                  reply({
+                  return reply({
                     "message": {
                       "attachment": {
                         "type": "template",
@@ -108,9 +109,6 @@ class ProductHandler extends BaseHandler {
         return getProduct2(productId)
           .then(product => {
             return customer.getCart()
-              .catch(err => {
-                return customer.createCart()
-              })
               .then(cart => {
                 cart.addProduct(product)
                   .catch(err => {
@@ -159,7 +157,33 @@ class ProductHandler extends BaseHandler {
                 return customer.getCart()
                   .then(cart => {
                     cart.updateProductId(query.product_id, quantity)
-                    return reply({message: {text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier.`}})
+                    return cart._fillShopifyCart()
+                      .then((shopifyCart) => {
+                        return reply({
+                          message: {
+                            "attachment": {
+                              "type": "template",
+                              "payload": {
+                                "template_type": "button",
+                                text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier. Pour un total de ${shopifyCart.subtotal}$.`,
+                                "buttons": [
+                                  {
+                                    "type": "web_url",
+                                    "url": `${shopifyCart.checkoutUrl}`,
+                                    "title": "Payer maintenant",
+                                    "webview_height_ratio": "full"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        })
+                          .then(() => {
+                            return reply({
+                              message: {text: "Entrez le code BIENVENUE lors de votre première commande pour obtenir 20% de rabais sur une facture de plus de 65,00$."}
+                            })
+                          })
+                      })
                   })
                   .catch(err => {
                     console.log(err)
@@ -234,7 +258,30 @@ class ProductHandler extends BaseHandler {
           })
         }
 
+      } else if (postbackurl.indexOf(PRODUCTS_VIEW_CHECKOUT) == 0) {
+        return customer.getCart()
+          .then(cart => {
+            return cart.getCheckoutUrl()
+              .then(checkoutUrl => {
+                return reply({
+                  message: {
+                    text: "Cliquer sur bouton pour ouvrir la page de paiement dans votre navigateur.",
+                    "buttons": [
+                      {
+                        "type": "web_url",
+                        "url": checkoutUrl,
+                        "title": "Ouvrir",
+                        "webview_height_ratio": "full"
+                      }
+                    ]
+                  }
+                })
+              })
+          })
+
       }
+
+
       reject(new Meteor.Error('NOT_HANDLED', 'Not handled by product handler'))
     })
 

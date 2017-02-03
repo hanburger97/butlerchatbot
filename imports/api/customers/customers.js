@@ -17,6 +17,9 @@ class Customer extends Model {
 
   getCart() {
     return getCart(this.cart_id)
+      .catch(err => {
+        return this.createCart()
+      })
   }
 
   createCart () {
