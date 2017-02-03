@@ -402,8 +402,3 @@ class ProductHandler extends BaseHandler {
 
 export default new ProductHandler()
 
-
-class Action {
-
-
-}
