@@ -23,7 +23,7 @@ bot.setPersistentMenu([
   {
     "type": "postback",
     "title": "Menu principal",
-    "payload": "THREAD_GETTING_STARTED"
+    "payload": "START"
   }
 ], (error, response) => {
   if (error) {
