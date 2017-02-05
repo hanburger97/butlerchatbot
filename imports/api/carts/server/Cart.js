@@ -1,5 +1,6 @@
 import Collection from '/imports/lib/Collection'
 import Model from '/imports/lib/Model'
+import {createShopifyCart} from './methods'
 
 class Carts extends Collection {
   constructor() {
@@ -68,6 +69,28 @@ class Cart extends Model {
     const indexOf = this.indexOf({product_id})
     if (indexOf === -1) return 0
     return this.products[indexOf].quantity
+  }
+
+  _getShopifyCart() {
+    return createShopifyCart()
+  }
+
+  getCheckoutUrl() {
+    return this._fillShopifyCart()
+      .then((cart) => {
+        return cart.checkoutUrl
+      })
+  }
+
+  _fillShopifyCart() {
+    return this._getShopifyCart()
+      .then((cart) => {
+        const items = []
+        this.products.forEach(product => {
+          items.push({variant: product.variants[0], quantity: product.quantity})
+        })
+        return cart.createLineItemsFromVariants.apply(cart, items)
+      })
   }
 
   _autosave() {

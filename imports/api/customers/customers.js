@@ -16,18 +16,18 @@ class Customer extends Model {
   }
 
   getCart() {
-    return getCart(this.cart_id)
-  }
-
-  createCart () {
     const _this = this
-    return createCart(this._id)
-      .then(cartId => {
-        _this.set('cart_id', cartId)
-        _this.save()
-        return this.getCart()
+    return getCart(_this.cart_id)
+      .catch(err => {
+        return createCart(_this._id)
+          .then(cartId => {
+            _this.set('cart_id', cartId)
+            _this.save()
+            return this.getCart()
+          })
       })
   }
+
 }
 
 

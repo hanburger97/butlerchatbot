@@ -24,6 +24,7 @@ class ProductHandler extends BaseHandler {
       let SHOW_PRODUCTS = '//SHOW_PRODUCTS/'
       let PRODUCT_ADD_TO_CART = '//PRODUCTS/CART/ADD_TO_CART/'
       const PRODUCTS_CART_UPDATE_QUANTITY = '//PRODUCTS/CART/CHANGE_QUANTITY/'
+      const PRODUCTS_VIEW_CHECKOUT = '//PRODUCT/CART/CHECKOUT'
 
       if (postbackurl.indexOf(SHOW_PRODUCTS) == 0) {
 
@@ -78,7 +79,7 @@ class ProductHandler extends BaseHandler {
                     })
                   }
 
-                  reply({
+                  return reply({
                     "message": {
                       "attachment": {
                         "type": "template",
@@ -126,10 +127,9 @@ class ProductHandler extends BaseHandler {
           productId = JSON.parse(query).product_id
         }
 
-        return customer.getCart()
-          .then(cart => {
-
-            return cart.addProductVariant(productVariant)
+        return getProduct2(productId)
+          .then(product => {
+            return customer.getCart()
               .then(cart => {
 
                 getProduct(productVariant.product_id)
@@ -203,42 +203,74 @@ class ProductHandler extends BaseHandler {
         if (query.quantity) {
           return getProduct(productVariant.product_id)
             .then(product => {
-              const quantity = query.quantity
-              if (quantity == 0) {
-                return customer.cart.removeProductId(query.productVariant.id)
-                  .then(() => {
-                    return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
-                  })
+                const quantity = query.quantity
+                if (quantity == 0) {
+                  return customer.cart.removeProductId(query.productVariant.id)
+                    .then(() => {
+                      return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
+                    })
 
-              } else {
-                return customer.cart.updateVariantQuantity(query.productVariant.id, quantity)
-                  .then(() => {
-                    return reply({message: {text: `Vous avez désormais ${quantity} x ${product.title} dans votre panier.`}})
-                  })
-                /* if (query.quantity || query.quantity == 0) {
-                 return getProduct(query.product_id)
-                 .then(product => {
-                 const quantity = query.quantity
-                 if (quantity == 0) {
-                 return customer.getCart()
-                 .then((cart) => {
-                 cart.removeProductId(query.product_id)
-                 return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
-                 })
+                } else {
+                  return customer.getCart()
+                    .then(cart => {
+                      cart.updateProductId(query.product_id, quantity)
+                      return cart._fillShopifyCart()
+                        .then((shopifyCart) => {
+                          return reply({
+                            message: {
+                              "attachment": {
+                                "type": "template",
+                                "payload": {
+                                  "template_type": "button",
+                                  text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier. Pour un total de ${shopifyCart.subtotal}$.`,
+                                  "buttons": [
+                                    {
+                                      "type": "web_url",
+                                      "url": `${shopifyCart.checkoutUrl}`,
+                                      "title": "Payer maintenant",
+                                      "webview_height_ratio": "full"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          })
+                            .then(() => {
+                              return reply({
+                                message: {text: "Entrez le code BIENVENUE lors de votre première commande pour obtenir 20% de rabais sur une facture de plus de 65,00$."}
+                              })
+                            })
+                        })
+                    })
+                    .catch(err => {
+                      console.log(err)
+                      throw err
+                    })
+                  /* if (query.quantity || query.quantity == 0) {
+                   return getProduct(query.product_id)
+                   .then(product => {
+                   const quantity = query.quantity
+                   if (quantity == 0) {
+                   return customer.getCart()
+                   .then((cart) => {
+                   cart.removeProductId(query.product_id)
+                   return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
+                   })
 
-                 } else {
-                 return customer.getCart()
-                 .then(cart => {
-                 cart.updateProductId(query.product_id, quantity)
-                 return reply({message: {text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier.`}})
-                 })
-                 .catch(err => {
-                 console.log(err)
-                 throw err
-                 })*/
+                   } else {
+                   return customer.getCart()
+                   .then(cart => {
+                   cart.updateProductId(query.product_id, quantity)
+                   return reply({message: {text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier.`}})
+                   })
+                   .catch(err => {
+                   console.log(err)
+                   throw err
+                   })*/
 
+                }
               }
-            })
+            )
 
         } else {
           return reply({
@@ -463,8 +495,30 @@ class ProductHandler extends BaseHandler {
               })
             }
           )
+      } else if (postbackurl.indexOf(PRODUCTS_VIEW_CHECKOUT) == 0) {
+        return customer.getCart()
+          .then(cart => {
+            return cart.getCheckoutUrl()
+              .then(checkoutUrl => {
+                return reply({
+                  message: {
+                    text: "Cliquer sur bouton pour ouvrir la page de paiement dans votre navigateur.",
+                    "buttons": [
+                      {
+                        "type": "web_url",
+                        "url": checkoutUrl,
+                        "title": "Ouvrir",
+                        "webview_height_ratio": "full"
+                      }
+                    ]
+                  }
+                })
+              })
+          })
 
       }
+
+
       reject(new Meteor.Error('NOT_HANDLED', 'Not handled by product handler'))
     })
 

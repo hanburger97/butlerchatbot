@@ -11,3 +11,11 @@ export const create = (customerId) => {
 export const get = (id) => {
   return Carts.findOne(id)
 }
+
+
+/** Shopify Section */
+import {ShopifyClient} from '/imports/api/shopify/server/shopify'
+
+export const createShopifyCart = (query = {}) => {
+  return ShopifyClient.createCart(query)
+}
