@@ -54,10 +54,12 @@ class DefaultModule extends BaseHandler {
                 }
               }
             });
+            _this.recordRoom[senderId]='No'
           })
           .catch(err => {
             console.log(err)
           })
+
 
       } else if (_this.recordParking[senderId] && _this.recordParking[senderId] == 'Yes') {
 
@@ -75,6 +77,7 @@ class DefaultModule extends BaseHandler {
           }
         });
         _this.stopAutoReply = false;
+        _this.recordParking[senderId]= 'No'
         delete _this.recordParking[senderId];
       } else if (_this.recordEmail[senderId] && _this.recordEmail[senderId]== 'Yes'){
         customer.set('email', payload.message.text)
@@ -91,6 +94,7 @@ class DefaultModule extends BaseHandler {
           }
         });
         _this.stopAutoReply = false
+        _this.recordEmail[senderId] = 'No'
       }
       /**Expired Timeout section**/
       else {

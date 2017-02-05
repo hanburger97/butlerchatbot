@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1ef8ff4c-ed9f-4288-94e7-eb2f639592ff" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/messenger/server/handler.js" afterPath="$PROJECT_DIR$/imports/api/messenger/server/handler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/messenger/server/modules/default.js" afterPath="$PROJECT_DIR$/imports/api/messenger/server/modules/default.js" />
     </list>
     <ignored path="albert.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +29,7 @@
       <file leaf-file-name="productHandler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
+            <state relative-caret-position="563">
               <caret line="396" column="24" selection-start-line="396" selection-start-column="24" selection-end-line="396" selection-end-column="24" />
               <folding />
             </state>
@@ -66,7 +66,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="handler.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="handler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/handler.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="365">
@@ -126,11 +126,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="default.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/default.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1683">
-              <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+            <state relative-caret-position="357">
+              <caret line="56" column="42" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -157,9 +157,9 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/private/fixtures/postbacks_cleaned.json" />
         <option value="$PROJECT_DIR$/settings.json" />
-        <option value="$PROJECT_DIR$/imports/api/messenger/server/modules/default.js" />
         <option value="$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js" />
         <option value="$PROJECT_DIR$/imports/api/messenger/server/handler.js" />
+        <option value="$PROJECT_DIR$/imports/api/messenger/server/modules/default.js" />
       </list>
     </option>
   </component>
@@ -547,12 +547,12 @@
       <workItem from="1486004396832" duration="10138000" />
       <workItem from="1486047947233" duration="15799000" />
       <workItem from="1486245505142" duration="2090000" />
-      <workItem from="1486248764998" duration="16515000" />
+      <workItem from="1486248764998" duration="17210000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56230000" />
+    <option name="totallyTimeSpent" value="56925000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -618,7 +618,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/imports/api/messenger/server/modules/default.js</url>
-          <line>396</line>
+          <line>400</line>
           <properties />
           <option name="timeStamp" value="76" />
         </line-breakpoint>
@@ -971,16 +971,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/default.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1683">
-          <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1009,14 +999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="396" column="24" selection-start-line="396" selection-start-column="24" selection-end-line="396" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -1059,6 +1041,24 @@
             <marker date="1486331307000" expanded="true" signature="1066:1088" ph="{...}" />
             <marker date="1486331307000" expanded="true" signature="1156:1234" ph="{...}" />
             <marker date="1486331307000" expanded="true" signature="1273:1292" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="396" column="24" selection-start-line="396" selection-start-column="24" selection-end-line="396" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/default.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="56" column="42" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
