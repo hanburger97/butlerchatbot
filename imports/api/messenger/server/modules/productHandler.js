@@ -183,6 +183,11 @@ class ProductHandler extends BaseHandler {
               "quick_replies": [
                 {
                   "content_type": "text",
+                  "title": "Retirer du panier",
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 0}, query),
+                },
+                {
+                  "content_type": "text",
                   "title": "1",
                   "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 1}, query)),
                 },
@@ -230,12 +235,7 @@ class ProductHandler extends BaseHandler {
                   "content_type": "text",
                   "title": "10",
                   "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 10}, query),
-                },
-                {
-                  "content_type": "text",
-                  "title": "Retirer",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 0}, query),
-                },
+                }
               ]
             }
           })
@@ -300,6 +300,11 @@ class ProductHandler extends BaseHandler {
                                       "type": "postback",
                                       "title": "Retour aux produits",
                                       "payload": '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
+                                    },
+                                    {
+                                      "type": "postback",
+                                      "title": "Email",
+                                      "payload": 'EMAIL'
                                     }
                                   ]
                                 }
