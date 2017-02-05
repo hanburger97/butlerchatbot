@@ -7,12 +7,18 @@ class Model {
     }
 
     this._collection = collection
-    this._attrs = {}
+    this._attrs = this.getDefaultAttrs()
+
+  }
+
+  getDefaultAttrs() {
+    return {}
   }
 
   get id () {
     return this._attrs['_id']
   }
+
 
   set(attrName, value) {
     if (this._attrs[attrName] === undefined) {
@@ -23,8 +29,8 @@ class Model {
 
   setAttrs(attrs) {
     const _this = this
-    this._attrs = attrs
-    Object.keys(attrs).forEach(function (attrName) {
+    this._attrs = Object.assign(this.getDefaultAttrs(), attrs)
+    Object.keys(this._attrs).forEach(function (attrName) {
       defineSetterGetter(_this, attrName)
     })
   }
@@ -32,7 +38,7 @@ class Model {
   save() {
     const _this = this
     const promise = new Promise((resolve, reject) => {
-      const updated = this._collection.update(this._id, {$set: this._attrs})
+      const updated = _this._collection.update(_this._id, {$set: _this._attrs})
       if (updated) {
         resolve(_this)
       } else {

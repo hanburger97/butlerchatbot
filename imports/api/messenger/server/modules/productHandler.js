@@ -10,10 +10,9 @@ class ProductHandler extends BaseHandler {
       import {list as listProduct, count as countProducts} from '/imports/api/products/server/methods'
       let SHOW_CART = '//SHOW_CART/'
 
-
       //let CHECKOUT = '//CHECKOUT/'
 
-      import {get as getProduct} from '/imports/api/products/server/methods'
+      import {get as getProduct, get2 as getProduct2} from '/imports/api/products/server/methods'
 
       let postbackurl = ""
 
@@ -91,6 +90,24 @@ class ProductHandler extends BaseHandler {
                         }
                       })
 
+                  /*const elements = []
+
+                  products.forEach((product) => {
+                    let subtitle = product.body_html
+                    subtitle = subtitle.replace('<p>', '')
+                    subtitle = subtitle.replace('</p>', '')
+
+                    elements.push({
+                      title: `${product.title} - (${product.variants[0].price}$)`,
+                      image_url: product.image ? product.image.src : "https://placehold.it/100x75",
+                      subtitle: subtitle,
+                      buttons: [{
+                        type: "postback",
+                        title: "Ajouter à mon panier",
+                        payload: PRODUCT_ADD_TO_CART + JSON.stringify({product_id: product.id}, null, 0)
+                      }]
+                    })
+                  })*/
 
                     }
                   })
@@ -103,16 +120,13 @@ class ProductHandler extends BaseHandler {
 
       } else if (postbackurl.indexOf(PRODUCT_ADD_TO_CART) == 0) {
 
-
-        let productVariant = postbackurl.substring(PRODUCT_ADD_TO_CART.length)
-        if (productVariant) {
-          productVariant = JSON.parse(productVariant)
+        let productId
+        let query = postbackurl.substring(PRODUCT_ADD_TO_CART.length)
+        if (query) {
+          productId = JSON.parse(query).product_id
         }
 
         return customer.getCart()
-            .catch(err => {
-              return customer.createCart()
-            })
             .then(cart => {
 
               return cart.addProductVariant(productVariant)
@@ -135,7 +149,7 @@ class ProductHandler extends BaseHandler {
                                 },
                                 {
                                   "content_type": "text",
-                                  "title": "Voir Panier",
+                                  "title": "Voir mon panier",
                                   "payload": SHOW_CART,
 
                                 }
@@ -147,14 +161,43 @@ class ProductHandler extends BaseHandler {
                     return cart
                   })
             })
+      /*  return getProduct2(productId)
+          .then(product => {
+            return customer.getCart()
+              .catch(err => {
+                return customer.createCart()
+              })
+              .then(cart => {
+                cart.addProduct(product)
+                  .catch(err => {
+                    console.log(err)
+                  })
+                reply({
+                  message: {
+                    "text": `${cart.getQuantityOfProduct(product)} x "${product.title}" est dans votre panier.`,
+                    "quick_replies": [
+                      {
+                        "content_type": "text",
+                        "title": "Changer la quantité",
+                        "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
+                          product_id: product.product_id
+                        }),
+                      }
+
+                    ]
+                  }
+                })
+              })
+          })*/
       }
       else if (postbackurl.indexOf(PRODUCTS_CART_UPDATE_QUANTITY) == 0) {
         let query = postbackurl.substring(PRODUCTS_CART_UPDATE_QUANTITY.length)
         if (query) {
           query = JSON.parse(query)
-          if (!query.variant_id) {
+          if (!query.product_id) {
             throw new Meteor.Error('MISSING_PARAM', 'Missing parameter', "Missing parameter product_id.")
           }
+
         }
 
         if (query.quantity) {
@@ -172,6 +215,27 @@ class ProductHandler extends BaseHandler {
                       .then(() => {
                         return reply({message: {text: `Vous avez désormais ${quantity} x ${product.title} dans votre panier.`}})
                       })
+       /* if (query.quantity || query.quantity == 0) {
+          return getProduct(query.product_id)
+            .then(product => {
+              const quantity = query.quantity
+              if (quantity == 0) {
+                return customer.getCart()
+                  .then((cart) => {
+                    cart.removeProductId(query.product_id)
+                    return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
+                  })
+
+              } else {
+                return customer.getCart()
+                  .then(cart => {
+                    cart.updateProductId(query.product_id, quantity)
+                    return reply({message: {text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier.`}})
+                  })
+                  .catch(err => {
+                    console.log(err)
+                    throw err
+                  })*/
 
                 }
               })
@@ -194,53 +258,52 @@ class ProductHandler extends BaseHandler {
                 {
                   "content_type": "text",
                   "title": "2",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 2}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 2}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "3",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 3}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 3}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "4",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 4}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 4}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "5",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 5}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 5}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "6",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 6}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 6}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "7",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 7}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 7}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "8",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 8}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 8}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "9",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 9}, query),
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 9}, query)),
                 },
                 {
                   "content_type": "text",
                   "title": "10",
-                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 10}, query),
-                }
+                  "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 10}, query)),
+                },
               ]
             }
           })
         }
-
 
       } else if (postbackurl.indexOf(SHOW_CART) == 0) {
         var pageNb = 0
@@ -412,4 +475,3 @@ class ProductHandler extends BaseHandler {
 }
 
 export default new ProductHandler()
-

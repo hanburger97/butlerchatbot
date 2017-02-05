@@ -9,7 +9,7 @@ console.log('Bot::Init')
 
 bot.setGetStartedButton([
   {
-    "payload": "THREAD_GETTING_STARTED"
+    "payload": "start"
   }
 ], (error, response) => {
   if (error) {
@@ -21,9 +21,14 @@ bot.setGetStartedButton([
 
 bot.setPersistentMenu([
   {
-    "type": "postback",
-    "title": "Menu principal",
-    "payload": "START"
+    "type":"postback",
+    "title":"Voir services",
+    "payload":"START"
+  },
+  {
+    "type":"postback",
+    "title":"Aide",
+    "payload":"help"
   }
 ], (error, response) => {
   if (error) {

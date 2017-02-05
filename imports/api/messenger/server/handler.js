@@ -20,6 +20,14 @@ Bot.on('message', ({payload, reply, senderId}) => {
         .catch(err => {
           return defaultHandler.handle({payload, reply, senderId, customer})
         })
+        .catch(err => {
+          if (process.env.DEBUG) {
+            reply({message: {text: "DEBUG: Une erreur est survenue"}})
+            reply({message: {text: err.message}})
+          }
+          throw console.log(err)
+
+        })
     })
 })
 

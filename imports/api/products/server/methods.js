@@ -1,4 +1,4 @@
-import {ShopifyApi} from '/imports/api/shopify/server/shopify'
+import {ShopifyApi, ShopifyClient} from '/imports/api/shopify/server/shopify'
 
 export const list = (query = {}) => (
   new Promise((resolve, reject) => {
@@ -35,6 +35,7 @@ export const getFromVarId = (id) => (
         })
     })
 )
+
 export const cartPaging = (nb, total) => {
   //nb += 1
   if (total <= 4)
@@ -45,6 +46,13 @@ export const cartPaging = (nb, total) => {
   else
     return 4
 }
+
+export const get2 = (id) => (
+  ShopifyClient.fetchProduct(id)
+    .then(productWrapper => {
+      return productWrapper.attrs
+    })
+)
 
 export const count = (query) => (
   new Promise((resolve, reject) => {
@@ -57,19 +65,3 @@ export const count = (query) => (
     })
   })
 )
-
-Meteor.methods({
-  'products.list': () => {
-    return list()
-  }
-})
-
-function test () {
-  import {ShopifyClient} from '/imports/api/shopify/server/shopify'
-  ShopifyClient.fetchQueryProducts({vendor: 'Alexis le gourmand'})
-    .then(products => {
-      console.log(products)
-    })
-}
-
-//Meteor.bindEnvironment(test)()
