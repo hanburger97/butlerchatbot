@@ -62,10 +62,6 @@ Bot.on('postback', ({payload, reply, senderId}) => {
         })
     })
     .then(customer => {
-
-      return productHandler.handle({payload, reply, senderId, customer})
-      //return defaultHandler.handle({payload, reply, senderId, customer})
-
       productHandler.handle({payload, reply, senderId, customer})
         .catch(err => {
           return defaultHandler.handle({payload, reply, senderId, customer});

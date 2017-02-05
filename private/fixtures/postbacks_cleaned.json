@@ -237,6 +237,16 @@
     }
   },
   {
+    "trigger":"EMAIL",
+    "response":{
+      "text":"Veuillez entrer votre addresse courriel"
+    },
+    "action":{
+      "operation":"RecordEmail"
+    }
+
+  },
+  {
     "trigger": "CHECKOUT",
     "response": {},
     "action": {
