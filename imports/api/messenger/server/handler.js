@@ -6,7 +6,7 @@ import defaultHandler from './modules/default'
 
 Bot.on('message', ({payload, reply, senderId}) => {
 
-  let customerData = {'sender_id': senderId};
+  let customerData = {'sender_id': senderId}
   getCustomer(customerData)
     .catch(err => {
       console.log(err)
@@ -21,35 +21,7 @@ Bot.on('message', ({payload, reply, senderId}) => {
           return defaultHandler.handle({payload, reply, senderId, customer})
         })
     })
-  /*reply({
-    message: {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "Quel marchand voulez-vous voir?",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Alexis le gourmand",
-              "payload": '//SHOW_PRODUCTS/{"vendor":"Alexis le gourmand"}',
-            },
-            {
-              "type": "postback",
-              "title": "Alimentation maison",
-              "payload": '//SHOW_PRODUCTS/{"vendor":"Alimentation maison"}',
-            },
-            {
-              "type": "postback",
-              "title": "Afficher panier",
-              "payload": '//SHOW_CART/',
-            }
-          ]
-        }
-      }
-    }*/
-  })
-
+})
 
 Bot.on('postback', ({payload, reply, senderId}) => {
   let customerData = {'sender_id': senderId};
