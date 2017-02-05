@@ -283,6 +283,14 @@ class ProductHandler extends BaseHandler {
                                   "subtitle": lineItem.price,
                                   "buttons": [
                                     {
+                                      "type": "postback",
+                                      "title": "Modifier",
+                                      "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify({
+                                        variant_id: lineItem.variant_id,
+                                        product_id: product.id
+                                      })
+                                    },
+                                    {
                                       "type": "web_url",
                                       "url": cart.checkoutUrl,
                                       "title": "Proceder au payment",
