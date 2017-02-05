@@ -21,14 +21,14 @@ bot.setGetStartedButton([
 
 bot.setPersistentMenu([
   {
-    "type":"postback",
-    "title":"Voir services",
-    "payload":"START"
+    "type": "postback",
+    "title": "Voir services",
+    "payload": "START"
   },
   {
-    "type":"postback",
-    "title":"Aide",
-    "payload":"help"
+    "type": "postback",
+    "title": "Aide",
+    "payload": "help"
   }
 ], (error, response) => {
   if (error) {

@@ -54,7 +54,7 @@ class DefaultModule extends BaseHandler {
                 }
               }
             });
-            _this.recordRoom[senderId]='No'
+            _this.recordRoom[senderId] = 'No'
           })
           .catch(err => {
             console.log(err)
@@ -77,9 +77,9 @@ class DefaultModule extends BaseHandler {
           }
         });
         _this.stopAutoReply = false;
-        _this.recordParking[senderId]= 'No'
+        _this.recordParking[senderId] = 'No'
         delete _this.recordParking[senderId];
-      } else if (_this.recordEmail[senderId] && _this.recordEmail[senderId]== 'Yes'){
+      } else if (_this.recordEmail[senderId] && _this.recordEmail[senderId] == 'Yes') {
         customer.set('email', payload.message.text)
         customer.save()
         reply({
@@ -87,7 +87,7 @@ class DefaultModule extends BaseHandler {
             'text': 'Parfait! Votre recu serait envoye a votre courriel', quick_replies: [
               {
                 content_type: "text",
-                title:  "Retour aux produits",
+                title: "Retour aux produits",
                 payload: '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
               }
             ]
@@ -264,7 +264,7 @@ class DefaultModule extends BaseHandler {
                       }
                     }
                   };
-                  reply({message:rmsg})
+                  reply({message: rmsg})
                 }
 
 
@@ -332,7 +332,7 @@ class DefaultModule extends BaseHandler {
                 console.log('record room is ' + _this.recordRoom[senderId])
 
 
-              } else if (data.action && data.action.operation == 'RecordEmail'){
+              } else if (data.action && data.action.operation == 'RecordEmail') {
                 _this.stopAutoReply = true
                 _this.recordEmail[senderId] = 'Yes'
               } else if (data.action && data.action.operation == 'AddRoomToCart') {
