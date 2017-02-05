@@ -246,7 +246,6 @@ class ProductHandler extends BaseHandler {
         var pageNb = 0
         if (postbackurl.substring(SHOW_CART.length) !== '')
           pageNb = Number(postbackurl.substring(SHOW_CART.length))
-        console.log(pageNb)
         return customer.getCart()
             .catch(err => {
               return customer.createCart()

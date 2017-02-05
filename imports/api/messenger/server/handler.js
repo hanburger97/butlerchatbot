@@ -6,10 +6,6 @@ import defaultHandler from './modules/default'
 
 Bot.on('message', ({payload, reply, senderId}) => {
 
-
-  import defaultHandler from './modules/default'
-
-
   let customerData = {'sender_id': senderId};
   getCustomer(customerData)
     .catch(err => {
@@ -25,10 +21,6 @@ Bot.on('message', ({payload, reply, senderId}) => {
           return defaultHandler.handle({payload, reply, senderId, customer})
         })
     })
-
-
-
-
   /*reply({
     message: {
       "attachment": {
