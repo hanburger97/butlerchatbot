@@ -10,7 +10,11 @@ class DefaultModule extends BaseHandler {
     this.pausedUsers = []
     this.recordRoom = []
     this.recordParking = []
+    this.recordEmail = []
     this.stopAutoReply = false //When True, bot will not answer when message is undefined
+    //     ^ stopAutoReply should be set to true when user click on a button that need to be followed up by a typed response
+    //        (e.g. Entering room number) only then will the stopAutoReply be set to false to prevent the "i dont unserstand"
+    //        message to be triggered. Once the info being recorded, it should be set back to false
   }
 
   handle({payload, reply, senderId, customer}) {
@@ -30,7 +34,7 @@ class DefaultModule extends BaseHandler {
 
         return customer.save()
           .then(() => {
-            _this.stopAutoReply = true;
+            _this.stopAutoReply = false;
             delete _this.recordRoom[senderId];
             reply({
               message: {
@@ -70,8 +74,23 @@ class DefaultModule extends BaseHandler {
             ]
           }
         });
-        _this.stopAutoReply = true;
+        _this.stopAutoReply = false;
         delete _this.recordParking[senderId];
+      } else if (_this.recordEmail[senderId] && _this.recordEmail[senderId]== 'Yes'){
+        customer.set('email', payload.message.text)
+        customer.save()
+        reply({
+          message: {
+            'text': 'Parfait! Votre recu serait envoye a votre courriel', quick_replies: [
+              {
+                content_type: "text",
+                title:  "Retour aux produits",
+                payload: '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
+              }
+            ]
+          }
+        });
+        _this.stopAutoReply = false
       }
       /**Expired Timeout section**/
       else {
@@ -246,7 +265,8 @@ class DefaultModule extends BaseHandler {
 
 
               } else if (data.action && data.action.operation == 'ChangeParking') {
-                _this.recordParking[senderId] = 'Yes';
+                _this.recordParking[senderId] = 'Yes'
+                _this.stopAutoReply = true
 
 
               } else if (data.action && data.action.operation == 'CarWashConfirm') {
@@ -274,6 +294,7 @@ class DefaultModule extends BaseHandler {
               } else if (data.action && data.action.operation == 'RecordRoom') {
                 if (!customer.room) {
                   _this.recordRoom[senderId] = 'Yes'
+                  _this.stopAutoReply = true
                 } else {
                   reply({
                     message: {
@@ -303,9 +324,13 @@ class DefaultModule extends BaseHandler {
 
               } else if (data.action && data.action.operation == 'ChangeRoom') {
                 _this.recordRoom[senderId] = 'Yes';
+                _this.stopAutoReply = true
                 console.log('record room is ' + _this.recordRoom[senderId])
 
 
+              } else if (data.action && data.action.operation == 'RecordEmail'){
+                _this.stopAutoReply = true
+                _this.recordEmail[senderId] = 'Yes'
               } else if (data.action && data.action.operation == 'AddRoomToCart') {
 
                 Rooms.findOne({nb: customer.room})
