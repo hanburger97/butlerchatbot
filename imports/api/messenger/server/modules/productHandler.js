@@ -291,12 +291,6 @@ class ProductHandler extends BaseHandler {
                                       })
                                     },
                                     {
-                                      "type": "web_url",
-                                      "url": cart.checkoutUrl,
-                                      "title": "Proceder au payment",
-                                      "webview_height_ratio": "tall"
-                                    },
-                                    {
                                       "type": "postback",
                                       "title": "Retour aux produits",
                                       "payload": '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
@@ -390,6 +384,11 @@ class ProductHandler extends BaseHandler {
                                   "type": "postback",
                                   "title": "Retour aux produits",
                                   "payload": '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
+                                },
+                                {
+                                  "type": "postback",
+                                  "title": "Email le recu",
+                                  "payload": 'EMAIL'
                                 }
                               ]
                             }
