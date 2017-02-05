@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1ef8ff4c-ed9f-4288-94e7-eb2f639592ff" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js" afterPath="$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/messenger/server/handler.js" afterPath="$PROJECT_DIR$/imports/api/messenger/server/handler.js" />
     </list>
     <ignored path="albert.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,52 +26,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="productHandler.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="productHandler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="390" column="51" selection-start-line="390" selection-start-column="51" selection-end-line="390" selection-end-column="51" />
+            <state relative-caret-position="240">
+              <caret line="396" column="24" selection-start-line="396" selection-start-column="24" selection-end-line="396" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="handler.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Postbacks.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/messenger/Postbacks.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Elements.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/messenger/Elements.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuickReplies.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/messenger/QuickReplies.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-145">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="handler.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/handler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+            <state relative-caret-position="365">
+              <caret line="50" column="3" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <marker date="1486325172000" expanded="true" signature="276:323" ph="{&quot;import&quot;: defaultHandler...}" />
-                <marker date="1486325172000" expanded="true" signature="370:385" ph="{...}" />
-                <marker date="1486325172000" expanded="true" signature="550:572" ph="{...}" />
-                <marker date="1486325172000" expanded="true" signature="792:838" ph="{...}" />
-                <marker date="1486325172000" expanded="true" signature="886:901" ph="{...}" />
-                <marker date="1486325172000" expanded="true" signature="1066:1088" ph="{...}" />
-                <marker date="1486325172000" expanded="true" signature="1156:1234" ph="{...}" />
-                <marker date="1486325172000" expanded="true" signature="1273:1292" ph="{...}" />
+                <marker date="1486331307000" expanded="true" signature="276:323" ph="{&quot;import&quot;: defaultHandler...}" />
+                <marker date="1486331307000" expanded="true" signature="370:385" ph="{...}" />
+                <marker date="1486331307000" expanded="true" signature="550:572" ph="{...}" />
+                <marker date="1486331307000" expanded="true" signature="792:838" ph="{...}" />
+                <marker date="1486331307000" expanded="true" signature="886:901" ph="{...}" />
+                <marker date="1486331307000" expanded="true" signature="1066:1088" ph="{...}" />
+                <marker date="1486331307000" expanded="true" signature="1156:1234" ph="{...}" />
+                <marker date="1486331307000" expanded="true" signature="1273:1292" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="products.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/api/products/products.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="responses_cleaned.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/private/fixtures/responses_cleaned.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -101,16 +111,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-9344">
               <caret line="241" column="29" selection-start-line="241" selection-start-column="29" selection-end-line="241" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rooms_cleaned.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/private/fixtures/rooms_cleaned.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -157,9 +157,9 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/private/fixtures/postbacks_cleaned.json" />
         <option value="$PROJECT_DIR$/settings.json" />
-        <option value="$PROJECT_DIR$/imports/api/messenger/server/handler.js" />
         <option value="$PROJECT_DIR$/imports/api/messenger/server/modules/default.js" />
         <option value="$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js" />
+        <option value="$PROJECT_DIR$/imports/api/messenger/server/handler.js" />
       </list>
     </option>
   </component>
@@ -547,12 +547,12 @@
       <workItem from="1486004396832" duration="10138000" />
       <workItem from="1486047947233" duration="15799000" />
       <workItem from="1486245505142" duration="2090000" />
-      <workItem from="1486248764998" duration="15988000" />
+      <workItem from="1486248764998" duration="16515000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55703000" />
+    <option name="totallyTimeSpent" value="56230000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -565,7 +565,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6483001" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21922626" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39976552" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33645955" sideWeight="0.49791667" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -648,14 +648,14 @@
           <caret line="32" column="52" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
-            <marker date="1486325172000" expanded="true" signature="276:323" ph="{&quot;import&quot;: defaultHandler...}" />
-            <marker date="1486325172000" expanded="true" signature="370:385" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="550:572" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="792:838" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="886:901" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="1066:1088" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="1156:1234" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="1273:1292" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="276:323" ph="{&quot;import&quot;: defaultHandler...}" />
+            <marker date="1486331307000" expanded="true" signature="370:385" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="550:572" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="792:838" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="886:901" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="1066:1088" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="1156:1234" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="1273:1292" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -821,22 +821,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/messenger/Elements.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/messenger/QuickReplies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/messenger/Buttons.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -846,14 +830,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/messenger/Responses.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/messenger/Postbacks.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1013,24 +989,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/handler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <marker date="1486325172000" expanded="true" signature="276:323" ph="{&quot;import&quot;: defaultHandler...}" />
-            <marker date="1486325172000" expanded="true" signature="370:385" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="550:572" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="792:838" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="886:901" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="1066:1088" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="1156:1234" ph="{...}" />
-            <marker date="1486325172000" expanded="true" signature="1273:1292" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/private/fixtures/postbacks_cleaned.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-9344">
@@ -1057,9 +1015,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/modules/productHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="390" column="51" selection-start-line="390" selection-start-column="51" selection-end-line="390" selection-end-column="51" />
+        <state relative-caret-position="240">
+          <caret line="396" column="24" selection-start-line="396" selection-start-column="24" selection-end-line="396" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/messenger/Postbacks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/messenger/Elements.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/messenger/QuickReplies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-145">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/messenger/server/handler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="50" column="3" selection-start-line="50" selection-start-column="3" selection-end-line="50" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <marker date="1486331307000" expanded="true" signature="276:323" ph="{&quot;import&quot;: defaultHandler...}" />
+            <marker date="1486331307000" expanded="true" signature="370:385" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="550:572" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="792:838" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="886:901" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="1066:1088" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="1156:1234" ph="{...}" />
+            <marker date="1486331307000" expanded="true" signature="1273:1292" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

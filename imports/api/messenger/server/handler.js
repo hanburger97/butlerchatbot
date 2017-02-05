@@ -48,4 +48,4 @@ Bot.on('postback', ({payload, reply, senderId}) => {
       throw console.log(err)
     })
 
-})
+});
