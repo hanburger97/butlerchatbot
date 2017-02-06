@@ -1,4 +1,5 @@
 import Bot from './FBMessenger'
+import {ProductShowCart} from './modules/actions'
 
 let bot = new Bot({
   token: Meteor.settings.private.facebook.messenger.page_access_token,
@@ -27,8 +28,8 @@ bot.setPersistentMenu([
   },
   {
     "type": "postback",
-    "title": "Aide",
-    "payload": "help"
+    "title": "Voir mon panier",
+    "payload": ProductShowCart.getActionPostback()
   }
 ], (error, response) => {
   if (error) {

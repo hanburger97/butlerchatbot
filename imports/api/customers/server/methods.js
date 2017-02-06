@@ -7,3 +7,4 @@ export const create = (query = {}) => (
 export const get = (data = {}) => (
   Customers.findOne(data)
 )
+

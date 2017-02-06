@@ -8,6 +8,7 @@ class GettingStarted extends BaseHandler {
     const promise = new Promise((resolve, reject) => {
       if (queryUrl.toLowerCase() !== 'start'){
         reject()
+        return
       }
 
       return reply({
