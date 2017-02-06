@@ -38,40 +38,6 @@
     }
   },
   {
-    "trigger": "MYPAYLOAD",
-    "response": {
-      "text": "starting now"
-    },
-    "action": {
-      "value": 22,
-      "operation": "AddCart"
-    }
-  },
-  {
-    "trigger": "FLOW_1",
-    "response": {
-      "text": "How can I help you today?:",
-      "quick_replies": [
-        {
-          "content_type": "text",
-          "title": "I want to find a service for my room.",
-          "payload": "DEVELOPER_DEFINED_PAYLOAD_LIST_SERVICES"
-        },
-        {
-          "content_type": "text",
-          "title": "I want to talk to a human",
-          "payload": "DEVELOPER_DEFINED_PAYLOAD_REQUEST_SUPPORT"
-        }
-      ]
-    }
-  },
-  {
-    "trigger": "OPTION_1",
-    "response": {
-      "text": "option 1..."
-    }
-  },
-  {
     "trigger": "SERVICES",
     "response": {
       "attachment": {
@@ -108,17 +74,17 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Plats cuisinés",
-                  "payload": "G_DISHES"
+                  "title": "Alimentation Maison",
+                  "payload": "//SHOW_PRODUCTS/{\"vendor\":\"Alimentation maison\"}"
                 },
                 {
                   "type": "postback",
                   "title": "Bières et vins",
-                  "payload": "G_BEER"
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"beer\"}"
                 },
                 {
                   "type": "postback",
-                  "title": "Épicerie Fine",
+                  "title": "Alexis le Gourmand",
                   "payload": "//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}"
                 }
               ]
@@ -134,9 +100,9 @@
                   "payload": "M_REQUEST"
                 },
                 {
-                  "type": "postback",
-                  "title": "Appeler",
-                  "payload": "CALL"
+                  "type":"phone_number",
+                  "title":"Appeler",
+                  "payload":"+15143484966"
                 }
               ]
             },
@@ -162,16 +128,6 @@
       }
     },
     "action": {}
-  },
-  {
-    "trigger": "CALL",
-    "response": {
-      "text": "Call us at 514-XXX-XXXX"
-    },
-    "action": {
-      "value": 10,
-      "operation": "Timeout"
-    }
   },
   {
     "trigger": "SERVICE_LAVE_AUTO",
@@ -251,15 +207,6 @@
     "response": {},
     "action": {
       "operation": "CheckOut"
-    }
-  },
-  {
-    "trigger": "SUB",
-    "response": {
-      "text": "Purchases over 60$ come with free delivery"
-    },
-    "action": {
-      "operation": "SubTotal"
     }
   },
   {
@@ -697,124 +644,6 @@
       }
     },
     "action": {}
-  },
-  {
-    "trigger": "G_PRODUCT",
-    "response": {
-      "attachment": {
-        "payload": {
-          "elements": [
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_BEEF",
-                  "title": "Voir les produits",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955807/SBOE981_Filet_mognon_9_oz_mt3lbj.jpg",
-              "subtitle": "Élevage responsable, sans hormone ni médicament, nourris à l'herbe et au foin",
-              "title": "Boeuf AAA du Québec vieilli 14 jours:"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_CHICKEN",
-                  "title": "Voir les produits",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955993/SPOU173_Poulet_entier_xfynf5.jpg",
-              "subtitle": "Plus savoureux, nourris au grain, conserve son poids et forme après",
-              "title": "Poulet 100% grain végétal ( Ferme des voltigeurs )"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_SAUSAGE",
-                  "title": "Voir les produits",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484956012/SSAU100_Saucisses_italiennes_douces_qcnxlt.jpg",
-              "subtitle": "Fournies par les cochonailles, 2 fois moins de gras que les saucisses ",
-              "title": "Saucisses artisanales naturelles sans gluten"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_DUCK",
-                  "title": "Voir les produits",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955827/SCAN601_Foie_gras_de_canard_Rougie_olf6ks.jpg",
-              "subtitle": "chez Rougié: sans hormones ni antibiotiques, gavé  de mais et d'eau ",
-              "title": "Canard du Québec ( Lac Brome et Chez Rougié )"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_FISH",
-                  "title": "Voir les poissons",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955890/SPOI100_Filet_de_saumon_de_latlantique_czzo0o.jpg",
-              "title": "Poissons de pêcheries durables et responsables"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_SEAFOOD",
-                  "title": "Voir fruits de mer",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955873/SMER151_Crevettes_blanches_31_40_crues_deveinees_et_decortiquees_ncfghi.jpg",
-              "title": "Fruits de Mer de pêcheries durables"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_VEAL",
-                  "title": "Voir les produits",
-                  "type": "postback"
-                }
-              ],
-              "subtitle": "Chez Bruno Guillet, le veau est nourri de grain végétal, sans antibiotique.",
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484956061/SVEA500_Jarrets_de_veau_axs2kb.jpg",
-              "title": "Veau de grain du Québec"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_PORK",
-                  "title": "Voir les produits",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
-              "subtitle": "duBreton: Sans antibitiotiques ni sous-produit animal, certifié Agro-Com.",
-              "title": "Porc d'élevage traditionnel du Québec"
-            },
-            {
-              "buttons": [
-                {
-                  "payload": "G_PRODUCT_LAMB",
-                  "title": "Voir les produits",
-                  "type": "postback"
-                }
-              ],
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
-              "title": "Agneau du Québec"
-            }
-          ],
-          "template_type": "generic"
-        },
-        "type": "template"
-      }
-    }
   }
 
 ]
