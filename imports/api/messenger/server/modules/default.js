@@ -17,7 +17,7 @@ class DefaultModule extends BaseHandler {
     //        message to be triggered. Once the info being recorded, it should be set back to false
   }
 
-  handle({payload, reply, senderId, customer}) {
+  handle({payload, reply, senderId, customer, queryUrl}) {
     const _this = this
     const promise = new Promise(() => {
 

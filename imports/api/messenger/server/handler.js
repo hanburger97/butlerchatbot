@@ -4,7 +4,22 @@ import {get as getCustomer, create as createCustomer} from '/imports/api/custome
 import productHandler from './modules/productHandler'
 import defaultHandler from './modules/default'
 
-Bot.on('message', ({payload, reply, senderId}) => {
+Bot.on('message', (args) => {
+  handle(args)
+})
+
+Bot.on('postback', (args) => {
+  handle(args)
+});
+
+const handle = ({payload, reply, senderId}) => {
+  let queryUrl = ""
+
+  if (payload.postback && payload.postback.payload) {
+    queryUrl = payload.postback.payload
+  } else if (payload.message && payload.message.quick_reply) {
+    queryUrl = payload.message.quick_reply.payload
+  }
 
   let customerData = {'sender_id': senderId}
   getCustomer(customerData)
@@ -16,37 +31,13 @@ Bot.on('message', ({payload, reply, senderId}) => {
         })
     })
     .then(customer => {
-      productHandler.handle({payload, reply, senderId, customer})
+      productHandler.handle({payload, reply, senderId, customer, queryUrl})
         .catch(err => {
-          return defaultHandler.handle({payload, reply, senderId, customer})
-        })
-        .catch(err => {
-          if (process.env.DEBUG) {
-            reply({message: {text: "DEBUG: Une erreur est survenue"}})
-            reply({message: {text: err.message}})
+          if (err) {
+            throw err
           }
-          throw console.log(err)
-
+          return defaultHandler.handle({payload, reply, senderId, customer, queryUrl})
         })
-    })
-})
-
-Bot.on('postback', ({payload, reply, senderId}) => {
-  let customerData = {'sender_id': senderId};
-  getCustomer(customerData)
-    .catch(err => {
-      console.log(err)
-      return createCustomer(customerData)
-        .then(customerId => {
-          return getCustomer(customerData)
-        })
-    })
-    .then(customer => {
-      productHandler.handle({payload, reply, senderId, customer})
-        .catch(err => {
-          return defaultHandler.handle({payload, reply, senderId, customer});
-        })
-
     })
     .catch(err => {
       if (process.env.DEBUG) {
@@ -54,6 +45,6 @@ Bot.on('postback', ({payload, reply, senderId}) => {
         reply({message: {text: err.message}})
       }
       throw console.log(err)
-    })
 
-});
+    })
+}

@@ -25,22 +25,22 @@ export const get = (id) => (
 )
 
 export const getFromVarId = (id) => (
-    new Promise((resolve, reject) => {
-        ShopifyApi.get(`/admin/variants/${id}.json`, (error, response, headers) => {
-            if (error) {
-                reject(error)
-            } else {
-                resolve(get(response.variant.product_id))
-            }
-        })
+  new Promise((resolve, reject) => {
+    ShopifyApi.get(`/admin/variants/${id}.json`, (error, response, headers) => {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(get(response.variant.product_id))
+      }
     })
+  })
 )
 
 export const cartPaging = (nb, total) => {
   //nb += 1
   if (total <= 4)
     return total
-  var pl = total - (nb* 4)
+  var pl = total - (nb * 4)
   if (pl <= 4)
     return pl
   else
