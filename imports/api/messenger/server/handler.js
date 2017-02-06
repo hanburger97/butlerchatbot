@@ -17,7 +17,9 @@ Bot.on('postback', (args) => {
   handle(args)
 });
 
-const handle = ({payload, reply, senderId}) => {
+const handle = (args) => {
+  const {payload, reply, senderId} = args
+
   let queryUrl = ""
 
   if (payload.postback && payload.postback.payload) {
@@ -74,18 +76,21 @@ const handle = ({payload, reply, senderId}) => {
       return customer
     })
     .then(customer => {
+      const args2 = Object.assign({
+        customer, queryUrl
+      }, args)
 
-      return productHandler.handle({payload, reply, senderId, customer, queryUrl})
+      return productHandler.handle(args2)
         .catch(err => {
           if (err) {
             throw err
           }
-          return gettingStartedHandler.handle({payload, reply, senderId, customer, queryUrl})
+          return gettingStartedHandler.handle(args2)
             .catch(err => {
               if (err) {
                 throw err
               }
-              return defaultHandler.handle({payload, reply, senderId, customer, queryUrl})
+              return defaultHandler.handle(args2)
             })
         })
     })

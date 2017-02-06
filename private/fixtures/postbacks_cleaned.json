@@ -157,7 +157,7 @@
   {
     "trigger": "EMAIL",
     "response": {
-      "text": "Veuillez entrer votre addresse courriel"
+      "text": "Veuillez entrer votre adresse courriel:"
     },
     "action": {
       "operation": "RecordEmail"
