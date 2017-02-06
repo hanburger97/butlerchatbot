@@ -84,7 +84,7 @@ class GettingStarted extends BaseHandler {
           customer.set('email', email)
           return customer.save()
             .then(() => {
-              reply({message: {text: `Merci, votre courriel ${email} a été ajouté à votre dossier.`}})
+              reply({message: {text: `Merci, le courriel ${email} a été ajouté à votre dossier.`}})
               delete _this.record[senderId]['email']
 
               import {update as updateShopifyCustomer} from '/imports/api/shopify/server/customer'
