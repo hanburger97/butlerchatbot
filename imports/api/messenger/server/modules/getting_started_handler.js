@@ -24,10 +24,22 @@ class GettingStarted extends BaseHandler {
                 return customer.save()
               })
               .then(() => {
-                reply({message: {text: `Merci, la porte ${roomNumber} est maintenant associée à votre dossier!`}})
                 delete _this.record[senderId]['room']
-                emitPayload('START')
-                return
+
+                import {get as getShopifyCustomerAddresses, update as updateShopifyCustomerAddresses} from '/imports/api/shopify/server/customer_address'
+                return getShopifyCustomerAddresses(customer.shopify.id)
+                  .then(customerAddresses => {
+                    customerAddresses.forEach(customerAddress => {
+                      if (customerAddress.address1 === '1140 Rue Wellington') {
+                        return updateShopifyCustomerAddresses(customer.shopify.id, customerAddress.id, {address2: `#${roomNumber}`})
+                      }
+
+                    })
+                  })
+                  .then(() => {
+                    reply({message: {text: `Merci, la porte ${roomNumber} est maintenant associée à votre dossier!`}})
+                    emitPayload('START')
+                  })
               })
               .catch((err) => {
                 reply({message: {text: `Désolé, mais nous n'avons pas trouvé la porte "${payload.message.text}" à l'Hexagone.`}})
@@ -74,7 +86,7 @@ class GettingStarted extends BaseHandler {
             setTimeout(() => {
               reply({
                 message: {
-                  text: `Veuillez écrire votre courriel:`,
+                  text: `Veuillez écrire votre courriel: `,
                 }
               })
             }, 500)

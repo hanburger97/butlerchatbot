@@ -32,7 +32,6 @@ class Customer extends Model {
 }
 
 
-
 const customersCollection = new Customers()
 
 export default customersCollection
