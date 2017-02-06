@@ -1,4 +1,4 @@
-import {BaseAction, ProductUpdateQuantity} from './index'
+import {BaseAction, ProductUpdateQuantity, ProductViewProducts, ProductConfirmOrder} from './index'
 const SHOW_CART = '//SHOW_CART/'
 
 
@@ -21,32 +21,38 @@ export default class ProductShowCart extends BaseAction {
       pageNb = Number(queryUrl.substring(SHOW_CART.length))
     return customer.getCart()
       .then(cart => {
-          console.log(pageNb)
           import {get as getProduct} from '/imports/api/products/server/methods'
 
           const lineItems = cart.products
+
+          if (lineItems.length === 0) {
+            return reply({
+              message: {
+                "text": "Votre panier est vide"
+              }
+
+            })
+          }
+
           const promises = []
           lineItems.forEach(item => {
             promises.push(getProduct(item.product_id))
           })
 
           return Promise.all(promises).then(products => {
-            const elements = []
-            import {cartPaging} from '/imports/api/products/server/methods'
-            var rmdr = cartPaging(pageNb, products.length)
-            console.log(rmdr)
-            console.log(pageNb)
-            if (rmdr == 0) {
-              reply({
-                message: {
-                  "text": "Votre panier est vide"
-                }
+            const pagesProducts = []
+            let hasMore = false
+            for (var i = pageNb * 4; i < products.length; i++) {
+              if (pagesProducts.length === 4 && i < products.length) {
+                hasMore = true
+                break
+              }
+              pagesProducts.push(products[i])
+            }
 
-              })
-            } else if (rmdr == 1) {
-              const ind = (pageNb * 4)
-              var product = products[ind]
-              var lineItem = lineItems[ind]
+            if (pagesProducts.length == 1) {
+              // One item. Due to Facebook's limitation, we cannot send a list less than 2 items. Send a generic template instead
+              var product = pagesProducts[0]
               reply({
                 message: {
                   "attachment": {
@@ -57,22 +63,12 @@ export default class ProductShowCart extends BaseAction {
                         {
                           "title": product.title,
                           "image_url": product.images.length ? product.images[0].src : "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                          "subtitle": lineItem.price,
+                          "subtitle": product.price,
                           "buttons": [
                             {
                               "type": "postback",
                               "title": "Modifier",
                               "payload": ProductUpdateQuantity.getActionPostback(product.id)
-                            },
-                            {
-                              "type": "postback",
-                              "title": "Retour aux produits",
-                              "payload": '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
-                            },
-                            {
-                              "type": "postback",
-                              "title": "Email",
-                              "payload": 'EMAIL'
                             }
                           ]
                         }
@@ -84,11 +80,10 @@ export default class ProductShowCart extends BaseAction {
 
               })
             } else {
-              //Send only block
-              for (var i = (pageNb * 4); i < (pageNb * 4) + rmdr; i++) {
-                var product = products[i]
-                var lineItem = lineItems[i]
-                var img = ''
+
+              const elements = []
+              pagesProducts.forEach(product => {
+                let img = ''
                 if (product.images && product.images.length > 0) {
                   img = product.images[0].src
                 } else {
@@ -97,7 +92,7 @@ export default class ProductShowCart extends BaseAction {
                 elements.push({
                   "title": product.title,
                   "image_url": img,
-                  "subtitle": lineItem.price,
+                  "subtitle": product.price,
                   "buttons": [
                     {
                       "type": "postback",
@@ -106,27 +101,33 @@ export default class ProductShowCart extends BaseAction {
                     }
                   ]
                 })
-              }
-              reply({
-                message: {
-                  "attachment": {
-                    "type": "template",
-                    "payload": {
-                      "template_type": "list",
-                      "top_element_style": "compact",
-                      "elements": elements,
-                      "buttons": [
-                        {
-                          "title": "Voir prochaine page",
-                          "type": "postback",
-                          "payload": ProductShowCart.getActionPostback(pageNb + 1)
-                        }
-                      ]
-                    }
-                  }
-                }
               })
 
+              const message = {
+                "attachment": {
+                  "type": "template",
+                  "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": elements
+
+                  }
+                }
+              }
+
+              if (hasMore) {
+                message.attachment.payload.buttons = [
+                  {
+                    "title": "Voir prochaine page",
+                    "type": "postback",
+                    "payload": ProductShowCart.getActionPostback(pageNb + 1)
+                  }
+                ]
+              }
+
+              reply({
+                message
+              })
 
               reply({
                 message: {
@@ -137,20 +138,14 @@ export default class ProductShowCart extends BaseAction {
                       "text": "Que voulez-vous faire ensuite?",
                       "buttons": [
                         {
-                          "type": "web_url",
-                          "url": cart.checkoutUrl,
-                          "title": "Proceder au payment",
-                          "webview_height_ratio": "tall"
+                          "title": "Soumettre la commande",
+                          "type": "postback",
+                          "payload": ProductConfirmOrder.getActionPostback()
                         },
                         {
+                          "title": "Continuer à magasiner",
                           "type": "postback",
-                          "title": "Retour aux produits",
-                          "payload": '//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}'
-                        },
-                        {
-                          "type": "postback",
-                          "title": "Email le recu",
-                          "payload": 'EMAIL'
+                          "payload": ProductViewProducts.getActionPostback()
                         }
                       ]
                     }
