@@ -24,7 +24,6 @@ const handle = ({payload, reply, senderId}) => {
   let customerData = {'sender_id': senderId}
   getCustomer(customerData)
     .catch(err => {
-      console.log(err)
       return createCustomer(customerData)
         .then(customerId => {
           return getCustomer(customerData)

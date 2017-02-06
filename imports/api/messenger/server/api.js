@@ -1,15 +1,4 @@
 import Bot from './Bot'
-/*
-("/messenger", function(req, res, next) {
-
-  listProduct()
-    .then((products) => {
-      res.writeHead(200);
-      res.end("Hello world from: " + Meteor.release);
-    })
-
-});*/
-
 
 WebApp.connectHandlers.use('/messenger', (req, res) => {
   if (req.method == 'GET') {

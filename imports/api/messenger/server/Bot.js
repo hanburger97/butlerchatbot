@@ -22,7 +22,7 @@ bot.setGetStartedButton([
 bot.setPersistentMenu([
   {
     "type": "postback",
-    "title": "Voir services",
+    "title": "Menu principal",
     "payload": "START"
   },
   {
