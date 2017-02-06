@@ -1,43 +1,5 @@
 [
   {
-    "trigger": "START",
-    "response": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [
-            {
-              "title": "Bonjour, que puis-je faire pour vous aujourd'hui?",
-              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484877846/71-v-Appartements_a_louer_a_Griffintown__Location_Hexagone_vpq0eh.jpg",
-              "subtitle": "",
-              "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Voir les services",
-                  "payload": "SERVICES"
-                },
-                {
-                  "type": "postback",
-                  "title": "Comment ça marche?",
-                  "payload": "HOW_IT_WORKS"
-                },
-                {
-                  "type": "postback",
-                  "title": "Appeler",
-                  "payload": "CALL"
-                }
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "action": {
-      "operation": "RecordUser"
-    }
-  },
-  {
     "trigger": "SERVICES",
     "response": {
       "attachment": {
@@ -100,9 +62,9 @@
                   "payload": "M_REQUEST"
                 },
                 {
-                  "type":"phone_number",
-                  "title":"Appeler",
-                  "payload":"+15143484966"
+                  "type": "phone_number",
+                  "title": "Appeler",
+                  "payload": "+15143484966"
                 }
               ]
             },
@@ -193,14 +155,13 @@
     }
   },
   {
-    "trigger":"EMAIL",
-    "response":{
-      "text":"Veuillez entrer votre addresse courriel"
+    "trigger": "EMAIL",
+    "response": {
+      "text": "Veuillez entrer votre addresse courriel"
     },
-    "action":{
-      "operation":"RecordEmail"
+    "action": {
+      "operation": "RecordEmail"
     }
-
   },
   {
     "trigger": "CHECKOUT",
@@ -645,5 +606,4 @@
     },
     "action": {}
   }
-
 ]

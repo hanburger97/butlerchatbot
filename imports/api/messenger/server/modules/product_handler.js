@@ -1,4 +1,4 @@
-import {BaseHandler} from './handlers'
+import {BaseHandler} from './base_handler'
 import {ProductShowCart, ProductUpdateQuantity, ProductAddToCart, ProductViewProducts} from './actions'
 
 class ProductHandler extends BaseHandler {

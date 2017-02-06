@@ -1,8 +1,9 @@
 import Bot from './Bot'
 
 import {get as getCustomer, create as createCustomer} from '/imports/api/customers/server/methods'
-import productHandler from './modules/productHandler'
-import defaultHandler from './modules/default'
+import productHandler from './modules/product_handler'
+import defaultHandler from './modules/default_handler'
+import gettingStartedHandler from './modules/getting_started_handler'
 
 Bot.on('message', (args) => {
   handle(args)
@@ -21,21 +22,32 @@ const handle = ({payload, reply, senderId}) => {
     queryUrl = payload.message.quick_reply.payload
   }
 
-  let customerData = {'sender_id': senderId}
+  const customerData = {'sender_id': senderId}
+
   getCustomer(customerData)
     .catch(err => {
-      return createCustomer(customerData)
-        .then(customerId => {
-          return getCustomer(customerData)
+      return Bot.getProfile(senderId)
+        .then(profile => {
+          return createCustomer(Object.assign({metadata: profile}, customerData))
+            .then(() => {
+              return getCustomer(customerData)
+            })
         })
     })
     .then(customer => {
-      productHandler.handle({payload, reply, senderId, customer, queryUrl})
+
+      return productHandler.handle({payload, reply, senderId, customer, queryUrl})
         .catch(err => {
           if (err) {
             throw err
           }
-          return defaultHandler.handle({payload, reply, senderId, customer, queryUrl})
+          return gettingStartedHandler.handle({payload, reply, senderId, customer, queryUrl})
+            .catch(err => {
+              if (err) {
+                throw err
+              }
+              return defaultHandler.handle({payload, reply, senderId, customer, queryUrl})
+            })
         })
     })
     .catch(err => {
@@ -47,3 +59,5 @@ const handle = ({payload, reply, senderId}) => {
 
     })
 }
+
+

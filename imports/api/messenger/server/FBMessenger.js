@@ -51,7 +51,7 @@ class Bot extends EventEmitter {
           return cb(body.error)
         }
 
-
+        resolve(body)
         return cb(null, body)
       })
     })

@@ -1,4 +1,4 @@
-import {BaseHandler} from './handlers'
+import {BaseHandler} from './base_handler'
 import Responses from '/imports/api/messenger/Responses'
 import Postbacks from '/imports/api/messenger/Postbacks'
 import Rooms from '/imports/api/rooms/Rooms'
