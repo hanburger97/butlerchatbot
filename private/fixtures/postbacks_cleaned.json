@@ -42,7 +42,7 @@
                 {
                   "type": "postback",
                   "title": "Bières et vins",
-                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"beer\"}"
+                  "payload": "Bières et vins"
                 },
                 {
                   "type": "postback",
@@ -617,7 +617,7 @@
             {
               "title": "Prêt-à-manger maison Alexis le Gourmand.",
               "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -629,7 +629,7 @@
             {
               "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
               "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -641,7 +641,7 @@
             {
               "title": "Produits fins du terroir",
               "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -653,19 +653,19 @@
             {
               "title": "Bières de microbrasserie et vins artisanaux",
               "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
               "buttons": [
                 {
                   "type": "postback",
                   "title": "Voir Produit",
-                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"bière\"}"
+                  "payload": "Bières et vins"
                 }
               ]
             },
             {
               "title": "Autre produits Alexis le Gourmand",
               "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -677,7 +677,7 @@
             {
               "title": "Boissons gazeuses locales",
               "subtitle": "Brassées à Montréal dans un style artisanal.",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -689,7 +689,7 @@
             {
               "title": "Croustilles et craquelins",
               "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -701,7 +701,7 @@
             {
               "title": "Pâtes alimentaires italiennes",
               "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -713,7 +713,7 @@
             {
               "title": "Produits ménagers écologiques",
               "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -725,7 +725,7 @@
             {
               "title": "Thés et infusions",
               "subtitle": "En fonction le 13 Février.",
-              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
               "buttons": [
                 {
                   "type": "postback",
@@ -881,6 +881,67 @@
       ]
     }
 
+  },
+  {
+    "trigger":"Bières et vins",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
   }
 
 ]
