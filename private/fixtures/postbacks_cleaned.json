@@ -36,7 +36,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Alimentation Maison",
+                  "title": "Prêt-à-manger",
                   "payload": "//SHOW_PRODUCTS/{\"vendor\":\"Alimentation maison\"}"
                 },
                 {
@@ -46,8 +46,8 @@
                 },
                 {
                   "type": "postback",
-                  "title": "Alexis le Gourmand",
-                  "payload": "//SHOW_PRODUCTS/{\"vendor\":\"Alexis le gourmand\"}"
+                  "title": "Épicerie fine",
+                  "payload": "Épicerie fine"
                 }
               ]
             },
@@ -605,5 +605,282 @@
       }
     },
     "action": {}
+  },
+  {
+    "trigger":"Épicerie fine",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"bière\"}"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://trickvilla.com/wp-content/uploads/Wood-Background-Photo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produit",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"Boucherie",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Boeuf AAA du Québec vieilli 14 jours:",
+              "subtitle":"Élevage responsable, sans hormone ni médicament, nourris à l'herbe et au foin",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955807/SBOE981_Filet_mognon_9_oz_mt3lbj.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"boeuf\"}"
+                }
+              ]
+            },
+            {
+              "title":"Poulet 100% grain végétal ( Ferme des voltigeurs )",
+              "subtitle":"Plus savoureux, nourris au grain, conserve son poids et forme après",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955993/SPOU173_Poulet_entier_xfynf5.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"poulet\"}"
+                }
+              ]
+            },
+            {
+              "title":"Saucisses artisanales naturelles sans gluten",
+              "subtitle":"Fournies par les cochonailles, 2 fois moins de gras que les saucisses ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484956012/SSAU100_Saucisses_italiennes_douces_qcnxlt.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"saucisses\"}"
+                }
+              ]
+            },
+            {
+              "title":"Canard du Québec ( Lac Brome et Chez Rougié )",
+              "subtitle":"chez Rougié: sans hormones ni antibiotiques, gavé de mais et d'eau ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955827/SCAN601_Foie_gras_de_canard_Rougie_olf6ks.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"canard\"}"
+                }
+              ]
+            },
+            {
+              "title":"Poissons de pêcheries durables et responsables",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955890/SPOI100_Filet_de_saumon_de_latlantique_czzo0o.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les poissons",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"poissons\"}"
+                }
+              ]
+            },
+            {
+              "title":"Fruits de Mer de pêcheries durables",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955873/SMER151_Crevettes_blanches_31_40_crues_deveinees_et_decortiquees_ncfghi.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir fruits de mer",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"fruits de mer\"}"
+                }
+              ]
+            },
+            {
+              "title":"Veau de grain du Québec",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484956061/SVEA500_Jarrets_de_veau_axs2kb.jpg",
+              "subtitle":"Chez Bruno Guillet, le veau est nourri de grain végétal, sans antibiotique.",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"veau\"}"
+                }
+              ]
+            },
+            {
+              "title":"Porc d'élevage traditionnel du Québec",
+              "subtitle":"duBreton: Sans antibitiotiques ni sous-produit animal, certifié Agro-Com.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"porct\"}"
+                }
+              ]
+            },
+            {
+              "title":"Agneau du Québec",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"agneau\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "postback":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "postback":"//SHOW_CART/"
+        }
+      ]
+    }
+
   }
+
 ]
