@@ -1,1 +1,2 @@
 import './shopify'
+import './customer'

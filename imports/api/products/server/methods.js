@@ -36,17 +36,6 @@ export const getFromVarId = (id) => (
   })
 )
 
-export const cartPaging = (nb, total) => {
-  //nb += 1
-  if (total <= 4)
-    return total
-  var pl = total - (nb * 4)
-  if (pl <= 4)
-    return pl
-  else
-    return 4
-}
-
 export const get2 = (id) => (
   ShopifyClient.fetchProduct(id)
     .then(productWrapper => {

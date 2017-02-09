@@ -1,4 +1,4 @@
-import {BaseHandler} from './handlers'
+import {BaseHandler} from './base_handler'
 import Responses from '/imports/api/messenger/Responses'
 import Postbacks from '/imports/api/messenger/Postbacks'
 import Rooms from '/imports/api/rooms/Rooms'
@@ -84,7 +84,7 @@ class DefaultModule extends BaseHandler {
         customer.save()
         reply({
           message: {
-            'text': 'Parfait! Votre recu serait envoye a votre courriel', quick_replies: [
+            'text': 'Parfait! Votre recu sera envoyé à votre courriel', quick_replies: [
               {
                 content_type: "text",
                 title: "Retour aux produits",

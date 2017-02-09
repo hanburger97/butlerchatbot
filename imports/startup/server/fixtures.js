@@ -4,16 +4,10 @@ import {Migrations} from 'meteor/percolate:migrations'
  * Fill the DB with example data on startup
  */
 
+/*
 Migrations.add({
   version: 2,
   up: function () {
-    const postbacks = JSON.parse(Assets.getText('fixtures/postbacks_cleaned.json'))
-
-    const postbacksCollection = new Meteor.Collection('postbacks', {_suppressSameNameError: true})
-    postbacksCollection.remove({})
-    postbacks.forEach((postback) => {
-      postbacksCollection.insert(postback)
-    })
 
     const responses = JSON.parse(Assets.getText('fixtures/responses_cleaned.json'))
 
@@ -31,6 +25,23 @@ Migrations.add({
       roomsCollection.insert(room)
     })
 
+  }
+});
+*/
+
+Migrations.add({
+  version: 3,
+  up: function () {
+    const postbacks = JSON.parse(Assets.getText('fixtures/postbacks_cleaned.json'))
+
+    const postbacksCollection = new Meteor.Collection('postbacks', {_suppressSameNameError: true})
+    postbacksCollection.remove({})
+    postbacks.forEach((postback) => {
+      postbacksCollection.insert(postback)
+    })
+
+    const customersCollection = new Meteor.Collection('customers', {_suppressSameNameError: true})
+    customersCollection.remove({})
 
 
   }

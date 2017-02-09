@@ -74,7 +74,19 @@ export default class ProductViewProducts extends BaseAction {
                       "template_type": "generic",
                       "elements": elements
                     }
-                  }
+                  },
+                  "quick_replies":[
+                    {
+                      "content_type":"text",
+                      "title":"Retour au menu",
+                      "payload":"SERVICE"
+                    },
+                    {
+                      "content_type":"text",
+                      "title":"Voir mon panier",
+                      "payload":"//SHOW_CART/"
+                    }
+                  ]
                 }
               })
 

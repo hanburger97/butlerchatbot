@@ -1,5 +1,5 @@
-import {BaseHandler} from './handlers'
-import {ProductShowCart, ProductUpdateQuantity, ProductAddToCart, ProductViewProducts} from './actions'
+import {BaseHandler} from './base_handler'
+import {ProductShowCart, ProductUpdateQuantity, ProductAddToCart, ProductViewProducts, ProductConfirmOrder} from './actions'
 
 class ProductHandler extends BaseHandler {
   constructor() {
@@ -9,7 +9,8 @@ class ProductHandler extends BaseHandler {
       new ProductShowCart(),
       new ProductUpdateQuantity(),
       new ProductAddToCart(),
-      new ProductViewProducts()
+      new ProductViewProducts(),
+      new ProductConfirmOrder()
     ]
   }
 

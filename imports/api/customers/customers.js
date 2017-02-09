@@ -1,6 +1,8 @@
 import Collection from '/imports/lib/Collection'
 import Model from '/imports/lib/Model'
 import {get as getCart, create as createCart} from '/imports/api/carts/server/methods'
+import {get as getShopifyAddresses} from '/imports/api/shopify/server/customer_address'
+
 
 class Customers extends Collection {
   constructor() {
@@ -28,8 +30,12 @@ class Customer extends Model {
       })
   }
 
-}
+  getAddresses() {
+    const _this = this
+    return getShopifyAddresses(_this.shopify.id)
+  }
 
+}
 
 
 const customersCollection = new Customers()
