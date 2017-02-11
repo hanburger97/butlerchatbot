@@ -83,7 +83,19 @@ export default class ProductShowCart extends BaseAction {
                       ]
 
                     }
-                  }
+                  },
+                  "quick_replies": [
+                    {
+                      content_type: 'text',
+                      title: 'Soumettre la commande',
+                      payload: ProductConfirmOrder.getActionPostback()
+                    },
+                    {
+                      content_type: 'text',
+                      title: 'Continuer à magasiner',
+                      payload: ProductViewProducts.getActionPostback()
+                    }
+                  ]
                 }
 
               })
@@ -134,12 +146,26 @@ export default class ProductShowCart extends BaseAction {
                   }
                 ]
               }
+              message.quick_replies = [
+                {
+                  content_type: 'text',
+                  title: 'Soumettre la commande',
+                  payload: ProductConfirmOrder.getActionPostback()
+                },
+                {
+                  content_type: 'text',
+                  title: 'Continuer à magasiner',
+                  payload: ProductViewProducts.getActionPostback()
+                }
+              ]
+
 
               reply({
                 message
               })
 
-              reply({
+              /*reply({
+
                 message: {
                   "attachment": {
                     "type": "template",
@@ -161,7 +187,7 @@ export default class ProductShowCart extends BaseAction {
                     }
                   }
                 }
-              })
+              })*/
             }
 
           })
