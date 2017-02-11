@@ -172,9 +172,7 @@
   },
   {
     "trigger": "SERVICE_ENTRETIEN",
-    "response": {
-      "text": "Veuillez entrer votre numéro d'appartement:"
-    },
+    "response": {},
     "action": {
       "operation": "RecordRoom"
     }

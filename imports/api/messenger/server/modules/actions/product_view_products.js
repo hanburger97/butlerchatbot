@@ -1,4 +1,5 @@
 import BaseAction from './BaseAction'
+import ProductUpdateQuantity from './product_update_quantity'
 import {ProductAddToCart} from './index'
 const SHOW_PRODUCTS = '//SHOW_PRODUCTS/'
 
@@ -80,6 +81,11 @@ export default class ProductViewProducts extends BaseAction {
                       "content_type":"text",
                       "title":"Retour au menu",
                       "payload":"SERVICE"
+                    },
+                    {
+                      "content_type":"text",
+                      "title":"Continuer Epicerie",
+                      "payload":"Épicerie fine"
                     },
                     {
                       "content_type":"text",

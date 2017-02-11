@@ -64,7 +64,7 @@ export default class ProductUpdateQuantity extends BaseAction {
     } else {
       return reply({
         message: {
-          text: "Veuillez choisir la quantité",
+          text: "Veuillez choisir la quantité que vous voulez",
           "quick_replies": [
             {
               "content_type": "text",
