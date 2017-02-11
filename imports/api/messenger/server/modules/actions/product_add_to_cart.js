@@ -14,12 +14,17 @@ export default class ProductAddToCart extends BaseAction {
 
   handle({payload, reply, senderId, customer, queryUrl}) {
 
-    let productId
+    //let productId
     let query = queryUrl.substring(PRODUCT_ADD_TO_CART.length)
 
     if (query) {
-      productId = JSON.parse(query).product_id
+      //productId = JSON.parse(query).product_id
+      query = JSON.parse(query)
+      if (!query.product_id){
+        throw new Meteor.Error('MISSING_PARAM','Missing parameter product_id')
+      }
     }
+    const productId = query.product_id
     const quantity = query.quantity
 
     if (quantity){
