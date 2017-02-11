@@ -40,6 +40,8 @@ export default class ProductShowCart extends BaseAction {
           })
 
           return Promise.all(promises).then(products => {
+            console.log(products)
+            console.log(lineItems)
             const pagesProducts = []
             let hasMore = false
             for (var i = pageNb * 4; i < products.length; i++) {
@@ -47,12 +49,18 @@ export default class ProductShowCart extends BaseAction {
                 hasMore = true
                 break
               }
-              pagesProducts.push(products[i])
+              console.log(products[0])
+              pagesProducts.push({
+                product:products[i],
+                lineItem: lineItems[i]
+              })
+              console.log(pagesProducts)
             }
 
             if (pagesProducts.length == 1) {
               // One item. Due to Facebook's limitation, we cannot send a list less than 2 items. Send a generic template instead
-              var product = pagesProducts[0]
+              var product = pagesProducts[0].product
+              var lineItem = pagesProducts[0].lineItem
               reply({
                 message: {
                   "attachment": {
@@ -63,7 +71,7 @@ export default class ProductShowCart extends BaseAction {
                         {
                           "title": product.title,
                           "image_url": product.images.length ? product.images[0].src : "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                          "subtitle": product.price,
+                          "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}`,
                           "buttons": [
                             {
                               "type": "postback",
@@ -82,7 +90,9 @@ export default class ProductShowCart extends BaseAction {
             } else {
 
               const elements = []
-              pagesProducts.forEach(product => {
+              pagesProducts.forEach(p => {
+                var product = p.product
+                var lineItem = p.lineItem
                 let img = ''
                 if (product.images && product.images.length > 0) {
                   img = product.images[0].src
@@ -92,7 +102,7 @@ export default class ProductShowCart extends BaseAction {
                 elements.push({
                   "title": product.title,
                   "image_url": img,
-                  "subtitle": product.price,
+                  "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}`,
                   "buttons": [
                     {
                       "type": "postback",
