@@ -11,6 +11,7 @@ class DefaultModule extends BaseHandler {
     this.recordRoom = []
     this.recordParking = []
     this.recordEmail = []
+    this.userInput = []
     this.stopAutoReply = false //When True, bot will not answer when message is undefined
     //     ^ stopAutoReply should be set to true when user click on a button that need to be followed up by a typed response
     //        (e.g. Entering room number) only then will the stopAutoReply be set to false to prevent the "i dont unserstand"
@@ -270,7 +271,8 @@ class DefaultModule extends BaseHandler {
                 _this.recordParking[senderId] = 'Yes'
                 _this.stopAutoReply = true
 
-
+              } else if (data.action && data.action.operation == 'RecordUserInput'){
+                _this.stopAutoReply = true
               } else if (data.action && data.action.operation == 'CarWashConfirm') {
                 reply({
                   message: {
