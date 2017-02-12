@@ -85,7 +85,8 @@ export default class ProductConfirmOrder extends BaseAction {
                                     {
                                       type:'web_url',
                                       title:'Passer a la caisse',
-                                      url: Meteor.absoluteUrl(`/charge/${orderId}`)
+                                      url: Meteor.absoluteUrl(`/charge/${orderId}`),
+                                      webview_height_ratio: 'large'
                                     },
                                     {
                                       type:'postback',
