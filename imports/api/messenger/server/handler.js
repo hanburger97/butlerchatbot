@@ -103,6 +103,7 @@ const handle = (args) => {
     })
     .catch(err => {
       if (process.env.DEBUG) {
+        debugger
         reply({message: {text: "DEBUG: Une erreur est survenue"}})
         reply({message: {text: err.message}})
       }

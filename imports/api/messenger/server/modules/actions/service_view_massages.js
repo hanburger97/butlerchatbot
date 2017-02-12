@@ -29,6 +29,7 @@ export default class ServiceViewMassages extends BaseAction {
            image_url: massage.image ? massage.image.src : 'https://placehold.it/100x75',
            buttons: [
              {
+               type:'postback',
                title: `${massage.variants[0].title} minutes (${massage.variants[0].price})`,
                payload: ProductAddToCart.getActionPostback(massage.id, {variantId:massage.variants[0].id, quantity:1})
              },
@@ -39,30 +40,31 @@ export default class ServiceViewMassages extends BaseAction {
              }
            ]
          })
-         return reply({
-           "message": {
-             "attachment": {
-               "type": "template",
-               "payload": {
-                 "template_type": "generic",
-                 "elements": elements
-               }
-             },
-             "quick_replies":[
-               {
-                 "content_type":"text",
-                 "title":"Retour au menu",
-                 "payload":"SERVICE"
-               },
-               {
-                 "content_type":"text",
-                 "title":"Voir mon panier",
-                 "payload":"//SHOW_CART/"
-               }
-             ]
-           }
-         })
 
+
+       })
+       return reply({
+         message: {
+           attachment: {
+             type: "template",
+             payload: {
+               template_type: "generic",
+               elements: elements
+             }
+           },
+           quick_replies:[
+             {
+               content_type:"text",
+               title:"Retour au menu",
+               payload:"SERVICE"
+             },
+             {
+               content_type:"text",
+               title:"Voir mon panier",
+               payload:"//SHOW_CART/"
+             }
+           ]
+         }
        })
 
      }).catch( err => {

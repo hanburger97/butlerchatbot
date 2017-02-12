@@ -29,6 +29,11 @@ class Customer extends Model {
           })
       })
   }
+  clearCart() {
+    const _this = this
+    _this.cart_id = null
+    _this.save()
+  }
 
   getAddresses() {
     const _this = this

@@ -68,7 +68,7 @@ export default class ProductConfirmOrder extends BaseAction {
                       subtotal: subtotal
                     }
                     console.log(order)
-
+                    customer.clearCart();
                     return createOrder(order)
                         .then(shopifyOrder => {
                           Orders.insert(shopifyOrder)

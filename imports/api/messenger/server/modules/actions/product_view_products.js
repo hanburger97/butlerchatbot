@@ -50,6 +50,7 @@ export default class ProductViewProducts extends BaseAction {
                     type: "postback",
                     title: "Ajouter à mon panier",
                     payload: ProductAddToCart.getActionPostback(product.id)
+
                   }]
                 })
               })

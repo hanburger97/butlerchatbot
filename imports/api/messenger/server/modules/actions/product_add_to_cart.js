@@ -4,8 +4,18 @@ import {get2 as getProduct2} from '/imports/api/products/server/methods'
 
 export default class ProductAddToCart extends BaseAction {
 
-  static getActionPostback(productId, {quantity = 0, variantId = null}) {
-    return PRODUCT_ADD_TO_CART + JSON.stringify({product_id: productId, variant_id: productId, quantity: quantity})
+  static getActionPostback(productId, options = {}) {
+    const {quantity, variantId} = options
+    let data = {product_id: productId}
+
+    if (quantity) {
+      data.quantity = quantity
+    }
+
+    if (variantId) {
+      data.variant_id = variantId
+    }
+    return PRODUCT_ADD_TO_CART + JSON.stringify(data)
   }
 
   canHandlePostback(postBack) {
@@ -27,18 +37,20 @@ export default class ProductAddToCart extends BaseAction {
     const productId = query.product_id
     const variantId = query.variant_id
     const quantity = query.quantity
+    //const type = query.vendor
 
     if (quantity && quantity != 0){
       return getProduct2(productId)
           .then(product => {
+            console.log(product)
             return customer.getCart()
                 .then(cart => {
 
                   if (variantId) {
                     let variant = null
 
-                    for (var i = 0; i < products.variants.length; i++) {
-                      const v = products.variants[i]
+                    for (var i = 0; i < product.variants.length; i++) {
+                      const v = product.variants[i]
                       if (v.id = variantId){
                         variant = v
                         break
@@ -47,15 +59,10 @@ export default class ProductAddToCart extends BaseAction {
                     product.variants = [variant]
                   }
                   cart.addProduct(product, quantity)
-                  return reply({
+                  var msg = {
                     message: {
                       "text": `(${quantity}) ${product.title} a/ont été ajouté à votre panier.`,
                       "quick_replies": [
-                        /*{
-                          "content_type": "text",
-                          "title": "Changer la quantité",
-                          "payload": ProductUpdateQuantity.getActionPostback(product.product_id)
-                        },*/
                         {
                           "content_type": "text",
                           "title": "Voir mon panier",
@@ -65,9 +72,18 @@ export default class ProductAddToCart extends BaseAction {
 
                       ]
                     }
-                  })
+                  }
+                  if (product.vendor == 'Massage'){
+                    msg.message.text += '\n Très bien, quand aimeriez-vous être traité? répondez comme vous voulez ( exemples: Jeudi le 18 novembre, un soir la semaine prochaine, ASAP, etc.).'
+                    
+                  }
+                  return reply(msg)
                 })
           })
+       .catch(err => {
+         debugger
+         console.log(err)
+       })
     }
     else{
       return reply({
