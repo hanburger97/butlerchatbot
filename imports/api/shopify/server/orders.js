@@ -40,9 +40,17 @@ const update = (orderId, data = {}) => {
   })
 }
 
-export const updateOrderCapture = (orderId) => {
+/*
+Not working.
+export const updateOrderCapture = (orderId, amount) => {
   return new Promise((resolve, reject) => {
-    ShopifyApi.post(`/admin/orders/${orderId}/transactions.json`, {"transaction": {kind: "capture"}},
+    ShopifyApi.put(`/admin/orders/${orderId}/transactions.json`,
+      {
+        "transaction": {
+          "amount": amount,
+          "kind": "capture"
+        }
+      },
       (error, response, headers) => {
         if (error) {
           reject(error)
@@ -55,3 +63,4 @@ export const updateOrderCapture = (orderId) => {
       return get(orderId)
     })
 }
+*/

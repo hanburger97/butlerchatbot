@@ -15,57 +15,56 @@
   {{#if order}}
     {{#with order}}
 
-      {{#if eq data.financial_status 'paid'}}
-      {{else}}
+      <div class='row' style='padding-top:25px; padding-bottom:25px;'>
+        <div class='col-md-12'>
+          <div id='mainContentWrapper'>
+            <div class="col-md-8 col-md-offset-2">
+              <h2 style="text-align: center;">
+                Concierge Albert commande {{data.name}}
+              </h2>
+              <hr/>
+              <div class="shopping_cart">
+                <form class="form-horizontal" id="payment-form" data-parsley-validate="">
+                  <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Votre commande</a>
+                        </h4>
+                      </div>
+                      <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                          <div class="items">
+                            <div class="col-md-9">
+                              <table class="table table-striped">
 
-
-        <div class='row' style='padding-top:25px; padding-bottom:25px;'>
-          <div class='col-md-12'>
-            <div id='mainContentWrapper'>
-              <div class="col-md-8 col-md-offset-2">
-                <h2 style="text-align: center;">
-                  Concierge Albert commande {{data.name}}
-                </h2>
-                <hr/>
-                <div class="shopping_cart">
-                  <form class="form-horizontal" id="payment-form" data-parsley-validate="">
-                    <div class="panel-group" id="accordion">
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Votre commande</a>
-                          </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                          <div class="panel-body">
-                            <div class="items">
-                              <div class="col-md-9">
-                                <table class="table table-striped">
-
-                                  <tr>
-                                    <td>
-                                      <ul>
-                                        {{#each data.line_items}}
-                                          <li>{{quantity}} x {{title}}</li>
-                                        {{/each}}
-                                      </ul>
-                                    </td>
-                                  </tr>
-                                </table>
-                              </div>
-                              <div class="col-md-3">
-                                <div style="text-align: center;">
-                                  <h3>Total</h3>
-                                  <h3><span style="color:green;">{{data.total_price}}$</span></h3>
-                                </div>
+                                <tr>
+                                  <td>
+                                    <ul>
+                                      {{#each data.line_items}}
+                                        <li>{{quantity}} x {{title}}</li>
+                                      {{/each}}
+                                    </ul>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                            <div class="col-md-3">
+                              <div style="text-align: center;">
+                                <h3>Total</h3>
+                                <h3><span style="color:green;">{{data.total_price}}$</span></h3>
                               </div>
                             </div>
                           </div>
                         </div>
-
                       </div>
-                    </div>
 
+                    </div>
+                  </div>
+
+                  {{#if eq status 'paid'}}
+                    Merci, votre commande a été payée.
+                  {{else}}
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
@@ -150,19 +149,20 @@
                         </div>
                       </div>
                     </div>
-                  </form>
-                </div>
+                  {{/if}}
+
+                </form>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <script type="text/javascript">
-          Stripe.setPublishableKey("{{settings 'public.stripe.publishable_key'}}");
-          $('#payment-form').parsley();
-        </script>
+      <script type="text/javascript">
+        Stripe.setPublishableKey("{{settings 'public.stripe.publishable_key'}}");
+        $('#payment-form').parsley();
+      </script>
 
-      {{/if}}
     {{/with}}
 
   {{else}}

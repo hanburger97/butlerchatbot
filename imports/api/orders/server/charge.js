@@ -1,7 +1,6 @@
 import Orders from '../orders'
 import Charges from '/imports/api/stripe/charges/charges'
 import {create as createStripeCharge} from '/imports/api/stripe/charges/methods'
-import {updateOrderCapture} from '/imports/api/shopify/server/orders'
 import Customers from '/imports/api/customers/customers'
 
 import {update as updateStripeCustomer} from '/imports/api/stripe/customers'
@@ -27,10 +26,8 @@ Meteor.methods({
                       .then(charge => {
                         return Charges.insert({customer_id: order.customer_id, order_id: order._id, data: charge})
                           .then(() => {
-                            return updateOrderCapture(order.data.id)
-                          })
-                          .then(shopifyOrder => {
-                            return Orders.update({'data.id': shopifyOrder.id}, {$set: {data: shopifyOrder}})
+                            order.set('status', 'paid')
+                            return order.save()
                           })
                       })
                   })
