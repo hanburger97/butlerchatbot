@@ -60,7 +60,6 @@ export default class ProductConfirmOrder extends BaseAction {
                       shipping_address: addresses[0],
                       financial_status: 'authorized',
                       processing_method: "direct",
-                      note_attributes: note,
                       gateway: 'stripe',
                       test:true,
                       customer: {
@@ -69,7 +68,7 @@ export default class ProductConfirmOrder extends BaseAction {
                       subtotal: subtotal
                     }
                     console.log(order)
-
+                    customer.clearCart();
                     return createOrder(order)
                         .then(shopifyOrder => {
                           Orders.insert({customer_id: customer._id, data: shopifyOrder})
@@ -101,7 +100,6 @@ export default class ProductConfirmOrder extends BaseAction {
 
             })
       })
-
       return promise
     } else {
       return reply({

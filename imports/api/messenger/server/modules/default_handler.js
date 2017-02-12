@@ -152,35 +152,33 @@ class DefaultModule extends BaseHandler {
           })
       } else if (payload.message && payload.message.text) {
         payload.message.text = payload.message.text.toLowerCase();
-        let words = payload.message.text.split(' ');
-        let words2 = payload.message.text.split(' ');
+        const words = payload.message.text.split(' ');
+        //let words2 = payload.message.text.split(' ');
         //console.log(words);
-
-        let r = [];
+        let r = 0;
         for (let z = 0; z < words.length; z++) {
           let word = words[z];
+
           return Responses.findOne({trigger: word})
             .then((response) => {
               _this.stopAutoReply = false;
               if (response && response.action && response.action.operation == 'Timeout') {
                 let until = new Date(new Date().getTime() + (Number(response.action.value) * 1000));
                 _this.pausedUsers[senderId] = until;
-                reply({message: response.response});
-              } else if (data) {
-                reply({message: response.response});
+                return reply({message: response.response});
+              } else if (response) {
+                return reply({message: response.response});
 
               }
             })
             .catch(err => {
               console.log(err.message)
               if (!_this.stopAutoReply) {
-                console.log('No data');
-                r.push('a');
-                console.log("r is " + r);
-                console.log('words2 is ' + words2);
-                if (r.length == words2.length) {
-                  console.log("NO REPLY");
-                  reply({
+                r += 1
+                console.log(`Words is ${words}`);
+                if (r == words.length) {
+                  console.log("None of the words are defined");
+                  return reply({
                     message: {
                       text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
                       quick_replies: [
@@ -296,17 +294,14 @@ class DefaultModule extends BaseHandler {
 
 
               } else if (data.action && data.action.operation == 'RecordRoom') {
-                if (!customer.room) {
-                  _this.recordRoom[senderId] = 'Yes'
-                  _this.stopAutoReply = true
-                } else {
-                  reply({
+
+                  return reply({
                     message: {
                       attachment: {
                         type: "template",
                         payload: {
                           template_type: "button",
-                          text: `Veuillez confirmer que votre numéro de porte est le ${customer.room}.`,
+                          text: `Je suis sur place du Lundi au Mercredi, de 7h00 à 18h00, pour faire le ménage des appartements, en n'utilisant que des produits nettoyants locaux et éco-responsables. Veuillez confirmer que votre numéro de porte est le ${customer.room}.`,
                           buttons: [
                             {
                               type: "postback",
@@ -323,7 +318,7 @@ class DefaultModule extends BaseHandler {
                       }
                     }
                   })
-                }
+
 
 
               } else if (data.action && data.action.operation == 'ChangeRoom') {
@@ -343,25 +338,20 @@ class DefaultModule extends BaseHandler {
 
                     let msg =
                       {
-                        attachment: {
-                          type: "template",
-                          payload: {
-                            template_type: "button",
-                            text: `Le prix pour l'entretien ménager de la porte ${JSON.stringify(foundRoom.nb)} est de ${JSON.stringify(foundRoom.price)}$. Voulez-vous passer une commande? Celle-ci serait validée par un humain.`,
-                            buttons: [
-                              {
-                                type: "postback",
-                                title: "Commander",
-                                payload: "ENTRETIEN_FINISH"
-                              },
-                              {
-                                type: "postback",
-                                title: "Retour au menu",
-                                payload: "SERVICES"
-                              }
-                            ]
+                        text: `${customer.metadata.first_name}, Le prix d'un ménage régulier dans votre appartement: ${JSON.stringify(foundRoom.nb)} est de ${JSON.stringify(foundRoom.price)}$. Aimeriez-vous en prévoir un?`,
+                        quick_replies:[
+                          {
+                            content_type: 'text',
+                            title: 'Oui',
+                            payload: 'ENTRETIEN_FINISH'
+                          },
+                          {
+                            content_type: 'text',
+                            title: 'Non',
+                            payload: 'ENTRETIEN_CANCEL'
                           }
-                        }
+                        ],
+
                       }
                     reply({message: msg})
                     customer.set('cart', customer.cart.concat([foundRoom.price]))

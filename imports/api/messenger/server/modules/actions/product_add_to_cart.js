@@ -4,8 +4,18 @@ import {get2 as getProduct2} from '/imports/api/products/server/methods'
 
 export default class ProductAddToCart extends BaseAction {
 
-  static getActionPostback(productId) {
-    return PRODUCT_ADD_TO_CART + JSON.stringify({product_id: productId})
+  static getActionPostback(productId, options = {}) {
+    const {quantity, variantId} = options
+    let data = {product_id: productId}
+
+    if (quantity) {
+      data.quantity = quantity
+    }
+
+    if (variantId) {
+      data.variant_id = variantId
+    }
+    return PRODUCT_ADD_TO_CART + JSON.stringify(data)
   }
 
   canHandlePostback(postBack) {
@@ -25,23 +35,34 @@ export default class ProductAddToCart extends BaseAction {
       }
     }
     const productId = query.product_id
+    const variantId = query.variant_id
     const quantity = query.quantity
+    //const type = query.vendor
 
-    if (quantity){
+    if (quantity && quantity != 0){
       return getProduct2(productId)
           .then(product => {
+            console.log(product)
             return customer.getCart()
                 .then(cart => {
+
+                  if (variantId) {
+                    let variant = null
+
+                    for (var i = 0; i < product.variants.length; i++) {
+                      const v = product.variants[i]
+                      if (v.id = variantId){
+                        variant = v
+                        break
+                      }
+                    }
+                    product.variants = [variant]
+                  }
                   cart.addProduct(product, quantity)
-                  return reply({
+                  var msg = {
                     message: {
-                      "text": `(${quantity}) ${product.title} a été ajouté à votre panier.`,
+                      "text": `(${quantity}) ${product.title} a/ont été ajouté à votre panier.`,
                       "quick_replies": [
-                        /*{
-                          "content_type": "text",
-                          "title": "Changer la quantité",
-                          "payload": ProductUpdateQuantity.getActionPostback(product.product_id)
-                        },*/
                         {
                           "content_type": "text",
                           "title": "Voir mon panier",
@@ -51,9 +72,30 @@ export default class ProductAddToCart extends BaseAction {
 
                       ]
                     }
-                  })
+                  }
+                  if (product.vendor == 'Massage'){
+                    msg.message.quick_replies = msg.message.quick_replies.concat([
+                     {
+                      content_type:'text',
+                      title: 'Selectioner une preference de temps',
+                      payload: 'MASSAGE_TIME'
+                    },{
+                      content_type: 'text',
+                      title:'Voir thérapeutes',
+                      payload: 'MASSAGE_THERAPEUTES'
+                    },{
+                      content_type: 'text',
+                      title:'Retour aux massages',
+                      payload: '//SHOW_MASSAGES/{"vendor":"Massage"}'
+                    }])
+                  }
+                  return reply(msg)
                 })
           })
+       .catch(err => {
+
+         console.log(err)
+       })
     }
     else{
       return reply({
@@ -68,52 +110,52 @@ export default class ProductAddToCart extends BaseAction {
             {
               "content_type": "text",
               "title": "1",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 1}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:1}),
             },
             {
               "content_type": "text",
               "title": "2",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 2}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:2}),
             },
             {
               "content_type": "text",
               "title": "3",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 3}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:3}),
             },
             {
               "content_type": "text",
               "title": "4",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 4}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:4}),
             },
             {
               "content_type": "text",
               "title": "5",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 5}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:5}),
             },
             {
               "content_type": "text",
               "title": "6",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 6}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity: 6})
             },
             {
               "content_type": "text",
               "title": "7",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 7}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:7}),
             },
             {
               "content_type": "text",
               "title": "8",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 8}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:8}),
             },
             {
               "content_type": "text",
               "title": "9",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 9}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:9}),
             },
             {
               "content_type": "text",
               "title": "10",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 10}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:10}),
             },
           ]
         }

@@ -1,5 +1,4 @@
 import BaseAction from './BaseAction'
-import ProductUpdateQuantity from './product_update_quantity'
 import {ProductAddToCart} from './index'
 const SHOW_PRODUCTS = '//SHOW_PRODUCTS/'
 
@@ -51,6 +50,7 @@ export default class ProductViewProducts extends BaseAction {
                     type: "postback",
                     title: "Ajouter à mon panier",
                     payload: ProductAddToCart.getActionPostback(product.id)
+
                   }]
                 })
               })
