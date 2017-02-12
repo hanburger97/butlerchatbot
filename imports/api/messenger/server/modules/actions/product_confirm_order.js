@@ -58,7 +58,7 @@ export default class ProductConfirmOrder extends BaseAction {
                       line_items: lineItems,
                       note:`Jour de livraison: ${day}`,
                       shipping_address: addresses[0],
-                      financial_status: 'pending',
+                      financial_status: 'authorized',
                       processing_method: "direct",
                       note_attributes: note,
                       gateway: 'stripe',
@@ -72,7 +72,7 @@ export default class ProductConfirmOrder extends BaseAction {
 
                     return createOrder(order)
                         .then(shopifyOrder => {
-                          Orders.insert(shopifyOrder)
+                          Orders.insert({customer_id: customer._id, data: shopifyOrder})
 
                         })
                         .then(

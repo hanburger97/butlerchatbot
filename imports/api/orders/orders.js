@@ -18,3 +18,5 @@ class Order extends Model {
 const ordersCollection = new Orders()
 
 export default ordersCollection
+
+Albert.Collections.Orders = ordersCollection

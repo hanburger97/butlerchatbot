@@ -1,0 +1,172 @@
+<template name="charge">
+
+  {{#if Template.subscriptionsReady}}
+
+    {{> chargePresenter order=order}}
+
+  {{else}}
+    Chargement...
+  {{/if}}
+
+</template>
+
+<template name="chargePresenter">
+
+  {{#if order}}
+    {{#with order}}
+
+      {{#if eq data.financial_status 'paid'}}
+      {{else}}
+
+
+        <div class='row' style='padding-top:25px; padding-bottom:25px;'>
+          <div class='col-md-12'>
+            <div id='mainContentWrapper'>
+              <div class="col-md-8 col-md-offset-2">
+                <h2 style="text-align: center;">
+                  Concierge Albert commande {{data.name}}
+                </h2>
+                <hr/>
+                <div class="shopping_cart">
+                  <form class="form-horizontal" id="payment-form" data-parsley-validate="">
+                    <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Votre commande</a>
+                          </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                          <div class="panel-body">
+                            <div class="items">
+                              <div class="col-md-9">
+                                <table class="table table-striped">
+
+                                  <tr>
+                                    <td>
+                                      <ul>
+                                        {{#each data.line_items}}
+                                          <li>{{quantity}} x {{title}}</li>
+                                        {{/each}}
+                                      </ul>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                              <div class="col-md-3">
+                                <div style="text-align: center;">
+                                  <h3>Total</h3>
+                                  <h3><span style="color:green;">{{data.total_price}}$</span></h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a>
+                            <b>Informations de paiement</b>
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="payInfo" class="panel">
+                        <div class="panel-body">
+                          <span class='payment-errors'></span>
+                          <fieldset>
+                            <legend>Quelle méthode de paiement désirez-vous utiliser?</legend>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="card-number">
+                                Numéro de carte de crédit</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" stripe-data="number"
+                                       id="card-number" placeholder="Numéro de carte de crédit"
+                                       required="required" data-parsley-creditcard=""
+                                >
+                                <br/>
+                                <div><img class="pull-right"
+                                          src="https://s3.amazonaws.com/hiresnetwork/imgs/cc.png"
+                                          style="max-width: 250px; padding-bottom: 20px;">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label" for="expiry-month" required="required">
+                                  Date d'expiration</label>
+                                <div class="col-sm-9">
+                                  <div class="row">
+                                    <div class="col-xs-3">
+                                      <select class="form-control col-sm-2"
+                                              data-stripe="exp-month" id="card-exp-month"
+                                              style="margin-left:5px;">
+                                        <option>Mois</option>
+                                        <option value="01">Janvier (01)</option>
+                                        <option value="02">Février (02)</option>
+                                        <option value="03">Mars (03)</option>
+                                        <option value="04">Avril (04)</option>
+                                        <option value="05">Mai (05)</option>
+                                        <option value="06">Juin (06)</option>
+                                        <option value="07">Juillet (07)</option>
+                                        <option value="08">Août (08)</option>
+                                        <option value="09">Septembre (09)</option>
+                                        <option value="10">Octobre (10)</option>
+                                        <option value="11">Novembre (11)</option>
+                                        <option value="12">Décembre (12)</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-xs-3">
+                                      <select class="form-control" data-stripe="exp-year"
+                                              id="card-exp-year">
+
+                                        {{#each expYears}}
+                                          <option value="{{this}}">{{this}}</option>
+                                        {{/each}}
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label" for="cvv" data-parsley-cvv="" type="tel">Code
+                                  CVC</label>
+                                <div class="col-sm-3">
+                                  <input type="text" class="form-control" stripe-data="cvc"
+                                         id="card-cvc" placeholder="Code CVC" required="required">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                </div>
+                              </div>
+                            </div>
+                          </fieldset>
+                          <button type="submit" class="btn btn-success btn-lg" style="width:100%;">
+                            Payer
+                          </button>
+                          <br/>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          Stripe.setPublishableKey("{{settings 'public.stripe.publishable_key'}}");
+          $('#payment-form').parsley();
+        </script>
+
+      {{/if}}
+    {{/with}}
+
+  {{else}}
+    Il n'y a pas de commande avec ce ID
+  {{/if}}
+</template>
+

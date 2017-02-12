@@ -2,6 +2,7 @@ import Collection from '/imports/lib/Collection'
 import Model from '/imports/lib/Model'
 import {get as getCart, create as createCart} from '/imports/api/carts/server/methods'
 import {get as getShopifyAddresses} from '/imports/api/shopify/server/customer_address'
+import {get as getStripeCustomer, create as createStripeCustomer} from '/imports/api/stripe/customers'
 
 
 class Customers extends Collection {
@@ -33,6 +34,20 @@ class Customer extends Model {
   getAddresses() {
     const _this = this
     return getShopifyAddresses(_this.shopify.id)
+  }
+
+  getStripeCustomer() {
+    if (this.stripe_customer_id)
+      return getStripeCustomer(this.stripe_customer_id)
+
+    const self = this
+    // not yet a stripe customer
+    return createStripeCustomer({email: this.email})
+      .then(stripeCustomer => {
+        self.set('stripe_customer_id', stripeCustomer.id)
+        self.save()
+        return stripeCustomer
+      })
   }
 
 }
