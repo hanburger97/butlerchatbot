@@ -7,6 +7,7 @@ import {create as createShopifyCustomerAddress} from '/imports/api/shopify/serve
 
 import productHandler from './modules/product_handler'
 import defaultHandler from './modules/default_handler'
+import serviceHandler from './modules/service_handler'
 import gettingStartedHandler from './modules/getting_started_handler'
 
 Bot.on('message', (args) => {
@@ -85,12 +86,18 @@ const handle = (args) => {
           if (err) {
             throw err
           }
-          return gettingStartedHandler.handle(args2)
+          return serviceHandler.handle(args2)
             .catch(err => {
               if (err) {
                 throw err
               }
-              return defaultHandler.handle(args2)
+              return gettingStartedHandler.handle(args2)
+               .catch( err => {
+                 if (err){
+                   throw err
+                 }
+                 return defaultHandler.handle(args2)
+               })
             })
         })
     })

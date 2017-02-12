@@ -76,7 +76,7 @@
                 {
                   "type": "postback",
                   "title": "Massothérapie",
-                  "payload": "S_MASSAGE"
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
                 },
                 {
                   "type": "postback",
@@ -161,6 +161,19 @@
     },
     "action": {
       "operation": "RecordEmail"
+    }
+  },
+  {
+    "trigger": "ENTRETIEN_CANCEL",
+    "response": {
+      "text": "Parfait, Sachez que votre prix est sauvegardé pour votre prochaine commande, vous n'aurez plus à donner votre numéro de porte. Au plaisir de vous servir!",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
     }
   },
   {

@@ -296,17 +296,14 @@ class DefaultModule extends BaseHandler {
 
 
               } else if (data.action && data.action.operation == 'RecordRoom') {
-                if (!customer.room) {
-                  _this.recordRoom[senderId] = 'Yes'
-                  _this.stopAutoReply = true
-                } else {
-                  reply({
+
+                  return reply({
                     message: {
                       attachment: {
                         type: "template",
                         payload: {
                           template_type: "button",
-                          text: `Veuillez confirmer que votre numéro de porte est le ${customer.room}.`,
+                          text: `Je suis sur place du Lundi au Mercredi, de 7h00 à 18h00, pour faire le ménage des appartements, en n'utilisant que des produits nettoyants locaux et éco-responsables. Veuillez confirmer que votre numéro de porte est le ${customer.room}.`,
                           buttons: [
                             {
                               type: "postback",
@@ -323,7 +320,7 @@ class DefaultModule extends BaseHandler {
                       }
                     }
                   })
-                }
+
 
 
               } else if (data.action && data.action.operation == 'ChangeRoom') {
@@ -343,25 +340,20 @@ class DefaultModule extends BaseHandler {
 
                     let msg =
                       {
-                        attachment: {
-                          type: "template",
-                          payload: {
-                            template_type: "button",
-                            text: `Le prix pour l'entretien ménager de la porte ${JSON.stringify(foundRoom.nb)} est de ${JSON.stringify(foundRoom.price)}$. Voulez-vous passer une commande? Celle-ci serait validée par un humain.`,
-                            buttons: [
-                              {
-                                type: "postback",
-                                title: "Commander",
-                                payload: "ENTRETIEN_FINISH"
-                              },
-                              {
-                                type: "postback",
-                                title: "Retour au menu",
-                                payload: "SERVICES"
-                              }
-                            ]
+                        text: `${customer.metadata.first_name}, Le prix d'un ménage régulier dans votre appartement: ${JSON.stringify(foundRoom.nb)} est de ${JSON.stringify(foundRoom.price)}$. Aimeriez-vous en prévoir un?`,
+                        quick_replies:[
+                          {
+                            content_type: 'text',
+                            title: 'Oui',
+                            payload: 'ENTRETIEN_FINISH'
+                          },
+                          {
+                            content_type: 'text',
+                            title: 'Non',
+                            payload: 'ENTRETIEN_CANCEL'
                           }
-                        }
+                        ],
+
                       }
                     reply({message: msg})
                     customer.set('cart', customer.cart.concat([foundRoom.price]))

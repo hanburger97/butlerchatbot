@@ -37,10 +37,10 @@ export const getFromVarId = (id) => (
 )
 
 export const get2 = (id) => (
-  ShopifyClient.fetchProduct(id)
-    .then(productWrapper => {
-      return productWrapper.attrs
-    })
+ ShopifyClient.fetchProduct(id)
+  .then(productWrapper => {
+    return productWrapper.attrs
+  })
 )
 
 export const count = (query) => (

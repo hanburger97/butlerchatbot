@@ -60,7 +60,6 @@ export default class ProductConfirmOrder extends BaseAction {
                       shipping_address: addresses[0],
                       financial_status: 'pending',
                       processing_method: "direct",
-                      note_attributes: note,
                       gateway: 'stripe',
                       test:true,
                       customer: {
@@ -101,7 +100,6 @@ export default class ProductConfirmOrder extends BaseAction {
 
             })
       })
-
       return promise
     } else {
       return reply({

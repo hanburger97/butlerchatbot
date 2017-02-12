@@ -4,8 +4,8 @@ import {get2 as getProduct2} from '/imports/api/products/server/methods'
 
 export default class ProductAddToCart extends BaseAction {
 
-  static getActionPostback(productId) {
-    return PRODUCT_ADD_TO_CART + JSON.stringify({product_id: productId})
+  static getActionPostback(productId, variantId = null, quantity = 0) {
+    return PRODUCT_ADD_TO_CART + JSON.stringify({product_id: productId, variant_id: productId, quantity: quantity})
   }
 
   canHandlePostback(postBack) {
@@ -25,17 +25,31 @@ export default class ProductAddToCart extends BaseAction {
       }
     }
     const productId = query.product_id
+    const variantId = query.variant_id
     const quantity = query.quantity
 
-    if (quantity){
+    if (quantity && quantity != 0){
       return getProduct2(productId)
           .then(product => {
             return customer.getCart()
                 .then(cart => {
+
+                  if (variantId) {
+                    let variant = null
+
+                    for (var i = 0; i < products.variants.length; i++) {
+                      const v = products.variants[i]
+                      if (v.id = variantId){
+                        variant = v
+                        break
+                      }
+                    }
+                    product.variants = [variant]
+                  }
                   cart.addProduct(product, quantity)
                   return reply({
                     message: {
-                      "text": `(${quantity}) ${product.title} a été ajouté à votre panier.`,
+                      "text": `(${quantity}) ${product.title} a/ont été ajouté à votre panier.`,
                       "quick_replies": [
                         /*{
                           "content_type": "text",
