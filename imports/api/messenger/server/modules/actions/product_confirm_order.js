@@ -68,30 +68,44 @@ export default class ProductConfirmOrder extends BaseAction {
                       subtotal: subtotal
                     }
                     console.log(order)
-                    customer.clearCart();
                     return createOrder(order)
                         .then(shopifyOrder => {
-                          Orders.insert({customer_id: customer._id, data: shopifyOrder})
+                          return Orders.insert({customer_id: customer._id, data: shopifyOrder})
 
                         })
-                        .then(
-                            reply({
-                              message: {
-                                text: `Parfait, la livraison a votre porte se fera le ${day}, un lien pour le paiement a ete envoyer a votre courriel`,
-                                quick_replies:[
-                                  {
-                                    content_type: 'text',
-                                    title: 'Retour au menu',
-                                    payload: 'SERVICES'
-                                  },
-                                  {
-                                    content_type:'text',
-                                    title: 'Continuer dans Epicerie',
-                                    payload: 'Épicerie fine',
-                                  }
-                                ]
+                        .then(orderId => {
+                          reply({
+                            message: {
+                              attachment:{
+                                type:'template',
+                                payload:{
+                                  template_type:'button',
+                                  text: `Parfait, la livraison a votre porte se fera le ${day}, une copie de votre commande a ete envoyee a votre courriel`,
+                                  buttons :[
+                                    {
+                                      type:'web_url',
+                                      title:'Passer a la caisse',
+                                      url: Meteor.absoluteUrl(`/charge/${orderId}`)
+                                    },
+                                    {
+                                      type:'postback',
+                                      title:'Retour au menu',
+                                      payload:'SERVICES'
+                                    },
+                                    {
+                                      type:'postback',
+                                      title:'Continuer dans Epicerie',
+                                      payload:'Épicerie fine'
+                                    }
+                                  ]
+                                }
                               }
-                            })
+                            }
+                          })
+                           customer.clearCart();
+
+                         }
+
                         )
 
 
