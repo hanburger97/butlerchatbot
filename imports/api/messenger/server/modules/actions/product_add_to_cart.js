@@ -74,14 +74,26 @@ export default class ProductAddToCart extends BaseAction {
                     }
                   }
                   if (product.vendor == 'Massage'){
-                    msg.message.text += '\n Très bien, quand aimeriez-vous être traité? répondez comme vous voulez ( exemples: Jeudi le 18 novembre, un soir la semaine prochaine, ASAP, etc.).'
-                    
+                    msg.message.quick_replies = msg.message.quick_replies.concat([
+                     {
+                      content_type:'text',
+                      title: 'Selectioner une preference de temps',
+                      payload: 'MASSAGE_TIME'
+                    },{
+                      content_type: 'text',
+                      title:'Voir thérapeutes',
+                      payload: 'MASSAGE_THERAPEUTES'
+                    },{
+                      content_type: 'text',
+                      title:'Retour aux massages',
+                      payload: '//SHOW_MASSAGES/{"vendor":"Massage"}'
+                    }])
                   }
                   return reply(msg)
                 })
           })
        .catch(err => {
-         debugger
+
          console.log(err)
        })
     }

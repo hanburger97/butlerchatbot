@@ -953,6 +953,15 @@
         }
       ]
     }
+  },
+  {
+    "trigger":"MASSAGE_TIME",
+    "response":{
+      "text":"Très bien, quand aimeriez-vous être traité? répondez comme vous voulez ( exemples: Jeudi le 18 novembre, un soir la semaine prochaine, ASAP, etc.)."
+    },
+    "action":{
+      "operation":"RecordUserInput"
+    }
   }
 
 ]
