@@ -4,7 +4,7 @@ import {get2 as getProduct2} from '/imports/api/products/server/methods'
 
 export default class ProductAddToCart extends BaseAction {
 
-  static getActionPostback(productId, variantId = null, quantity = 0) {
+  static getActionPostback(productId, {quantity = 0, variantId = null}) {
     return PRODUCT_ADD_TO_CART + JSON.stringify({product_id: productId, variant_id: productId, quantity: quantity})
   }
 
@@ -82,52 +82,52 @@ export default class ProductAddToCart extends BaseAction {
             {
               "content_type": "text",
               "title": "1",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 1}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:1}),
             },
             {
               "content_type": "text",
               "title": "2",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 2}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:2}),
             },
             {
               "content_type": "text",
               "title": "3",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 3}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:3}),
             },
             {
               "content_type": "text",
               "title": "4",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 4}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:4}),
             },
             {
               "content_type": "text",
               "title": "5",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 5}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:5}),
             },
             {
               "content_type": "text",
               "title": "6",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 6}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity: 6})
             },
             {
               "content_type": "text",
               "title": "7",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 7}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:7}),
             },
             {
               "content_type": "text",
               "title": "8",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 8}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:8}),
             },
             {
               "content_type": "text",
               "title": "9",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 9}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:9}),
             },
             {
               "content_type": "text",
               "title": "10",
-              "payload": PRODUCT_ADD_TO_CART + JSON.stringify(Object.assign({quantity: 10}, query)),
+              "payload": ProductAddToCart.getActionPostback(productId, {quantity:10}),
             },
           ]
         }

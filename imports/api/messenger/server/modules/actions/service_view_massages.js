@@ -30,12 +30,12 @@ export default class ServiceViewMassages extends BaseAction {
            buttons: [
              {
                title: `${massage.variants[0].title} minutes (${massage.variants[0].price})`,
-               payload: ProductAddToCart.getActionPostback(massage.id, massage.variants[0].id, 1)
+               payload: ProductAddToCart.getActionPostback(massage.id, {variantId:massage.variants[0].id, quantity:1})
              },
              {
                type: 'postback',
                title: `${massage.variants[1].title} minutes (${massage.variants[1].price})`,
-               payload: ProductAddToCart.getActionPostback(massage.id, massage.variants[1].id, 1)
+               payload: ProductAddToCart.getActionPostback(massage.id, {variantId:massage.variants[1].id, quantity:1})
              }
            ]
          })
