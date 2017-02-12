@@ -152,35 +152,33 @@ class DefaultModule extends BaseHandler {
           })
       } else if (payload.message && payload.message.text) {
         payload.message.text = payload.message.text.toLowerCase();
-        let words = payload.message.text.split(' ');
-        let words2 = payload.message.text.split(' ');
+        const words = payload.message.text.split(' ');
+        //let words2 = payload.message.text.split(' ');
         //console.log(words);
-
-        let r = [];
+        let r = 0;
         for (let z = 0; z < words.length; z++) {
           let word = words[z];
+
           return Responses.findOne({trigger: word})
             .then((response) => {
               _this.stopAutoReply = false;
               if (response && response.action && response.action.operation == 'Timeout') {
                 let until = new Date(new Date().getTime() + (Number(response.action.value) * 1000));
                 _this.pausedUsers[senderId] = until;
-                reply({message: response.response});
-              } else if (data) {
-                reply({message: response.response});
+                return reply({message: response.response});
+              } else if (response) {
+                return reply({message: response.response});
 
               }
             })
             .catch(err => {
               console.log(err.message)
               if (!_this.stopAutoReply) {
-                console.log('No data');
-                r.push('a');
-                console.log("r is " + r);
-                console.log('words2 is ' + words2);
-                if (r.length == words2.length) {
-                  console.log("NO REPLY");
-                  reply({
+                r += 1
+                console.log(`Words is ${words}`);
+                if (r == words.length) {
+                  console.log("None of the words are defined");
+                  return reply({
                     message: {
                       text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
                       quick_replies: [
