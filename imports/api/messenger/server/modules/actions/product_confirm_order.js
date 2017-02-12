@@ -68,6 +68,7 @@ export default class ProductConfirmOrder extends BaseAction {
                       subtotal: subtotal
                     }
                     console.log(order)
+                    customer.clearCart()
                     return createOrder(order)
                         .then(shopifyOrder => {
                           return Orders.insert({customer_id: customer._id, data: shopifyOrder})
@@ -86,7 +87,7 @@ export default class ProductConfirmOrder extends BaseAction {
                                       type:'web_url',
                                       title:'Passer a la caisse',
                                       url: Meteor.absoluteUrl(`/charge/${orderId}`),
-                                      webview_height_ratio: 'large'
+                                      webview_height_ratio: 'TALL'
                                     },
                                     {
                                       type:'postback',
@@ -103,7 +104,6 @@ export default class ProductConfirmOrder extends BaseAction {
                               }
                             }
                           })
-                           customer.clearCart();
 
                          }
 

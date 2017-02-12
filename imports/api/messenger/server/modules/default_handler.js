@@ -273,6 +273,7 @@ class DefaultModule extends BaseHandler {
 
               } else if (data.action && data.action.operation == 'RecordUserInput'){
                 _this.stopAutoReply = true
+                _this.userInput[senderId]= 'Yes'
               } else if (data.action && data.action.operation == 'CarWashConfirm') {
                 reply({
                   message: {
