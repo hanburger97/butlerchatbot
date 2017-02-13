@@ -79,6 +79,7 @@ class DefaultModule extends BaseHandler {
         });
         //_this.stopAutoReply = false;
         _this.recordParking[senderId] = 'No'
+
         delete _this.recordParking[senderId];
       } else if (_this.recordEmail[senderId] && _this.recordEmail[senderId] == 'Yes') {
         customer.set('email', payload.message.text)
@@ -258,7 +259,8 @@ class DefaultModule extends BaseHandler {
 
                 if (!customer.parking) {
                   reply({message: {'text': 'Quel est votre numéro de stationnement?'}})
-                  this.recordParking[senderId] = 'Yes'
+                  _this.recordParking[senderId] = 'Yes'
+                  _this.stopAutoReply = true
                 } else {
                   let rmsg = {
                     attachment: {
@@ -292,21 +294,19 @@ class DefaultModule extends BaseHandler {
               }  else if (data.action && data.action.operation == 'CarWashConfirm') {
                 reply({
                   message: {
-                    attachment: {
-                      type: "template",
-                      payload: {
-                        template_type: "button",
-                        text: `À votre service, donc ${customer.service.day}, ${customer.detail}.`,
-                        buttons: [
-                          {
-                            type: "postback",
-                            title: "Confirmer",
-                            payload: "LAVE_AUTO_FINISH"
-                          }
-
-                        ]
+                    text: `À votre service, donc ${customer.service.day}, ${customer.detail}.`,
+                    quick_replies:[
+                      {
+                        content_type:'text',
+                        title:'Retour au menu',
+                        payload: 'SERVICES'
+                      },
+                      {
+                        content_type:'text',
+                        title:'Annuler Lave-Auto',
+                        payload: 'CARWASH_CANCEL'
                       }
-                    }
+                    ]
                   }
                 })
 

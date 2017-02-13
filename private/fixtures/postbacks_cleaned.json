@@ -442,7 +442,59 @@
   {
     "trigger": "ENTRETIEN_FINISH",
     "response": {
-      "text": "Merci, un humain viendrait vous confirmer la commande"
+      "text": "Choisissez votre journée de préférence parmi celles proposées.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Lundi",
+          "payload":"ENTRETIEN_LUNDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Mardi",
+          "payload":"ENTRETIEN_MARDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Mercredi",
+          "payload":"ENTRETIEN_MERCREDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Comment ça marche?",
+          "payload":"ENTRETIEN_HOW"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_LUNDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Lundi"
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_MARDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Mardi"
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_MERCREDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Mercredi"
     }
   },
   {
