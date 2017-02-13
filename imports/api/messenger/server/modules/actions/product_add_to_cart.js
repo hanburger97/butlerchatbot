@@ -74,10 +74,11 @@ export default class ProductAddToCart extends BaseAction {
                     }
                   }
                   if (product.vendor == 'Massage'){
-                    msg.message.quick_replies = msg.message.quick_replies.concat([
+                    msg.message.text = `${customer.metadata.first_name}, voulez-vous confirmer votre choix de "${product.title}"?`
+                    msg.message.quick_replies = [
                      {
                       content_type:'text',
-                      title: 'Selectioner une preference de temps',
+                      title: 'Oui',
                       payload: 'MASSAGE_TIME'
                     },{
                       content_type: 'text',
@@ -87,7 +88,7 @@ export default class ProductAddToCart extends BaseAction {
                       content_type: 'text',
                       title:'Retour aux massages',
                       payload: '//SHOW_MASSAGES/{"vendor":"Massage"}'
-                    }])
+                    }]
                   }
                   return reply(msg)
                 })

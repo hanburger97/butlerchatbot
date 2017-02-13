@@ -882,12 +882,12 @@
         {
           "content_type":"text",
           "title":"Retour",
-          "postback":"SERVICES"
+          "payload":"SERVICES"
         },
         {
           "content_type":"text",
           "title":"Voir Panier",
-          "postback":"//SHOW_CART/"
+          "payload":"//SHOW_CART/"
         }
       ]
     }

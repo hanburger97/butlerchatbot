@@ -34,32 +34,32 @@ class DefaultModule extends BaseHandler {
         customer.set('room', payload.message.text)
 
         return customer.save()
-          .then(() => {
-            _this.stopAutoReply = false;
-            delete _this.recordRoom[senderId];
-            reply({
-              message: {
-                attachment: {
-                  type: "template",
-                  payload: {
-                    template_type: "button",
-                    text: "Votre numéro de porte a été enregistré.",
-                    buttons: [
-                      {
-                        type: "postback",
-                        title: "Continuer",
-                        payload: "ENTRETIEN_PROCEED"
-                      }
-                    ]
-                  }
-                }
-              }
-            });
-            _this.recordRoom[senderId] = 'No'
-          })
-          .catch(err => {
-            console.log(err)
-          })
+         .then(() => {
+           _this.stopAutoReply = false;
+           delete _this.recordRoom[senderId];
+           reply({
+             message: {
+               attachment: {
+                 type: "template",
+                 payload: {
+                   template_type: "button",
+                   text: "Votre numéro de porte a été enregistré.",
+                   buttons: [
+                     {
+                       type: "postback",
+                       title: "Continuer",
+                       payload: "ENTRETIEN_PROCEED"
+                     }
+                   ]
+                 }
+               }
+             }
+           });
+           _this.recordRoom[senderId] = 'No'
+         })
+         .catch(err => {
+           console.log(err)
+         })
 
 
       } else if (_this.recordParking[senderId] && _this.recordParking[senderId] == 'Yes') {
@@ -77,7 +77,7 @@ class DefaultModule extends BaseHandler {
             ]
           }
         });
-        _this.stopAutoReply = false;
+        //_this.stopAutoReply = false;
         _this.recordParking[senderId] = 'No'
         delete _this.recordParking[senderId];
       } else if (_this.recordEmail[senderId] && _this.recordEmail[senderId] == 'Yes') {
@@ -98,6 +98,20 @@ class DefaultModule extends BaseHandler {
         _this.recordEmail[senderId] = 'No'
       }
       /**Expired Timeout section**/
+      else if (_this.userInput[senderId] && _this.userInput[senderId]== 'Yes'){
+        customer.set('User input', payload.message.text)
+        customer.save()
+         .then(() => {
+           delete _this.userInput[senderId]
+           //_this.stopAutoReply = false
+           return reply({
+             message:{
+               text:`À votre service ${customer.metadata.first_name}. Veuillez m'accorder quelques minutes pour traiter votre demande et vous revenir avec une proposition de thérapeuthe et de date. `,
+             }
+           })
+         })
+
+      }
       else {
         delete _this.pausedUsers[senderId]
       }
@@ -105,7 +119,7 @@ class DefaultModule extends BaseHandler {
 
 
       if (payload.message && payload.message.quick_reply) {
-        console.log('In quickreply elif');
+        console.log('In quickreply');
         Postbacks.findOne({trigger: payload.message.quick_reply.payload})
           .then(postback => {
 
@@ -117,6 +131,10 @@ class DefaultModule extends BaseHandler {
               reply({message: postback.response})
 
 
+            } else if (postback.action && postback.action.operation == 'RecordUserInput'){
+              _this.stopAutoReply = true
+              _this.userInput[senderId]= 'Yes'
+              reply({message: postback.response})
             } else if (postback.action && postback.action.operation == 'AddDetail') {
               customer.set('detail', postback.action.value)
               customer.save()
@@ -271,10 +289,7 @@ class DefaultModule extends BaseHandler {
                 _this.recordParking[senderId] = 'Yes'
                 _this.stopAutoReply = true
 
-              } else if (data.action && data.action.operation == 'RecordUserInput'){
-                _this.stopAutoReply = true
-                _this.userInput[senderId]= 'Yes'
-              } else if (data.action && data.action.operation == 'CarWashConfirm') {
+              }  else if (data.action && data.action.operation == 'CarWashConfirm') {
                 reply({
                   message: {
                     attachment: {
@@ -392,24 +407,28 @@ class DefaultModule extends BaseHandler {
           })
           .catch(err => {
             console.log(err)
-            reply({
-              message: {
-                text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
-                quick_replies: [
-                  {
-                    content_type: "text",
-                    title: "Oui",
-                    payload: "HUMAN"
-                  },
-                  {
-                    content_type: "text",
-                    title: "Retour au Menu",
-                    payload: "SERVICES"
-                  }
+            if (!_this.stopAutoReply){
+              return reply({
+                message: {
+                  text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
+                  quick_replies: [
+                    {
+                      content_type: "text",
+                      title: "Oui",
+                      payload: "HUMAN"
+                    },
+                    {
+                      content_type: "text",
+                      title: "Retour au Menu",
+                      payload: "SERVICES"
+                    }
 
-                ]
-              }
-            });
+                  ]
+                }
+              });
+            }
+
+
           });
       }
     })
