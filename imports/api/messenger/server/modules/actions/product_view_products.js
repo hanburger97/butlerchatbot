@@ -50,6 +50,7 @@ export default class ProductViewProducts extends BaseAction {
                     type: "postback",
                     title: "Ajouter à mon panier",
                     payload: ProductAddToCart.getActionPostback(product.id)
+
                   }]
                 })
               })
@@ -80,6 +81,11 @@ export default class ProductViewProducts extends BaseAction {
                       "content_type":"text",
                       "title":"Retour au menu",
                       "payload":"SERVICE"
+                    },
+                    {
+                      "content_type":"text",
+                      "title":"Continuer Epicerie",
+                      "payload":"Épicerie fine"
                     },
                     {
                       "content_type":"text",

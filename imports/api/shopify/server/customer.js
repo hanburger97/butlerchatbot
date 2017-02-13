@@ -12,6 +12,7 @@ export const create = (data) => {
   })
 }
 
+
 export const update = (customerId, data) => {
   return new Promise((resolve, reject) => {
     ShopifyApi.put(`/admin/customers/${customerId}.json`, {customer: data}, (error, response, headers) => {

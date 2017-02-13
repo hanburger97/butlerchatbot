@@ -40,21 +40,14 @@ export default class ProductUpdateQuantity extends BaseAction {
                   .then((shopifyCart) => {
                     return reply({
                       message: {
-                        "attachment": {
-                          "type": "template",
-                          "payload": {
-                            "template_type": "button",
-                            text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier. Pour un total de ${shopifyCart.subtotal}$.`,
-                            "buttons": [
-                              {
-                                "type": "web_url",
-                                "url": `${shopifyCart.checkoutUrl}`,
-                                "title": "Payer maintenant",
-                                "webview_height_ratio": "full"
-                              }
-                            ]
+                        text: `Vous avez désormais ${quantity} x "${product.title}" dans votre panier. Pour un total de ${shopifyCart.subtotal}$.`,
+                        quick_replies:[
+                          {
+                            content_type: "text",
+                            title: "Voir panier updated",
+                            payload: "//SHOW_CART/"
                           }
-                        }
+                        ]
                       }
                     })
                   })
@@ -64,7 +57,7 @@ export default class ProductUpdateQuantity extends BaseAction {
     } else {
       return reply({
         message: {
-          text: "Veuillez choisir la quantité",
+          text: "Veuillez choisir la quantité que vous voulez",
           "quick_replies": [
             {
               "content_type": "text",

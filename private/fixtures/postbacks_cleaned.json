@@ -76,7 +76,7 @@
                 {
                   "type": "postback",
                   "title": "Massothérapie",
-                  "payload": "S_MASSAGE"
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
                 },
                 {
                   "type": "postback",
@@ -164,6 +164,19 @@
     }
   },
   {
+    "trigger": "ENTRETIEN_CANCEL",
+    "response": {
+      "text": "Parfait, Sachez que votre prix est sauvegardé pour votre prochaine commande, vous n'aurez plus à donner votre numéro de porte. Au plaisir de vous servir!",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
+    }
+  },
+  {
     "trigger": "CHECKOUT",
     "response": {},
     "action": {
@@ -172,9 +185,7 @@
   },
   {
     "trigger": "SERVICE_ENTRETIEN",
-    "response": {
-      "text": "Veuillez entrer votre numéro d'appartement:"
-    },
+    "response": {},
     "action": {
       "operation": "RecordRoom"
     }
@@ -431,7 +442,59 @@
   {
     "trigger": "ENTRETIEN_FINISH",
     "response": {
-      "text": "Merci, un humain viendrait vous confirmer la commande"
+      "text": "Choisissez votre journée de préférence parmi celles proposées.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Lundi",
+          "payload":"ENTRETIEN_LUNDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Mardi",
+          "payload":"ENTRETIEN_MARDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Mercredi",
+          "payload":"ENTRETIEN_MERCREDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Comment ça marche?",
+          "payload":"ENTRETIEN_HOW"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_LUNDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Lundi"
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_MARDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Mardi"
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_MERCREDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Mercredi"
     }
   },
   {
@@ -871,12 +934,12 @@
         {
           "content_type":"text",
           "title":"Retour",
-          "postback":"SERVICES"
+          "payload":"SERVICES"
         },
         {
           "content_type":"text",
           "title":"Voir Panier",
-          "postback":"//SHOW_CART/"
+          "payload":"//SHOW_CART/"
         }
       ]
     }
@@ -941,6 +1004,15 @@
           "payload":"//SHOW_CART/"
         }
       ]
+    }
+  },
+  {
+    "trigger":"MASSAGE_TIME",
+    "response":{
+      "text":"Très bien, quand aimeriez-vous être traité? répondez comme vous voulez ( exemples: Jeudi le 18 novembre, un soir la semaine prochaine, ASAP, etc.)."
+    },
+    "action":{
+      "operation":"RecordUserInput"
     }
   }
 
