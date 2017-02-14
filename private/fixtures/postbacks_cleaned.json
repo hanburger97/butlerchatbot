@@ -1016,6 +1016,15 @@
     }
   },
   {
+    "trigger":"MANUCURE_TIME",
+    "response":{
+      "text":"Très bien, quand aimeriez-vous être traité? répondez comme vous voulez ( exemples: Jeudi le 18 novembre, un soir la semaine prochaine, ASAP, etc.)."
+    },
+    "action":{
+      "operation":"RecordUserInput"
+    }
+  },
+  {
     "trigger":"Prêt-à-manger",
     "response":{
       "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
