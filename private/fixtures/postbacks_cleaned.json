@@ -81,7 +81,7 @@
                 {
                   "type": "postback",
                   "title": "Pedicure, Manicure",
-                  "payload": "//SHOW_PEDICURE/{\"product_type\":\"pedicure/manucure\"}"
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
                 }
               ]
             }

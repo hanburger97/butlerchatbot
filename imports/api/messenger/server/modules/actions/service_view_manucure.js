@@ -32,7 +32,7 @@ export default class ServiceViewManucure extends BaseAction {
        return reply({
          message: {
            text: "Veuillez commencer par choisir le service voulu. Nous aurons l'occasion de confirmer  plus de détails plus tard.",
-           quick_replis:elements
+           quick_replies:elements
          }
        })
      })

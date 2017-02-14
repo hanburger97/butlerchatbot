@@ -90,7 +90,7 @@ export default class ProductAddToCart extends BaseAction {
                       payload: '//SHOW_MASSAGES/{"vendor":"Massage"}'
                     }]
                   }
-                  else if (product.product_type == pedicure/manucure){
+                  else if (product.product_type == 'pedicure/manucure'){
                     msg.message.text = `${customer.metadata.first_name}, voulez-vous confirmer votre choix: ${product.title}`
                     msg.message.quick_replies =[
                       {
