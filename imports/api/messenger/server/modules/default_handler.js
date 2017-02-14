@@ -426,6 +426,8 @@ class DefaultModule extends BaseHandler {
                   ]
                 }
               });
+            } else{
+              _this.stopAutoReply = false
             }
 
 
