@@ -6,6 +6,7 @@ import ProductAddToCart from './product_add_to_cart'
 import ProductViewProducts from './product_view_products'
 import ProductConfirmOrder from './product_confirm_order'
 import ServiceViewMassages from './service_view_massages'
+import ServiceViewManucure from './service_view_manucure'
 
 export {
   BaseAction,
@@ -14,5 +15,6 @@ export {
   ProductAddToCart,
   ProductViewProducts,
   ProductConfirmOrder,
-  ServiceViewMassages
+  ServiceViewMassages,
+  ServiceViewManucure
 }

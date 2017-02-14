@@ -1,12 +1,14 @@
 import {BaseHandler} from './base_handler'
 import {ServiceViewMassages} from './actions'
+import {ServiceViewManucure} from './actions'
 
 
 class ServiceHandler extends BaseHandler {
   constructor(){
     super()
     this.action = [
-     new ServiceViewMassages()
+     new ServiceViewMassages(),
+     new ServiceViewManucure()
     ]
 
 
