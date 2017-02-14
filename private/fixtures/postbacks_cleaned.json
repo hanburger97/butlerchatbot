@@ -31,13 +31,13 @@
             },
             {
               "title": "Gourmand",
-              "subtitle": "Les meilleurs produits et fournisseurs.",
+              "subtitle": "Des produits et fournisseurs locaux, responsables et surtout, gourmands!",
               "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878900/41640817-variety-of-organic-vegetables-and-fruits-in-wicker-basket-isolated-on-white_mzqfjh.jpg",
               "buttons": [
                 {
                   "type": "postback",
                   "title": "Prêt-à-manger",
-                  "payload": "//SHOW_PRODUCTS/{\"vendor\":\"Alimentation maison\"}"
+                  "payload": "Prêt-à-manger"
                 },
                 {
                   "type": "postback",
@@ -81,7 +81,7 @@
                 {
                   "type": "postback",
                   "title": "Pedicure, Manicure",
-                  "payload": "S_PEDICURE"
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
                 }
               ]
             }
@@ -442,7 +442,59 @@
   {
     "trigger": "ENTRETIEN_FINISH",
     "response": {
-      "text": "Merci, un humain viendrait vous confirmer la commande"
+      "text": "Choisissez votre journée de préférence parmi celles proposées.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Lundi",
+          "payload":"ENTRETIEN_LUNDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Mardi",
+          "payload":"ENTRETIEN_MARDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Mercredi",
+          "payload":"ENTRETIEN_MERCREDI"
+        },
+        {
+          "content_type":"text",
+          "title":"Comment ça marche?",
+          "payload":"ENTRETIEN_HOW"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_LUNDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Lundi"
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_MARDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Mardi"
+    }
+  },
+  {
+    "trigger":"ENTRETIEN_MERCREDI",
+    "response":{
+      "text":"À votre service, un humain viendra vous confirmer l'heure"
+    },
+    "action":{
+      "operation":"RecordDay",
+      "value":"Mercredi"
     }
   },
   {
@@ -633,7 +685,7 @@
                 {
                   "type": "postback",
                   "title": "Voir Produit",
-                  "payload": "prêt-à-manger"
+                  "payload": "Prêt-à-manger"
                 }
               ]
             },
@@ -882,12 +934,12 @@
         {
           "content_type":"text",
           "title":"Retour",
-          "postback":"SERVICES"
+          "payload":"SERVICES"
         },
         {
           "content_type":"text",
           "title":"Voir Panier",
-          "postback":"//SHOW_CART/"
+          "payload":"//SHOW_CART/"
         }
       ]
     }
@@ -961,6 +1013,63 @@
     },
     "action":{
       "operation":"RecordUserInput"
+    }
+  },
+  {
+    "trigger":"MANUCURE_TIME",
+    "response":{
+      "text":"Très bien, quand aimeriez-vous être traité? répondez comme vous voulez ( exemples: Jeudi le 18 novembre, un soir la semaine prochaine, ASAP, etc.)."
+    },
+    "action":{
+      "operation":"RecordUserInput"
+    }
+  },
+  {
+    "trigger":"Prêt-à-manger",
+    "response":{
+      "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"repas",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"repas\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Soupes",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"soupes\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Salades",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"salades\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Végétarien",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"végétarien\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Plats de la mer",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"plats de la mer\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Spécialités Alexis",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"spécialités\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Pâtés et quiches",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"pâtés\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
     }
   }
 

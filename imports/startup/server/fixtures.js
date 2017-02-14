@@ -4,7 +4,7 @@ import {Migrations} from 'meteor/percolate:migrations'
  * Fill the DB with example data on startup
  */
 
-/*
+
 Migrations.add({
   version: 2,
   up: function () {
@@ -27,7 +27,7 @@ Migrations.add({
 
   }
 });
-*/
+
 
 Migrations.add({
   version: 3,
@@ -39,10 +39,6 @@ Migrations.add({
     postbacks.forEach((postback) => {
       postbacksCollection.insert(postback)
     })
-
-    const customersCollection = new Meteor.Collection('customers', {_suppressSameNameError: true})
-    customersCollection.remove({})
-
 
   }
 });
