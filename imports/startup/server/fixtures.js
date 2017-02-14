@@ -40,10 +40,6 @@ Migrations.add({
       postbacksCollection.insert(postback)
     })
 
-    const customersCollection = new Meteor.Collection('customers', {_suppressSameNameError: true})
-    customersCollection.remove({})
-
-
   }
 });
 
