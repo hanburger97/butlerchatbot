@@ -68,6 +68,16 @@ export default class ProductAddToCart extends BaseAction {
                           "title": "Voir mon panier",
                           "payload": ProductShowCart.getActionPostback(),
 
+                        },
+                        {
+                          content_type:'text',
+                          title:`Continuer l'épicerie`,
+                          payload:'Épicerie fine'
+                        },
+                        {
+                          content_type:'text',
+                          title:'Retour au menu',
+                          payload:'SERVICES'
                         }
 
                       ]

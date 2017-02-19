@@ -37,7 +37,7 @@ class GettingStarted extends BaseHandler {
                     })
                   })
                   .then(() => {
-                    reply({message: {text: `Merci, la porte ${roomNumber} est maintenant associée à votre dossier!`}})
+                    reply({message: {text: `Merci ${customer.metadata.first_name}, la porte ${roomNumber} est maintenant associée à votre nom!`}})
                     emitPayload('START')
                   })
               })
@@ -119,14 +119,14 @@ class GettingStarted extends BaseHandler {
 
           reply({
             message: {
-              text: `Bonjour ${customer.metadata.first_name}, bienvenue à votre concierge personnalisé Albert. Avant de commencer, j'aurais besoin de savoir votre numéro de porte à l'Hexagone.`,
+              text: `Bonjour ${customer.metadata.first_name}, je suis Albert, votre concierge virtuel, exclusif aux résidents de L'Hexagone.`,
             }
           })
 
           setTimeout(() => {
             reply({
               message: {
-                text: `Veuillez écrire votre numéro de porte:`,
+                text: `Avant de commencer, veuillez simplement écrire votre numéro de porte dans l'immeuble.`,
               }
             })
           }, 500)
@@ -144,7 +144,7 @@ class GettingStarted extends BaseHandler {
           setTimeout(() => {
             reply({
               message: {
-                text: `Veuillez écrire votre adresse courriel:`,
+                text: `Veuillez maintenant indiquer l'adresse courriel qui servira à vous identifier`,
               }
             })
           }, 500)
