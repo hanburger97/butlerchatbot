@@ -305,20 +305,19 @@
   {
     "trigger": "CARWASH_EXTERIOR",
     "response": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "Parfait!",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Continuer",
-              "payload": "CARWASH_EXTERIOR_NXT"
-            }
-          ]
+      "text":"à votre service, veuillez simplement confirmer votre demande de lavage extérieur 20$",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Confirmer",
+          "payload":"CARWASH_EXTERIOR_NXT"
+        },
+        {
+          "content_type":"text",
+          "title":"Annuler",
+          "payload":"CARWASH_CANCEL"
         }
-      }
+      ]
     },
     "action": {
       "value": "Votre voiture sera lavée le soir directement dans son espace de stationnement, vous recevrez un message lorsque nous aurons terminé. Veuillez vous assurer qu'elle soit bien centrée dans son espace. Au plaisir de vous servir!",
@@ -335,20 +334,19 @@
   {
     "trigger": "CARWASH_COMPLETE",
     "response": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "Parfait!",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Continuer",
-              "payload": "CARWASH_EXTERIOR_NXT"
-            }
-          ]
+      "text": "à votre service, veuillez simplement confirmer votre demande de lavage complet 25$",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Confirmer",
+          "payload":"CARWASH_INTERIOR_NXT"
+        },
+        {
+          "content_type":"text",
+          "title":"Annuler",
+          "payload":"CARWASH_CANCEL"
         }
-      }
+      ]
     },
     "action": {
       "value": "Je serai à votre porte entre 18h30 et 19h30 afin récupérer votre clef de voiture. Au plaisir de vous servir!",
@@ -358,7 +356,7 @@
   {
     "trigger": "CHANGE_PARKING",
     "response": {
-      "text": "Veuillez entrer votre numéro de stationement:"
+      "text": "Veuillez entrer votre nouveau numéro de stationement:"
     },
     "action": {
       "operation": "ChangeParking"
@@ -381,7 +379,14 @@
   {
     "trigger": "CARWASH_CANCEL",
     "response": {
-      "text": "Votre commande de lave-auto a belle et bien été annulée. Au plaisir de vous servir."
+      "text": "Votre commande de lave-auto a belle et bien été annulée. Au plaisir de vous servir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
     }
   },
   {
@@ -470,31 +475,31 @@
   {
     "trigger":"ENTRETIEN_LUNDI",
     "response":{
-      "text":"À votre service, un humain viendra vous confirmer l'heure"
+      "text":"entre quelles heures idéalement ( example: écrivez 8-17 pour entre 8h00 et 17h00) ?"
     },
     "action":{
-      "operation":"RecordDay",
-      "value":"Lundi"
+      "operation":"RecordUserInput",
+      "value":"ENTRETIEN"
     }
   },
   {
     "trigger":"ENTRETIEN_MARDI",
     "response":{
-      "text":"À votre service, un humain viendra vous confirmer l'heure"
+      "text":"entre quelles heures idéalement ( example: écrivez 8-17 pour entre 8h00 et 17h00) ?"
     },
     "action":{
-      "operation":"RecordDay",
-      "value":"Mardi"
+      "operation":"RecordUserInput",
+      "value":"ENTRETIEN"
     }
   },
   {
     "trigger":"ENTRETIEN_MERCREDI",
     "response":{
-      "text":"À votre service, un humain viendra vous confirmer l'heure"
+      "text":"entre quelles heures idéalement ( example: écrivez 8-17 pour entre 8h00 et 17h00) ?"
     },
     "action":{
-      "operation":"RecordDay",
-      "value":"Mercredi"
+      "operation":"RecordUserInput",
+      "value":"ENTRETIEN"
     }
   },
   {
@@ -684,7 +689,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "Prêt-à-manger"
                 }
               ]
@@ -696,7 +701,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "Boucherie"
                 }
               ]
@@ -708,7 +713,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
                 }
               ]
@@ -720,7 +725,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "Bières et vins"
                 }
               ]
@@ -732,7 +737,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
                 }
               ]
@@ -744,7 +749,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
                 }
               ]
@@ -756,7 +761,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
                 }
               ]
@@ -768,7 +773,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
                 }
               ]
@@ -780,7 +785,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
                 }
               ]
@@ -792,7 +797,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
                 }
               ]
@@ -1070,6 +1075,16 @@
           "payload":"SERVICES"
         }
       ]
+    }
+  },
+  {
+    "trigger":"M_REQUEST",
+    "response":{
+      "text":"Décrivez votre besoin de manière générale ( exemple: peinturer 2 pièces,  installer des rideaux, une télé, monter un meuble ikea ), vous aurez l'occasion de préciser plus tard."
+    },
+    "action":{
+      "operation":"RecordUserInput",
+      "value":"HandymanForm"
     }
   }
 

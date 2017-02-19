@@ -81,7 +81,7 @@ export default class ProductConfirmOrder extends BaseAction {
                                 type:'template',
                                 payload:{
                                   template_type:'button',
-                                  text: `Parfait, la livraison a votre porte se fera le ${day}, une copie de votre commande a ete envoyee a votre courriel`,
+                                  text: `À votre service ${customer.metadata.first_name}, je vous livrerai votre commande ${day} soir, une copie de votre commande vous a été envoyée par courriel. Vous pouvez payer maintenant ou à la livraison.`,
                                   buttons :[
                                     {
                                       type:'web_url',
@@ -96,7 +96,7 @@ export default class ProductConfirmOrder extends BaseAction {
                                     },
                                     {
                                       type:'postback',
-                                      title:'Continuer dans Epicerie',
+                                      title:`Confirmer l'épicerie`,
                                       payload:'Épicerie fine'
                                     }
                                   ]
@@ -119,7 +119,7 @@ export default class ProductConfirmOrder extends BaseAction {
     } else {
       return reply({
         message: {
-          text:'Veuillez indiquer le journee de votre livraison',
+          text:`Veuillez indiquer votre journée de livraison, entre 18h00 et 20h30, à l'heure de votre choix`,
           quick_replies: [
             {
               content_type:'text',
