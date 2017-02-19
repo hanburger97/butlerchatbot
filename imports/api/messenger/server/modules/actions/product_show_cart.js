@@ -71,7 +71,7 @@ export default class ProductShowCart extends BaseAction {
                       {
                         "title": product.title,
                         "image_url": product.images.length ? product.images[0].src : "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                        "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}`,
+                        "subtitle": `Quantité: ${lineItem.quantity}, Prix par unité: ${lineItem.variants[0].formatted_price}`,
                         "buttons": [
                           {
                             "type": "postback",
@@ -114,7 +114,7 @@ export default class ProductShowCart extends BaseAction {
               elements.push({
                 "title": product.title,
                 "image_url": img,
-                "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}`,
+                "subtitle": `Quantité: ${lineItem.quantity}, Prix par unité: ${lineItem.variants[0].formatted_price}`,
                 "buttons": [
                   {
                     "type": "postback",
@@ -140,7 +140,7 @@ export default class ProductShowCart extends BaseAction {
             if (hasMore) {
               message.attachment.payload.buttons = [
                 {
-                  "title": "Voir prochaine page",
+                  "title": "Voir la prochaine page",
                   "type": "postback",
                   "payload": ProductShowCart.getActionPostback(pageNb + 1)
                 }
@@ -163,31 +163,6 @@ export default class ProductShowCart extends BaseAction {
             reply({
               message
             })
-
-            /*reply({
-
-             message: {
-             "attachment": {
-             "type": "template",
-             "payload": {
-             "template_type": "button",
-             "text": "Que voulez-vous faire ensuite?",
-             "buttons": [
-             {
-             "title": "Soumettre la commande",
-             "type": "postback",
-             "payload": ProductConfirmOrder.getActionPostback()
-             },
-             {
-             "title": "Continuer à magasiner",
-             "type": "postback",
-             "payload": ProductViewProducts.getActionPostback()
-             }
-             ]
-             }
-             }
-             }
-             })*/
           }
 
         })

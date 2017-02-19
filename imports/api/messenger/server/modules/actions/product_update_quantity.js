@@ -44,7 +44,7 @@ export default class ProductUpdateQuantity extends BaseAction {
                         quick_replies:[
                           {
                             content_type: "text",
-                            title: "Voir panier updated",
+                            title: "Voir panier",
                             payload: "//SHOW_CART/"
                           }
                         ]
