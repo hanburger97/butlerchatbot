@@ -122,7 +122,7 @@ export default class ProductShowCart extends BaseAction {
                  elements.push({
                    "title": product.title,
                    "image_url": img,
-                   "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}, Sous-total: $${(lineItem.variants[0].price * lineItem.quantity)}`,
+                   "subtitle": `(${lineItem.quantity})X ${lineItem.variants[0].formatted_price}: $${(lineItem.variants[0].price * lineItem.quantity)}`,
                    "buttons": [
                      {
                        "type": "postback",
@@ -169,7 +169,7 @@ export default class ProductShowCart extends BaseAction {
                console.log(shopifyCart)
                reply({
                  message:{
-                   text: `Votre total est de ${subtotal} $`
+                   text: `Votre total est de ${subtotal.toFixed(2)} $`
                  }
                })
                reply({
