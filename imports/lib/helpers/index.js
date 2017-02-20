@@ -28,7 +28,7 @@ Template.registerHelper('expYears', function () {
 /**
  * Date formats
  */
-import {getShortFormat} from '/imports/lib/dateFormat'
+import {getShortFormat} from '/imports/lib/utils/dateFormat'
 Template.registerHelper('shortDate', function (date) {
   return getShortFormat(date)
 })
