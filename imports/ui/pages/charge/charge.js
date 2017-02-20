@@ -1,5 +1,6 @@
 import './charge.html'
 import Orders from '/imports/api/orders/orders'
+const paying = new ReactiveVar(false)
 
 function getOrderId() {
   return FlowRouter.getParam('orderId');
@@ -7,7 +8,6 @@ function getOrderId() {
 
 Template.charge.onCreated(function () {
   const _this = this
-
   _this.autorun(function () {
 
     const orderId = getOrderId()
@@ -30,6 +30,9 @@ Template.chargePresenter.onRendered(function () {
 Template.charge.helpers({
   order: function () {
     return Orders.parentFindOne(getOrderId())
+  },
+  paying: function () {
+    return paying.get()
   }
 })
 
@@ -38,7 +41,7 @@ Template.chargePresenter.events({
   'submit #payment-form': function (event) {
     event.preventDefault()
 
-    const order = this
+    const order = this.order
 
     Stripe.card.createToken({
       number: $('#card-number').val(),
@@ -49,6 +52,7 @@ Template.chargePresenter.events({
       if (response.error) {
         alert(response.error.message)
       } else {
+        paying.set(true)
         Meteor.call('charge', {orderId: order._id, tokenId: response.id}, function (err, promise){
           console.log(arguments)
           promise
@@ -56,7 +60,9 @@ Template.chargePresenter.events({
               console.log(response)
             })
             .catch(err => {
+              alert(err)
               console.log(err)
+              paying.set(false)
             })
 
         })

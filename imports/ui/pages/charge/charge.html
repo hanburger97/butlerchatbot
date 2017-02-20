@@ -2,7 +2,7 @@
 
   {{#if Template.subscriptionsReady}}
 
-    {{> chargePresenter order=order}}
+    {{> chargePresenter order=order paying=paying}}
 
   {{else}}
     Chargement...
@@ -13,14 +13,13 @@
 <template name="chargePresenter">
 
   {{#if order}}
-    {{#with order}}
 
       <div class='row' style='padding-top:25px; padding-bottom:25px;'>
         <div class='col-md-12'>
           <div id='mainContentWrapper'>
             <div class="col-md-8 col-md-offset-2">
               <h2 style="text-align: center;">
-                Concierge Albert commande {{data.name}}
+                Concierge Albert commande {{order.data.name}}
               </h2>
               <hr/>
               <div class="shopping_cart">
@@ -41,7 +40,7 @@
                                 <tr>
                                   <td>
                                     <ul>
-                                      {{#each data.line_items}}
+                                      {{#each order.data.line_items}}
                                         <li>{{quantity}} x {{title}}</li>
                                       {{/each}}
                                     </ul>
@@ -52,7 +51,7 @@
                             <div class="col-md-3">
                               <div style="text-align: center;">
                                 <h3>Total</h3>
-                                <h3><span style="color:green;">{{data.total_price}}$</span></h3>
+                                <h3><span style="color:green;">{{order.data.total_price}}$</span></h3>
                               </div>
                             </div>
                           </div>
@@ -62,7 +61,7 @@
                     </div>
                   </div>
 
-                  {{#if eq status 'paid'}}
+                  {{#if order.paid_at}}
                     Merci, votre commande a été payée.
                   {{else}}
                     <div class="panel panel-default">
@@ -142,8 +141,8 @@
                               </div>
                             </div>
                           </fieldset>
-                          <button type="submit" class="btn btn-success btn-lg" style="width:100%;">
-                            Payer
+                          <button type="submit" class="btn btn-success btn-lg {{#if paying}}disabled{{/if}}" style="width:100%;">
+                            Payer {{#if paying}}<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate gly-spin"></span>{{/if}}
                           </button>
                           <br/>
                         </div>
@@ -162,8 +161,6 @@
         Stripe.setPublishableKey("{{settings 'public.stripe.publishable_key'}}");
         $('#payment-form').parsley();
       </script>
-
-    {{/with}}
 
   {{else}}
     Il n'y a pas de commande avec ce ID
