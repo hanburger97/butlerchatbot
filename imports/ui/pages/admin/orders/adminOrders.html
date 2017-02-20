@@ -1,0 +1,73 @@
+<template name="AdminOrders">
+
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">Commandes</h3>
+    </div>
+    <div class="box-body">
+      <table class="table table-bordered">
+        <tbody>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th style="width: 20px">Total</th>
+          <th style="width: 100px">Date</th>
+          <th>Nom</th>
+          <th>Courriel</th>
+          <th style="width: 40px">Porte</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+
+        {{#each orders}}
+          <tr>
+            <td>{{data.name}}</td>
+            <td>{{data.total_price}}$</td>
+            <td>{{shortDate data.created_at}}</td>
+            {{# methodCallerContainer methodName='Customers.get' methodParams=(customer_id)}}
+
+              <td>{{metadata.first_name}} {{metadata.last_name}}</td>
+              <td>{{email}}</td>
+              <td>#{{room}}</td>
+            {{/methodCallerContainer}}
+
+            <td>
+              {{status}}
+            </td>
+
+            <td>
+              <div class="btn-group ">
+                <button type="button" class="btn btn-info">Modifier</button>
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="/charge/{{_id}}" target="_blank">Ouvrir page de paiement</a></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+
+
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+      <ul class="pagination pagination-sm no-margin pull-right">
+        <li><a href="/admin/orders/1">«</a></li>
+        {{#each previousPages}}
+          <li><a href="/admin/orders/{{this}}">{{this}}</a></li>
+        {{/each}}
+        <li><a href="#"><strong>{{currentPage}}</strong></a></li>
+        {{#each nextPages}}
+          <li><a href="/admin/orders/{{this}}">{{this}}</a></li>
+        {{/each}}
+        <li><a href="/admin/orders/{{highestPage}}">»</a></li>
+      </ul>
+    </div>
+  </div>
+</template>

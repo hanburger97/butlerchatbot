@@ -13,6 +13,15 @@ class Order extends Model {
     super(ordersCollection)
   }
 
+  get status () {
+    if (this.canceled_at) {
+      return 'canceled'
+    }
+    if (this.paid_at) {
+      return 'paid'
+    }
+    return 'new'
+  }
 }
 
 const ordersCollection = new Orders()

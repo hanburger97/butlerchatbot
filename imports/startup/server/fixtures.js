@@ -70,6 +70,14 @@ Migrations.add({
   }
 });
 
+Migrations.add({
+  version: 5,
+  up: function () {
+    const adminUser = Meteor.users.findOne({emails: {$elemMatch: {address: 'admin@elicng.com'}}})
+    Roles.setUserRoles(adminUser._id, 'admin')
+  }
+});
+
 Meteor.startup(() => {
   Migrations.migrateTo('latest');
 });
