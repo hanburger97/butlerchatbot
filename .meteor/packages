@@ -27,3 +27,6 @@ universe:utilities-blaze
 accounts-password
 session
 alanning:roles
+reywood:publish-composite
+tmeasday:publish-counts
+email

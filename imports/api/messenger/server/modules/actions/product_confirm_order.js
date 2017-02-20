@@ -61,43 +61,30 @@ export default class ProductConfirmOrder extends BaseAction {
                       financial_status: 'authorized',
                       processing_method: "direct",
                       gateway: 'stripe',
-                      test:true,
                       customer: {
                         id: customer.shopify.id
                       },
                       subtotal: subtotal
                     }
-                    console.log(order)
-                    customer.clearCart()
+                    
                     return createOrder(order)
                         .then(shopifyOrder => {
-                          return Orders.insert({customer_id: customer._id, data: shopifyOrder})
-
+                          return Orders.insert({customer_id: customer._id, data: shopifyOrder, status: 'new'})
                         })
                         .then(orderId => {
+                          customer.clearCart()
                           reply({
                             message: {
                               attachment:{
                                 type:'template',
                                 payload:{
                                   template_type:'button',
-                                  text: `À votre service ${customer.metadata.first_name}, je vous livrerai votre commande ${day} soir, une copie de votre commande vous a été envoyée par courriel. Vous pouvez payer maintenant ou à la livraison.`,
+                                  text: `À votre service ${customer.metadata.first_name}, je vous livrerai votre commande ${day} soir, une copie de votre commande vous a été envoyée par courriel. Vous pouvez payer la commande après la livraison.`,
                                   buttons :[
-                                    {
-                                      type:'web_url',
-                                      title:'Passer a la caisse',
-                                      url: Meteor.absoluteUrl(`/charge/${orderId}`),
-                                      webview_height_ratio: 'TALL'
-                                    },
                                     {
                                       type:'postback',
                                       title:'Retour au menu',
                                       payload:'SERVICES'
-                                    },
-                                    {
-                                      type:'postback',
-                                      title:`Confirmer l'épicerie`,
-                                      payload:'Épicerie fine'
                                     }
                                   ]
                                 }
@@ -108,8 +95,6 @@ export default class ProductConfirmOrder extends BaseAction {
                          }
 
                         )
-
-
 
                   })
 

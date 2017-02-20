@@ -23,3 +23,12 @@ Template.registerHelper('expYears', function () {
   }
   return years
 })
+
+
+/**
+ * Date formats
+ */
+import {getShortFormat} from '/imports/lib/dateFormat'
+Template.registerHelper('shortDate', function (date) {
+  return getShortFormat(date)
+})

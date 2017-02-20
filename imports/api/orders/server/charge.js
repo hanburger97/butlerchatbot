@@ -26,7 +26,7 @@ Meteor.methods({
                       .then(charge => {
                         return Charges.insert({customer_id: order.customer_id, order_id: order._id, data: charge})
                           .then(() => {
-                            order.set('status', 'paid')
+                            order.set('paid_at', new Date())
                             return order.save()
                           })
                       })

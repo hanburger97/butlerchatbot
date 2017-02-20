@@ -25,7 +25,8 @@ const adminRoutes = FlowRouter.group({
           Session.set('redirectAfterLogin', route.path)
           FlowRouter.go('adminLogin')
         }
-      } else if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      } else if (!Meteor.loggingIn() && !Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+        console.log(Roles.userIsInRole(Meteor.userId(), ['admin']))
         FlowRouter.go('adminUnauthorized')
       } else {
         // let it go...
@@ -39,7 +40,15 @@ const adminRoutes = FlowRouter.group({
 adminRoutes.route('/', {
   name: 'adminDashboard',
   action: function () {
-    BlazeLayout.render('adminLayout', {content: 'AdminDashboard'})
+    FlowRouter.go('adminOrders')
+    //BlazeLayout.render('adminLayout', {content: 'AdminDashboard'})
+  }
+})
+
+adminRoutes.route('/orders/:page?', {
+  name: 'adminOrders',
+  action: function () {
+    BlazeLayout.render('adminLayout', {content: 'AdminOrders'})
   }
 })
 
