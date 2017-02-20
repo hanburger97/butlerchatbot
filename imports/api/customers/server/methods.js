@@ -10,7 +10,9 @@ export const get = (data = {}) => (
 
 Meteor.methods({
   'Customers.get': function (_id) {
-    var custeomr = Customers.parentFindOne(_id) 
-    return custeomr._attrs
+    var customer = Customers.parentFindOne(_id)
+    if (!customer) return null;
+    
+    return customer._attrs
   }
 })
