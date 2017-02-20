@@ -1,40 +1,5 @@
 [
   {
-    "trigger": "hello",
-    "response": {
-      "text": "Hello! "
-    },
-    "action": {}
-  },
-  {
-    "trigger": "button",
-    "response": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "What do you want to do next?",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "View subtotal",
-              "payload": "SUB"
-            },
-            {
-              "type": "postback",
-              "title": "Checkout",
-              "payload": "CHECKOUT"
-            }
-          ]
-        }
-      }
-    },
-    "action": {
-      "value": null,
-      "operation": ""
-    }
-  },
-  {
     "trigger": "hi",
     "response": {
       "text": "How can I help you today?:",
@@ -57,78 +22,4146 @@
     }
   },
   {
-    "trigger": "find",
+    "trigger": "ménage",
+    "response": {},
+    "action": {
+      "operation": "RecordRoom"
+    }
+  },
+  {
+    "trigger": "entretien",
+    "response": {},
+    "action": {
+      "operation": "RecordRoom"
+    }
+  },
+  {
+    "trigger": "auto",
     "response": {
-      "text": "What would you like to find?",
+      "text": "Quand désirez-vous faire laver votre auto? Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
       "quick_replies": [
         {
           "content_type": "text",
-          "title": "Option 1",
-          "payload": "OPTION_1"
+          "title": "Lundi",
+          "payload": "CARWASH_MONDAY"
         },
         {
           "content_type": "text",
-          "title": "Option 2",
-          "payload": "OPTION_2"
+          "title": "Mercredi",
+          "payload": "CARWASH_WEDNESDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Vendredi",
+          "payload": "CARWASH_FRIDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Annuler un lavage",
+          "payload": "CARWASH_CANCEL"
+        },
+        {
+          "content_type": "text",
+          "title": "Plus d'info",
+          "payload": "CARWASH_INFO"
         }
       ]
     },
     "action": {}
   },
   {
-    "trigger": "help",
+    "trigger": "lave-auto",
     "response": {
-      "text": "Hang in there... I am forwarding this to a human"
+      "text": "Quand désirez-vous faire laver votre auto? Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Lundi",
+          "payload": "CARWASH_MONDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Mercredi",
+          "payload": "CARWASH_WEDNESDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Vendredi",
+          "payload": "CARWASH_FRIDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Annuler un lavage",
+          "payload": "CARWASH_CANCEL"
+        },
+        {
+          "content_type": "text",
+          "title": "Plus d'info",
+          "payload": "CARWASH_INFO"
+        }
+      ]
     },
-    "action": {
-      "value": 15,
-      "operation": "Timeout"
+    "action": {}
+  },
+  {
+    "trigger": "voiture",
+    "response": {
+      "text": "Quand désirez-vous faire laver votre auto? Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Lundi",
+          "payload": "CARWASH_MONDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Mercredi",
+          "payload": "CARWASH_WEDNESDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Vendredi",
+          "payload": "CARWASH_FRIDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Annuler un lavage",
+          "payload": "CARWASH_CANCEL"
+        },
+        {
+          "content_type": "text",
+          "title": "Plus d'info",
+          "payload": "CARWASH_INFO"
+        }
+      ]
+    },
+    "action": {}
+  },
+  {
+    "trigger": "d'auto",
+    "response": {
+      "text": "Quand désirez-vous faire laver votre auto? Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Lundi",
+          "payload": "CARWASH_MONDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Mercredi",
+          "payload": "CARWASH_WEDNESDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Vendredi",
+          "payload": "CARWASH_FRIDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Annuler un lavage",
+          "payload": "CARWASH_CANCEL"
+        },
+        {
+          "content_type": "text",
+          "title": "Plus d'info",
+          "payload": "CARWASH_INFO"
+        }
+      ]
+    },
+    "action": {}
+  },
+  {
+    "trigger": "nettoyeur",
+    "response": {
+      "text": "Quand aimeriez-vous que je vienne chercher vos vêtements? Nous passons tous les Lundis, Mercredis et Vendredis entre 18h30 et 20h30.",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Lundi",
+          "payload": "CLEANER_MONDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Mercredi",
+          "payload": "CLEANER_WEDNESDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Vendredi",
+          "payload": "CLEANER_FRIDAY"
+        }
+      ]
+    },
+    "action": {}
+  },
+  {
+    "trigger": "vêtements",
+    "response": {
+      "text": "Quand aimeriez-vous que je vienne chercher vos vêtements? Nous passons tous les Lundis, Mercredis et Vendredis entre 18h30 et 20h30.",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Lundi",
+          "payload": "CLEANER_MONDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Mercredi",
+          "payload": "CLEANER_WEDNESDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Vendredi",
+          "payload": "CLEANER_FRIDAY"
+        }
+      ]
+    },
+    "action": {}
+  },
+  {
+    "trigger": "dry",
+    "response": {
+      "text": "Quand aimeriez-vous que je vienne chercher vos vêtements? Nous passons tous les Lundis, Mercredis et Vendredis entre 18h30 et 20h30.",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Lundi",
+          "payload": "CLEANER_MONDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Mercredi",
+          "payload": "CLEANER_WEDNESDAY"
+        },
+        {
+          "content_type": "text",
+          "title": "Vendredi",
+          "payload": "CLEANER_FRIDAY"
+        }
+      ]
+    },
+    "action": {}
+  },
+  {
+    "trigger":"plats",
+    "response":{
+      "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"repas",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"repas\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Soupes",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"soupes\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Salades",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"salades\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Végétarien",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"végétarien\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Plats de la mer",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"plats de la mer\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Spécialités Alexis",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"spécialités\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Pâtés et quiches",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"pâtés\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
     }
   },
   {
-    "trigger": "confused",
-    "response": {
-      "text": "standby, I am transfering this to a human"
-    },
-    "action": {
-      "value": 10,
-      "operation": "Timeout"
+    "trigger":"plat",
+    "response":{
+      "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"repas",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"repas\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Soupes",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"soupes\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Salades",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"salades\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Végétarien",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"végétarien\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Plats de la mer",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"plats de la mer\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Spécialités Alexis",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"spécialités\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Pâtés et quiches",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"pâtés\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
     }
   },
   {
-    "trigger": "ok",
-    "response": {
-      "text": "standby, I am transfering this to a human"
-    },
-    "action": {
-      "value": 10,
-      "operation": "Timeout"
+    "trigger":"pret-a-manger",
+    "response":{
+      "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"repas",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"repas\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Soupes",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"soupes\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Salades",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"salades\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Végétarien",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"végétarien\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Plats de la mer",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"plats de la mer\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Spécialités Alexis",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"spécialités\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Pâtés et quiches",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"pâtés\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
     }
   },
   {
-    "trigger": "dev201",
+    "trigger":"soupe",
+    "response":{
+      "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"repas",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"repas\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Soupes",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"soupes\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Salades",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"salades\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Végétarien",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"végétarien\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Plats de la mer",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"plats de la mer\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Spécialités Alexis",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"spécialités\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Pâtés et quiches",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"pâtés\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"salade",
+    "response":{
+      "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"repas",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"repas\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Soupes",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"soupes\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Salades",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"salades\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Végétarien",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"végétarien\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Plats de la mer",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"plats de la mer\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Spécialités Alexis",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"spécialités\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Pâtés et quiches",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"pâtés\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"végétarien",
+    "response":{
+      "text":"Tous les plats sont cuisinés à la main à Griffintown par l'épicier-traiteur Alexis Le Gourmand, dans son style réconfortant et généreux.  Choisissez le type de plat que vous voulez voir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"repas",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"repas\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Soupes",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"soupes\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Salades",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"salades\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Végétarien",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"végétarien\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Plats de la mer",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"plats de la mer\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Spécialités Alexis",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"spécialités\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Pâtés et quiches",
+          "payload":"//SHOW_PRODUCTS/{\"product_type\":\"pâtés\"}"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"bière",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"blonde",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"rousse",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"beer",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"bouteille",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"caisse",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"broken",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"ipa",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"ale",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"hickson",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"brasserie",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"brasseurs",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Brasserie Les Deux Frères: Broken 7, Charles Henri et Dickson",
+              "subtitle":"Née à Terrebonne en 2014,sa solide réputation n'est déjà plus à faire.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505702/logo_les_deux_fre%CC%80res_aoq9mf.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B2F\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasseur de Montréal",
+              "subtitle":"Bières artisanales et désaltérantes fabriquées dans les plus pures traditions.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/logo_brasseurs_montre%CC%81al_ww4ayx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"bdm\"}"
+                }
+              ]
+            },
+            {
+              "title":"Brasserie Les Trois Mousquetaires",
+              "subtitle":"Brasseurs artisans à Brossard, variété de produits réguliers et Grande Cuvée.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1486505701/3_mousquetaires_cdxqti.gif",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"B3M\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger": "menu",
     "response": {
       "attachment": {
         "type": "template",
         "payload": {
-          "template_type": "button",
-          "text": "What do you want to do next?",
-          "buttons": [
+          "template_type": "generic",
+          "elements": [
             {
-              "type": "postback",
-              "title": "Get Started",
-              "payload": "START"
+              "title": "Lavage et Entretien",
+              "subtitle": "Cliquez sur le service dont vous avez besoin ou écrivez-le.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878006/1c05f122c9836d73625af694c7836ed5_iqgeeh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Lave-Auto",
+                  "payload": "SERVICE_LAVE_AUTO"
+                },
+                {
+                  "type": "postback",
+                  "title": "Entretien Ménager",
+                  "payload": "SERVICE_ENTRETIEN"
+                },
+                {
+                  "type": "postback",
+                  "title": "Nettoyeur",
+                  "payload": "CLEANER"
+                }
+              ]
             },
             {
-              "type": "web_url",
-              "url": "https://shrouded-beyond-46149.herokuapp.com/#/table",
-              "title": "View Table(developer)",
-              "webview_height_ratio": "compact"
+              "title": "Gourmand",
+              "subtitle": "Des produits et fournisseurs locaux, responsables et surtout, gourmands!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878900/41640817-variety-of-organic-vegetables-and-fruits-in-wicker-basket-isolated-on-white_mzqfjh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Prêt-à-manger",
+                  "payload": "Prêt-à-manger"
+                },
+                {
+                  "type": "postback",
+                  "title": "Bières et vins",
+                  "payload": "Bières et vins"
+                },
+                {
+                  "type": "postback",
+                  "title": "Épicerie fine",
+                  "payload": "Épicerie fine"
+                }
+              ]
+            },
+            {
+              "title": "Travaux manuels: Peu importe la tâche, j'ai le meilleur pour le faire",
+              "subtitle": "Nos hommes à tout faire, très compétents, chargent environ 25$/heure",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878803/IMG-Handyman-Skills_f2tjmp.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Remplir une Demande",
+                  "payload": "M_REQUEST"
+                },
+                {
+                  "type": "phone_number",
+                  "title": "Appeler",
+                  "payload": "+15143484966"
+                }
+              ]
+            },
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
             }
           ]
         }
       }
     },
     "action": {}
+  },
+  {
+    "trigger": "allo",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Lavage et Entretien",
+              "subtitle": "Cliquez sur le service dont vous avez besoin ou écrivez-le.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878006/1c05f122c9836d73625af694c7836ed5_iqgeeh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Lave-Auto",
+                  "payload": "SERVICE_LAVE_AUTO"
+                },
+                {
+                  "type": "postback",
+                  "title": "Entretien Ménager",
+                  "payload": "SERVICE_ENTRETIEN"
+                },
+                {
+                  "type": "postback",
+                  "title": "Nettoyeur",
+                  "payload": "CLEANER"
+                }
+              ]
+            },
+            {
+              "title": "Gourmand",
+              "subtitle": "Des produits et fournisseurs locaux, responsables et surtout, gourmands!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878900/41640817-variety-of-organic-vegetables-and-fruits-in-wicker-basket-isolated-on-white_mzqfjh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Prêt-à-manger",
+                  "payload": "Prêt-à-manger"
+                },
+                {
+                  "type": "postback",
+                  "title": "Bières et vins",
+                  "payload": "Bières et vins"
+                },
+                {
+                  "type": "postback",
+                  "title": "Épicerie fine",
+                  "payload": "Épicerie fine"
+                }
+              ]
+            },
+            {
+              "title": "Travaux manuels: Peu importe la tâche, j'ai le meilleur pour le faire",
+              "subtitle": "Nos hommes à tout faire, très compétents, chargent environ 25$/heure",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878803/IMG-Handyman-Skills_f2tjmp.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Remplir une Demande",
+                  "payload": "M_REQUEST"
+                },
+                {
+                  "type": "phone_number",
+                  "title": "Appeler",
+                  "payload": "+15143484966"
+                }
+              ]
+            },
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "action": {}
+  },
+  {
+    "trigger": "hello",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Lavage et Entretien",
+              "subtitle": "Cliquez sur le service dont vous avez besoin ou écrivez-le.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878006/1c05f122c9836d73625af694c7836ed5_iqgeeh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Lave-Auto",
+                  "payload": "SERVICE_LAVE_AUTO"
+                },
+                {
+                  "type": "postback",
+                  "title": "Entretien Ménager",
+                  "payload": "SERVICE_ENTRETIEN"
+                },
+                {
+                  "type": "postback",
+                  "title": "Nettoyeur",
+                  "payload": "CLEANER"
+                }
+              ]
+            },
+            {
+              "title": "Gourmand",
+              "subtitle": "Des produits et fournisseurs locaux, responsables et surtout, gourmands!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878900/41640817-variety-of-organic-vegetables-and-fruits-in-wicker-basket-isolated-on-white_mzqfjh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Prêt-à-manger",
+                  "payload": "Prêt-à-manger"
+                },
+                {
+                  "type": "postback",
+                  "title": "Bières et vins",
+                  "payload": "Bières et vins"
+                },
+                {
+                  "type": "postback",
+                  "title": "Épicerie fine",
+                  "payload": "Épicerie fine"
+                }
+              ]
+            },
+            {
+              "title": "Travaux manuels: Peu importe la tâche, j'ai le meilleur pour le faire",
+              "subtitle": "Nos hommes à tout faire, très compétents, chargent environ 25$/heure",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878803/IMG-Handyman-Skills_f2tjmp.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Remplir une Demande",
+                  "payload": "M_REQUEST"
+                },
+                {
+                  "type": "phone_number",
+                  "title": "Appeler",
+                  "payload": "+15143484966"
+                }
+              ]
+            },
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "action": {}
+  },
+  {
+    "trigger": "salut",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Lavage et Entretien",
+              "subtitle": "Cliquez sur le service dont vous avez besoin ou écrivez-le.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878006/1c05f122c9836d73625af694c7836ed5_iqgeeh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Lave-Auto",
+                  "payload": "SERVICE_LAVE_AUTO"
+                },
+                {
+                  "type": "postback",
+                  "title": "Entretien Ménager",
+                  "payload": "SERVICE_ENTRETIEN"
+                },
+                {
+                  "type": "postback",
+                  "title": "Nettoyeur",
+                  "payload": "CLEANER"
+                }
+              ]
+            },
+            {
+              "title": "Gourmand",
+              "subtitle": "Des produits et fournisseurs locaux, responsables et surtout, gourmands!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878900/41640817-variety-of-organic-vegetables-and-fruits-in-wicker-basket-isolated-on-white_mzqfjh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Prêt-à-manger",
+                  "payload": "Prêt-à-manger"
+                },
+                {
+                  "type": "postback",
+                  "title": "Bières et vins",
+                  "payload": "Bières et vins"
+                },
+                {
+                  "type": "postback",
+                  "title": "Épicerie fine",
+                  "payload": "Épicerie fine"
+                }
+              ]
+            },
+            {
+              "title": "Travaux manuels: Peu importe la tâche, j'ai le meilleur pour le faire",
+              "subtitle": "Nos hommes à tout faire, très compétents, chargent environ 25$/heure",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878803/IMG-Handyman-Skills_f2tjmp.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Remplir une Demande",
+                  "payload": "M_REQUEST"
+                },
+                {
+                  "type": "phone_number",
+                  "title": "Appeler",
+                  "payload": "+15143484966"
+                }
+              ]
+            },
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "action": {}
+  },
+  {
+    "trigger": "retour",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Lavage et Entretien",
+              "subtitle": "Cliquez sur le service dont vous avez besoin ou écrivez-le.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878006/1c05f122c9836d73625af694c7836ed5_iqgeeh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Lave-Auto",
+                  "payload": "SERVICE_LAVE_AUTO"
+                },
+                {
+                  "type": "postback",
+                  "title": "Entretien Ménager",
+                  "payload": "SERVICE_ENTRETIEN"
+                },
+                {
+                  "type": "postback",
+                  "title": "Nettoyeur",
+                  "payload": "CLEANER"
+                }
+              ]
+            },
+            {
+              "title": "Gourmand",
+              "subtitle": "Des produits et fournisseurs locaux, responsables et surtout, gourmands!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878900/41640817-variety-of-organic-vegetables-and-fruits-in-wicker-basket-isolated-on-white_mzqfjh.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Prêt-à-manger",
+                  "payload": "Prêt-à-manger"
+                },
+                {
+                  "type": "postback",
+                  "title": "Bières et vins",
+                  "payload": "Bières et vins"
+                },
+                {
+                  "type": "postback",
+                  "title": "Épicerie fine",
+                  "payload": "Épicerie fine"
+                }
+              ]
+            },
+            {
+              "title": "Travaux manuels: Peu importe la tâche, j'ai le meilleur pour le faire",
+              "subtitle": "Nos hommes à tout faire, très compétents, chargent environ 25$/heure",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878803/IMG-Handyman-Skills_f2tjmp.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Remplir une Demande",
+                  "payload": "M_REQUEST"
+                },
+                {
+                  "type": "phone_number",
+                  "title": "Appeler",
+                  "payload": "+15143484966"
+                }
+              ]
+            },
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "action": {}
+  },
+  {
+    "trigger":"viande",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Boeuf AAA du Québec vieilli 14 jours:",
+              "subtitle":"Élevage responsable, sans hormone ni médicament, nourris à l'herbe et au foin",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955807/SBOE981_Filet_mognon_9_oz_mt3lbj.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"boeuf\"}"
+                }
+              ]
+            },
+            {
+              "title":"Poulet 100% grain végétal ( Ferme des voltigeurs )",
+              "subtitle":"Plus savoureux, nourris au grain, conserve son poids et forme après",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955993/SPOU173_Poulet_entier_xfynf5.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"poulet\"}"
+                }
+              ]
+            },
+            {
+              "title":"Saucisses artisanales naturelles sans gluten",
+              "subtitle":"Fournies par les cochonailles, 2 fois moins de gras que les saucisses ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484956012/SSAU100_Saucisses_italiennes_douces_qcnxlt.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"saucisses\"}"
+                }
+              ]
+            },
+            {
+              "title":"Canard du Québec ( Lac Brome et Chez Rougié )",
+              "subtitle":"chez Rougié: sans hormones ni antibiotiques, gavé de mais et d'eau ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955827/SCAN601_Foie_gras_de_canard_Rougie_olf6ks.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"canard\"}"
+                }
+              ]
+            },
+            {
+              "title":"Poissons de pêcheries durables et responsables",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955890/SPOI100_Filet_de_saumon_de_latlantique_czzo0o.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les poissons",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"poissons\"}"
+                }
+              ]
+            },
+            {
+              "title":"Fruits de Mer de pêcheries durables",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955873/SMER151_Crevettes_blanches_31_40_crues_deveinees_et_decortiquees_ncfghi.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir fruits de mer",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"fruits de mer\"}"
+                }
+              ]
+            },
+            {
+              "title":"Veau de grain du Québec",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484956061/SVEA500_Jarrets_de_veau_axs2kb.jpg",
+              "subtitle":"Chez Bruno Guillet, le veau est nourri de grain végétal, sans antibiotique.",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"veau\"}"
+                }
+              ]
+            },
+            {
+              "title":"Porc d'élevage traditionnel du Québec",
+              "subtitle":"duBreton: Sans antibitiotiques ni sous-produit animal, certifié Agro-Com.",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"porct\"}"
+                }
+              ]
+            },
+            {
+              "title":"Agneau du Québec",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"agneau\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+
+  },
+  {
+    "trigger":"boeuf",
+    "response":{
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boeuf AAA du Québec vieilli 14 jours:",
+              "subtitle": "Élevage responsable, sans hormone ni médicament, nourris à l'herbe et au foin",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955807/SBOE981_Filet_mognon_9_oz_mt3lbj.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir les produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"boeuf\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"beef",
+    "response":{
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boeuf AAA du Québec vieilli 14 jours:",
+              "subtitle": "Élevage responsable, sans hormone ni médicament, nourris à l'herbe et au foin",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955807/SBOE981_Filet_mognon_9_oz_mt3lbj.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir les produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"boeuf\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"bavette",
+    "response":{
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boeuf AAA du Québec vieilli 14 jours:",
+              "subtitle": "Élevage responsable, sans hormone ni médicament, nourris à l'herbe et au foin",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955807/SBOE981_Filet_mognon_9_oz_mt3lbj.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir les produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"boeuf\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"t-bone",
+    "response":{
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boeuf AAA du Québec vieilli 14 jours:",
+              "subtitle": "Élevage responsable, sans hormone ni médicament, nourris à l'herbe et au foin",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484955807/SBOE981_Filet_mognon_9_oz_mt3lbj.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir les produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"boeuf\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"poulet",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Poulet 100% grain végétal ( Ferme des voltigeurs )",
+              "subtitle":"Plus savoureux, nourris au grain, conserve son poids et forme après",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955993/SPOU173_Poulet_entier_xfynf5.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"poulet\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"ailes",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Poulet 100% grain végétal ( Ferme des voltigeurs )",
+              "subtitle":"Plus savoureux, nourris au grain, conserve son poids et forme après",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955993/SPOU173_Poulet_entier_xfynf5.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"poulet\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"saucisses",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Saucisses artisanales naturelles sans gluten",
+              "subtitle":"Fournies par les cochonailles, 2 fois moins de gras que les saucisses ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484956012/SSAU100_Saucisses_italiennes_douces_qcnxlt.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"saucisses\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"canard",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Canard du Québec ( Lac Brome et Chez Rougié )",
+              "subtitle":"chez Rougié: sans hormones ni antibiotiques, gavé de mais et d'eau ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955827/SCAN601_Foie_gras_de_canard_Rougie_olf6ks.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"canard\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"foie",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Canard du Québec ( Lac Brome et Chez Rougié )",
+              "subtitle":"chez Rougié: sans hormones ni antibiotiques, gavé de mais et d'eau ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955827/SCAN601_Foie_gras_de_canard_Rougie_olf6ks.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"canard\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"magret",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Canard du Québec ( Lac Brome et Chez Rougié )",
+              "subtitle":"chez Rougié: sans hormones ni antibiotiques, gavé de mais et d'eau ",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955827/SCAN601_Foie_gras_de_canard_Rougie_olf6ks.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"canard\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"veau",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Veau de grain du Québec",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484956061/SVEA500_Jarrets_de_veau_axs2kb.jpg",
+              "subtitle":"Chez Bruno Guillet, le veau est nourri de grain végétal, sans antibiotique.",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"veau\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"agneau",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Agneau du Québec",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"agneau\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"gigot",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Agneau du Québec",
+              "image_url":"http://res.cloudinary.com/hanburger97/image/upload/v1484955919/SPOR100_Roti_de_longe_de_porc_desosse_hjcbhx.jpg",
+              "buttons":[
+                {
+                  "type":"postback",
+                  "title":"Voir les produits",
+                  "payload":"//SHOW_PRODUCTS/{\"product_type\":\"agneau\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger": "pédicure",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger": "ongles",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger": "manicure",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger": "manucure",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger": "vernis",
+    "response": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Soins et esthétique",
+              "subtitle": "Les meilleurs esthéticiens pour votre style dans le confort de votre condo. Essayez!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1484878736/MASSAGE_3_mrt8qo.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Massothérapie",
+                  "payload": "//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+                },
+                {
+                  "type": "postback",
+                  "title": "Pedicure, Manicure",
+                  "payload": "//SHOW_MANUCURE/{\"product_type\":\"pedicure/manucure\"}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger":"savon",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"lessive",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"vaisselle",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"nettoyant",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"produits",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"savon",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir Panier",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"épicerie",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Bières et vins"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"terroir",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Bières et vins"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"alimentation",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Bières et vins"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"gourmand",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Bières et vins"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"nourriture",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Bières et vins"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"bouffe",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Bières et vins"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"manger",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Prêt-à-manger maison Alexis le Gourmand.",
+              "subtitle": "Des plats généreux et réconfortants cuisinés à la main à Griffintown",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Prêt-à-manger"
+                }
+              ]
+            },
+            {
+              "title": "Boucherie fine surgelée, produits du Québec, naturels, emballés sous vide.",
+              "subtitle": "La surgélation sous vide permet de conserver intacts tous les jus et saveurs.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boucherie_fine_sizhjn.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Boucherie"
+                }
+              ]
+            },
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            },
+            {
+              "title": "Bières de microbrasserie et vins artisanaux",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/bie%CC%80res_ipa_sbf2eq.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "Bières et vins"
+                }
+              ]
+            },
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            },
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            },
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            },
+            {
+              "title": "Pâtes alimentaires italiennes",
+              "subtitle": "Rien de local, mais des produits dans la plus pure tradition italienne.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/pa%CC%82tes_alimentaires_kqap8e.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
+                }
+              ]
+            },
+            {
+              "title": "Produits ménagers écologiques",
+              "subtitle": "Encore une fois, des produits montréalais, bios, et diablement efficaces!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/OH-cleaning-products_msypxb.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
+                }
+              ]
+            },
+            {
+              "title": "Thés et infusions",
+              "subtitle": "En fonction le 13 Février.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/the%CC%81s_l9loye.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"chips",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"croustilles",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Croustilles et craquelins",
+              "subtitle": "La brasserie la plus éloignée est située à 40 km de l'Hexagone!",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/chips_oskdj1.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"miel",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"confitures",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"épices",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Produits fins du terroir",
+              "subtitle": "Tels que sélectionnés par notre maître-épicier, Alexis le Gourmand.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505702/produits_fins_miel_upclwe.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"alexis",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"café",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Autre produits Alexis le Gourmand",
+              "subtitle": "Des produits maison, directement de la réputé épicerie de Griffintown.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/Image_pre%CC%82t-a%CC%80-manger_produits_alexis_le_gourmand_lwbmou.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"cola",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"coke",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"kola",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"henri",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
+  },
+  {
+    "trigger":"soda",
+    "response": {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Boissons gazeuses locales",
+              "subtitle": "Brassées à Montréal dans un style artisanal.",
+              "image_url": "http://res.cloudinary.com/hanburger97/image/upload/v1486505701/boissons_gazeuses_Henri_Soda_ncddpd.jpg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Voir Produits",
+                  "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"retour à l'accueil",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Voir la commande",
+          "payload":"//SHOW_CART/"
+        }
+      ]
+    }
   }
 ]
