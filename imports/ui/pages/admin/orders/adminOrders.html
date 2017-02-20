@@ -26,9 +26,9 @@
 
             {{# methodCallerContainer methodName='Customers.get' methodParams=(customer_id)}}
               {{#unless isReady}}
-                <td>{{response.metadata.first_name}} {{response.metadata.last_name}}</td>
-                <td>{{response.email}}</td>
-                <td>#{{response.room}}</td>
+                <td>{{metadata.first_name}} {{metadata.last_name}}</td>
+                <td>{{email}}</td>
+                <td>#{{room}}</td>
               {{else}}
                 <td>--</td>
                 <td>--</td>

@@ -40,7 +40,8 @@ const adminRoutes = FlowRouter.group({
 adminRoutes.route('/', {
   name: 'adminDashboard',
   action: function () {
-    BlazeLayout.render('adminLayout', {content: 'AdminDashboard'})
+    FlowRouter.go('adminOrders')
+    //BlazeLayout.render('adminLayout', {content: 'AdminDashboard'})
   }
 })
 
