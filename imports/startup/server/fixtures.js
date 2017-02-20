@@ -43,6 +43,19 @@ Migrations.add({
   }
 });
 
+Migrations.add({
+  version: 4,
+  up: function () {
+    if (!Meteor.users.findOne({emails: {$elemMatch: {address: 'admin@elicng.com'}}})) {
+      Accounts.createUser({
+        username: 'admin@elicng.com',
+        password: 'admin@elicng.com',
+        email: 'admin@elicng.com'
+      });
+    }
+  }
+});
+
 Meteor.startup(() => {
   Migrations.migrateTo('latest');
 });

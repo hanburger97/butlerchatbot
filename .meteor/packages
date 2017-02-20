@@ -24,3 +24,6 @@ kadira:flow-router
 kadira:blaze-layout
 meteorhacks:picker
 universe:utilities-blaze
+accounts-password
+session
+alanning:roles
