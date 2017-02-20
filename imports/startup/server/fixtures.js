@@ -78,6 +78,27 @@ Migrations.add({
   }
 });
 
+Migrations.add({
+  version: 6,
+  up: function () {
+    if (!Meteor.users.findOne({emails: {$elemMatch: {address: 'staff@sosalbert.com'}}})) {
+      Accounts.createUser({
+        username: 'staff@sosalbert.com',
+        password: 'sosalbert',
+        email: 'staff@sosalbert.com'
+      });
+    }
+  }
+});
+
+Migrations.add({
+  version: 7,
+  up: function () {
+    const adminUser = Meteor.users.findOne({emails: {$elemMatch: {address: 'staff@sosalbert.com'}}})
+    Roles.setUserRoles(adminUser._id, 'admin')
+  }
+});
+
 Meteor.startup(() => {
   Migrations.migrateTo('latest');
 });

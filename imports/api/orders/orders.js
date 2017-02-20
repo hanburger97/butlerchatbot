@@ -20,6 +20,10 @@ class Order extends Model {
     if (this.paid_at) {
       return 'paid'
     }
+    if (this.payment_link_sent_at) {
+      return 'payment_link_sent'
+    }
+    
     return 'new'
   }
 }

@@ -1,5 +1,6 @@
 import './adminOrders.html'
 import Orders from '/imports/api/orders/orders'
+import { Email } from 'meteor/email'
 
 const LIMIT = 10
 
@@ -49,5 +50,12 @@ Template.AdminOrders.helpers({
   },
   currentPage: function () {
     return parseInt(FlowRouter.getParam('page')) || 1
+  }
+})
+
+Template.AdminOrders.events({
+  'click #asd': function (event) {
+    event.preventDefault()
+    Meteor.call('orders.sendPaymentEmailToClient', this._id)
   }
 })

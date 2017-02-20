@@ -23,11 +23,17 @@
             <td>{{data.name}}</td>
             <td>{{data.total_price}}$</td>
             <td>{{shortDate data.created_at}}</td>
-            {{# methodCallerContainer methodName='Customers.get' methodParams=(customer_id)}}
 
-              <td>{{metadata.first_name}} {{metadata.last_name}}</td>
-              <td>{{email}}</td>
-              <td>#{{room}}</td>
+            {{# methodCallerContainer methodName='Customers.get' methodParams=(customer_id)}}
+              {{#unless isReady}}
+                <td>{{response.metadata.first_name}} {{response.metadata.last_name}}</td>
+                <td>{{response.email}}</td>
+                <td>#{{response.room}}</td>
+              {{else}}
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+              {{/unless}}
             {{/methodCallerContainer}}
 
             <td>
@@ -36,7 +42,7 @@
 
             <td>
               <div class="btn-group ">
-                <button type="button" class="btn btn-info">Modifier</button>
+                <!--<button type="button" class="btn btn-info">Modifier</button>-->
 
                 <div class="btn-group">
                   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -44,6 +50,7 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li><a href="/charge/{{_id}}" target="_blank">Ouvrir page de paiement</a></li>
+                    <li><a href="#" id="asd">Envoyer courriel de paiement au client</a></li>
                   </ul>
                 </div>
               </div>
