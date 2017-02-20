@@ -46,6 +46,12 @@ export default class ProductShowCart extends BaseAction {
              console.log(lineItems)
              const pagesProducts = []
              let hasMore = false
+             let subtotal = 0
+             for (var z = 0; z < lineItems.length; z++){
+               //This loop will go over every item in the cart and add it up as a subtotal
+               var item = lineItems[z]
+               subtotal += item.quantity * item.variants[0].price
+             }
              for (var i = pageNb * 4; i < products.length; i++) {
                if (pagesProducts.length === 4 && i < products.length) {
                  hasMore = true
@@ -73,7 +79,7 @@ export default class ProductShowCart extends BaseAction {
                          {
                            "title": product.title,
                            "image_url": product.images.length ? product.images[0].src : "https://img0.etsystatic.com/108/0/10431067/il_340x270.895571854_5n8v.jpg",
-                           "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}`,
+                           "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}, Sous-total: $${(lineItem.variants[0].price * lineItem.quantity)}`,
                            "buttons": [
                              {
                                "type": "postback",
@@ -116,7 +122,7 @@ export default class ProductShowCart extends BaseAction {
                  elements.push({
                    "title": product.title,
                    "image_url": img,
-                   "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}`,
+                   "subtitle": `Quantite: ${lineItem.quantity}, Prix par unite: ${lineItem.variants[0].formatted_price}, Sous-total: $${(lineItem.variants[0].price * lineItem.quantity)}`,
                    "buttons": [
                      {
                        "type": "postback",
@@ -163,12 +169,13 @@ export default class ProductShowCart extends BaseAction {
                console.log(shopifyCart)
                reply({
                  message:{
-                   text: `Votre sous-total est ${shopifyCart.subtotal} $`
+                   text: `Votre total est de ${subtotal} $`
                  }
                })
                reply({
                  message
                })
+               subtotal = 0
 
                /*reply({
 
