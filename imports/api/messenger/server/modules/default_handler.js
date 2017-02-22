@@ -112,6 +112,13 @@ class DefaultModule extends BaseHandler {
            return reply({
              message:{
                text:`À votre service ${customer.metadata.first_name}. Veuillez m'accorder quelques minutes pour traiter votre demande et vous revenir avec une proposition de thérapeuthe et de date. `,
+               quick_replies:[
+                 {
+                   content_type: 'text',
+                   title:'Retour au menu',
+                   payload:'SERVICES'
+                 }
+               ]
              }
            })
          })

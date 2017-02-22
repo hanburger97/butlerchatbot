@@ -209,7 +209,7 @@
   {
     "trigger": "CARWASH_MONDAY",
     "response": {
-      "text": "Voulez-vous un lavage seulement extérieur ou complet?",
+      "text": "Et dites-moi, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -241,7 +241,7 @@
   {
     "trigger": "CARWASH_WEDNESDAY",
     "response": {
-      "text": "Voulez-vous un lavage seulement extérieur ou complet? ",
+      "text": "Et dites-moi, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -273,7 +273,7 @@
   {
     "trigger": "CARWASH_FRIDAY",
     "response": {
-      "text": "Voulez-vous un lavage seulement extérieur ou complet? ",
+      "text": "Et dites-moi, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -1091,6 +1091,7 @@
     "trigger":"HOW_IT_WORKS",
     "response":{
       "attachment":{
+        "type":"template",
         "payload":{
           "template_type":"button",
           "text":"Je suis Albert, votre concierge personnalisé, exclusif à L'Hexagone.  Dès que vous avez un besoin à domicile, ne vous cassez pas la tête, peu importe ce dont il s'agit, je peux m'en charger. Je suis disponible sur Messenger, facebook,  mais vous pouvez aussi m'appeler directement.",
@@ -1119,6 +1120,7 @@
     "trigger":"LEARN_MORE",
     "response":{
       "attachment":{
+        "type":"template",
         "payload":{
           "template_type":"button",
           "text":"Grâce à moi, sans frais, profitez de services exclusifs, offerts par les meilleurs fournisseurs de Griffintown, dans des conditions plus avantageuses.  Tous nos fournisseurs sont choisis pour leur excellence, leur rapport qualité-prix, ainsi que pour leur engagement responsable. ",
@@ -1136,6 +1138,52 @@
           ]
         }
       }
+    }
+  },
+  {
+    "trigger":"MASSAGE_THERAPEUTES",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Tundi: Massages Suédois, tissus profonds, sportifs et thérapeutiques.",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "Ancienne infirmière, plusieurs fois diplômée, exerce depuis 1995."
+            },
+            {
+              "title": "Martine: Suédois, tissus profonds, shiatsu, thérapeutique.",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "Passionnée de santé et de saines habitudes, prodiguera conseils et soins."
+            },
+            {
+              "title": "Hector: Traitement sur mesure selon vos besoins, vos douleurs, vos objectifs",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "soulagera vos maux de tête, douleurs, tendinites, votre stress."
+            },
+            {
+              "title": "François-Olivier: kynésiologue dîplômé.",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "Combine osthéopathie, massothérapie, kynésiologie et neurosciences. "
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour aux massages",
+          "payload":"//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+        }
+      ]
+
     }
   }
 

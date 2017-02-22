@@ -88,7 +88,7 @@ export default class ProductConfirmOrder extends BaseAction {
                                     },
                                     {
                                       type:'postback',
-                                      title:'Continuer dans ls section Épicerie',
+                                      title:'Retour Épicerie',
                                       payload:'Épicerie fine'
                                     }
                                   ]
