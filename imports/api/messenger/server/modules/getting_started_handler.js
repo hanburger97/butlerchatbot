@@ -176,9 +176,9 @@ class GettingStarted extends BaseHandler {
                         "payload": "HOW_IT_WORKS"
                       },
                       {
-                        "type": "postback",
+                        "type": "phone_number",
                         "title": "Appeler",
-                        "payload": "CALL"
+                        "payload": "+15143484966"
                       }
                     ]
                   }

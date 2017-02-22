@@ -147,7 +147,7 @@
             {
               "type": "postback",
               "title": "Retour au Menu",
-              "payload": "start"
+              "payload": "START"
             }
           ]
         }
@@ -1085,6 +1085,57 @@
     "action":{
       "operation":"RecordUserInput",
       "value":"HandymanForm"
+    }
+  },
+  {
+    "trigger":"HOW_IT_WORKS",
+    "response":{
+      "attachment":{
+        "payload":{
+          "template_type":"button",
+          "text":"Je suis Albert, votre concierge personnalisé, exclusif à L'Hexagone.  Dès que vous avez un besoin à domicile, ne vous cassez pas la tête, peu importe ce dont il s'agit, je peux m'en charger. Je suis disponible sur Messenger, facebook,  mais vous pouvez aussi m'appeler directement.",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":"En savoir plus",
+              "payload":"LEARN_MORE"
+            },
+            {
+              "type": "phone_number",
+              "title": "Appeler",
+              "payload": "+15143484966"
+            },
+            {
+              "type":"postback",
+              "title":"Voir les services",
+              "payload":"SERVICES"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger":"LEARN_MORE",
+    "response":{
+      "attachment":{
+        "payload":{
+          "template_type":"button",
+          "text":"Grâce à moi, sans frais, profitez de services exclusifs, offerts par les meilleurs fournisseurs de Griffintown, dans des conditions plus avantageuses.  Tous nos fournisseurs sont choisis pour leur excellence, leur rapport qualité-prix, ainsi que pour leur engagement responsable. ",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":"Voir les services",
+              "payload":"SERVICES"
+            },
+            {
+              "type": "phone_number",
+              "title": "Appeler",
+              "payload": "+15143484966"
+            }
+          ]
+        }
+      }
     }
   }
 
