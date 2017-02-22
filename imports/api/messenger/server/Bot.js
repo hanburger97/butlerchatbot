@@ -27,6 +27,11 @@ bot.setPersistentMenu([
     "payload": "START"
   },
   {
+    "type":"postback",
+    "title": "Voir les services",
+    "payload": "SERVICES"
+  },
+  {
     "type": "postback",
     "title": "Voir mon panier",
     "payload": ProductShowCart.getActionPostback()
