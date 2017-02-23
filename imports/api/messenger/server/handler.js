@@ -77,6 +77,21 @@ const handle = (args) => {
       return customer
     })
     .then(customer => {
+
+      args.reply = function () {
+        const args = arguments
+        const message = args[0].message
+        let msg = JSON.stringify(message)
+        const firstNameRegex = /\{\{first_name}}/g
+        const lastNameRegex = /\{\{last_name}}/g
+
+        msg = msg.replace(firstNameRegex, customer.metadata.first_name)
+        msg = msg.replace(lastNameRegex, customer.metadata.last_name)
+
+        args[0].message = msg
+        reply(...args)
+      }
+
       const args2 = Object.assign({
         customer, queryUrl
       }, args)
