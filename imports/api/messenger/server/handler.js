@@ -42,6 +42,22 @@ const handle = (args) => {
         })
     })
     .then(customer => {
+
+      // Decorate original reply with first name and last name replace in the message
+      args.reply = function () {
+        const args = arguments
+        const message = args[0].message
+        let msg = JSON.stringify(message)
+        const firstNameRegex = /\{\{first_name}}/g
+        const lastNameRegex = /\{\{last_name}}/g
+
+        msg = msg.replace(firstNameRegex, customer.metadata.first_name)
+        msg = msg.replace(lastNameRegex, customer.metadata.last_name)
+        args[0].message = msg
+        
+        reply(...args)
+      }
+      
       if (!customer.shopify) {
         // No shopify customer account created. Create one
         return createShopifyCustomer({
@@ -111,5 +127,3 @@ const handle = (args) => {
 
     })
 }
-
-
