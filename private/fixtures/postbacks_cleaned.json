@@ -92,6 +92,30 @@
     "action": {}
   },
   {
+    "trigger":"ENGLISH",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Dear {{first_name}}, I love to talk and write this beautiful language.. Although, I must admit I still need a few more days before being able to serve you in English. I will message you as soon as my fellow humans are done teaching it to me. Your 20$ discount will still be valid, as long as you like Concierge Hexagone Facebook Page. I will contact you shortly. If you need anything until then, feel free to call me!",
+          "buttons":[
+            {
+              "type": "phone_number",
+              "title": "Call",
+              "payload": "+15143484966"
+            },
+            {
+              "type":"web_url",
+              "url":"https://www.facebook.com/conciergehexagone/",
+              "title":"See Facebook Page"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
     "trigger": "SERVICE_LAVE_AUTO",
     "response": {
       "text": "Quand désirez-vous faire laver votre auto? Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
