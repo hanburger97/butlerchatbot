@@ -36,7 +36,7 @@ export default class ProductUpdateQuantity extends BaseAction {
               if (quantity == 0) {
                 reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
                 cart.removeProductId(productId)
-                console.log(JSON.stringify(cart))
+                //console.log(JSON.stringify(cart))
                 //return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
               } else {
                 cart.updateProductId(productId, quantity)
