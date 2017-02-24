@@ -107,8 +107,27 @@ class GettingStarted extends BaseHandler {
         }
       }
 
-
-      if (queryUrl.toUpperCase() === 'START') {
+      if (queryUrl.toUpperCase() === 'START'){
+        reply({
+          message:{
+            text:`Bonjour ${customer.metadata.first_name}, I am Albert at your service. Would you prefer to be served in French or in English?`,
+            quick_replies:[
+              {
+                content_type: 'text',
+                title: 'English',
+                payload: 'ENGLISH'
+              },
+              {
+                content_type: 'text',
+                title: 'French',
+                payload: 'START_FRENCH'
+              }
+            ]
+          }
+        })
+        return
+      }
+      else if (queryUrl.toUpperCase() === 'START_FRENCH') {
 
         // Check if we need to record the room first or not
         if (!customer.room) {
@@ -116,7 +135,7 @@ class GettingStarted extends BaseHandler {
           _this.record[senderId] = {
             room: true
           }
-
+          /**/
           reply({
             message: {
               text: `Bonjour ${customer.metadata.first_name}, je suis Albert, votre concierge virtuel, exclusif aux résidents de L'Hexagone.`,
