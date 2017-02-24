@@ -19,13 +19,19 @@ class ProductHandler extends BaseHandler {
     const promise = new Promise((resolve, reject) => {
 
       let handler = null
-      _this.actions.forEach(action => {
+      for (i = 0; i < _this.actions.length; i++){
+        if (_this.actions[i].canHandlePostback(queryUrl)){
+          handler = _this.actions[i].handle({payload, reply, senderId, customer, queryUrl})
+          return resolve(handler)
+        }
+      }
+      /*_this.actions.forEach(action => {
         if (action.canHandlePostback(queryUrl)) {
           handler = action.handle({payload, reply, senderId, customer, queryUrl})
         }
-      })
+      })*/
 
-      if (handler) return handler
+      /*if (handler) return handler*/
 
       const PRODUCTS_VIEW_CHECKOUT = '//PRODUCT/CART/CHECKOUT'
 

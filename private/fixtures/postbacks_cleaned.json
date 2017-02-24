@@ -241,7 +241,7 @@
   {
     "trigger": "CARWASH_WEDNESDAY",
     "response": {
-      "text": "Et dites-moi, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
+      "text": "Et dites-moi {{first_name}}, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -273,7 +273,7 @@
   {
     "trigger": "CARWASH_FRIDAY",
     "response": {
-      "text": "Et dites-moi, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
+      "text": "Et dites-moi {{first_name}}, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -599,7 +599,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "À votre service, je serai à votre porte Vendredi soir pour récupérer vos vêtements.",
+          "text": "À votre service {{first_name}}, je serai à votre porte Vendredi soir pour récupérer vos vêtements.",
           "buttons": [
             {
               "type": "postback",
