@@ -10,7 +10,9 @@ class Collection extends Mongo.Collection {
     }
 
     super(name, {transform, _suppressSameNameError: true})
+    
     this.parentInsert = this.insert
+    
     this.insert = promisify(this.insert)
 
     this.parentupdate = this.update
@@ -47,6 +49,17 @@ class Collection extends Mongo.Collection {
     const promise = new Promise(promisify)
 
     return promise
+  }
+  
+  insert (doc, callback) {
+    let now = new Date();
+    doc.created_at = now
+    return super.insert(doc, callback)
+  }
+  
+  update (selector, modifier, options, callback) {
+    super.update(selector, modifier, options, callback)
+    super.update(selector, {$set: {updated_at: new Date()}})
   }
 
 }

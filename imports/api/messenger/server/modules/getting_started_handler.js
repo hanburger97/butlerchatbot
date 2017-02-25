@@ -37,8 +37,8 @@ class GettingStarted extends BaseHandler {
                     })
                   })
                   .then(() => {
-                    reply({message: {text: `Merci, la porte ${roomNumber} est maintenant associée à votre dossier!`}})
-                    emitPayload('START')
+                    reply({message: {text: `Merci ${customer.metadata.first_name}, la porte ${roomNumber} est maintenant associée à votre nom!`}})
+                    emitPayload('START_FRENCH')
                   })
               })
               .catch((err) => {
@@ -101,14 +101,33 @@ class GettingStarted extends BaseHandler {
 
               import {update as updateShopifyCustomer} from '/imports/api/shopify/server/customer'
               const shopifyCustomer = customer.shopify
-              emitPayload('START')
+              emitPayload('START_FRENCH')
               return updateShopifyCustomer(shopifyCustomer.id, {email, send_email_welcome: true})
             })
         }
       }
 
-
-      if (queryUrl.toUpperCase() === 'START') {
+      if (queryUrl.toUpperCase() === 'START'){
+        reply({
+          message:{
+            text:`Bonjour ${customer.metadata.first_name}, I am Albert at your service. Would you prefer to be served in French or in English?`,
+            quick_replies:[
+              {
+                content_type: 'text',
+                title: 'English',
+                payload: 'ENGLISH'
+              },
+              {
+                content_type: 'text',
+                title: 'French',
+                payload: 'START_FRENCH'
+              }
+            ]
+          }
+        })
+        return
+      }
+      else if (queryUrl.toUpperCase() === 'START_FRENCH') {
 
         // Check if we need to record the room first or not
         if (!customer.room) {
@@ -116,17 +135,17 @@ class GettingStarted extends BaseHandler {
           _this.record[senderId] = {
             room: true
           }
-
+          /**/
           reply({
             message: {
-              text: `Bonjour ${customer.metadata.first_name}, bienvenue à votre concierge personnalisé Albert. Avant de commencer, j'aurais besoin de savoir votre numéro de porte à l'Hexagone.`,
+              text: `Bonjour ${customer.metadata.first_name}, je suis Albert, votre concierge virtuel, exclusif aux résidents de L'Hexagone.`,
             }
           })
 
           setTimeout(() => {
             reply({
               message: {
-                text: `Veuillez écrire votre numéro de porte:`,
+                text: `Avant de commencer, veuillez simplement écrire votre numéro de porte dans l'immeuble.`,
               }
             })
           }, 500)
@@ -144,7 +163,7 @@ class GettingStarted extends BaseHandler {
           setTimeout(() => {
             reply({
               message: {
-                text: `Veuillez écrire votre adresse courriel:`,
+                text: `Veuillez maintenant indiquer l'adresse courriel qui servira à vous identifier`,
               }
             })
           }, 500)
@@ -176,9 +195,9 @@ class GettingStarted extends BaseHandler {
                         "payload": "HOW_IT_WORKS"
                       },
                       {
-                        "type": "postback",
+                        "type": "phone_number",
                         "title": "Appeler",
-                        "payload": "CALL"
+                        "payload": "+15143484966"
                       }
                     ]
                   }

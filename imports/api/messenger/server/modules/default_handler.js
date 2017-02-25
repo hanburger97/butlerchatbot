@@ -2,6 +2,7 @@ import {BaseHandler} from './base_handler'
 import Responses from '/imports/api/messenger/Responses'
 import Postbacks from '/imports/api/messenger/Postbacks'
 import Rooms from '/imports/api/rooms/Rooms'
+import { Email } from 'meteor/email'
 
 class DefaultModule extends BaseHandler {
   constructor() {
@@ -12,6 +13,8 @@ class DefaultModule extends BaseHandler {
     this.recordParking = []
     this.recordEmail = []
     this.userInput = []
+    this.entretienInput = []
+    this.handymanInput = []
     this.stopAutoReply = false //When True, bot will not answer when message is undefined
     //     ^ stopAutoReply should be set to true when user click on a button that need to be followed up by a typed response
     //        (e.g. Entering room number) only then will the stopAutoReply be set to false to prevent the "i dont unserstand"
@@ -23,13 +26,10 @@ class DefaultModule extends BaseHandler {
     const promise = new Promise(() => {
 
       /*** TIMEOUT SECTION **/
-      if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] > new Date()) {
-        payload.message.text = '';
-        return
-      }
+
 
       /***Recording + Update Room for specific user**/
-      else if (_this.recordRoom[senderId] && _this.recordRoom[senderId] == 'Yes') {
+      if (_this.recordRoom[senderId] && _this.recordRoom[senderId] == 'Yes') {
         payload.message.text = Number(payload.message.text);
         customer.set('room', payload.message.text)
 
@@ -68,7 +68,8 @@ class DefaultModule extends BaseHandler {
         customer.save()
         reply({
           message: {
-            'text': 'Parfait! Vous pouvez continuer', quick_replies: [
+            'text': `Parfait, le numéro de stationnement ${customer.parking} est enregistré dans votre dossier `,
+            quick_replies: [
               {
                 content_type: "text",
                 title: "Continuer",
@@ -79,6 +80,7 @@ class DefaultModule extends BaseHandler {
         });
         //_this.stopAutoReply = false;
         _this.recordParking[senderId] = 'No'
+
 
         delete _this.recordParking[senderId];
       } else if (_this.recordEmail[senderId] && _this.recordEmail[senderId] == 'Yes') {
@@ -108,12 +110,74 @@ class DefaultModule extends BaseHandler {
            return reply({
              message:{
                text:`À votre service ${customer.metadata.first_name}. Veuillez m'accorder quelques minutes pour traiter votre demande et vous revenir avec une proposition de thérapeuthe et de date. `,
+               quick_replies:[
+                 {
+                   content_type: 'text',
+                   title:'Retour au menu',
+                   payload:'SERVICES'
+                 }
+               ]
              }
            })
          })
 
-      }
-      else {
+      } else if (_this.handymanInput[senderId]){
+        console.log(_this.handymanInput[senderId])
+        if (_this.handymanInput[senderId] == '2'){
+          customer.set('Travail manuel temps', payload.message.text)
+          customer.save()
+          delete _this.handymanInput[senderId]
+          return reply({
+            message:{
+              text:`Merci ${customer.metadata.first_name}. Nous prendrons quelques minutes ( entre 8h00 et 18h00 ) pour traiter votre demande et vous revenir avec une proposition.  Tous nos professionnels sont triés sur le volet et coûtent habituellement 27$ de l'heure`,
+              quick_replies:[
+                {
+                  content_type:'text',
+                  title:'Retour au menu',
+                  payload:'SERVICES'
+                }
+              ]
+            }
+          })
+
+
+        }else if (_this.handymanInput[senderId] == '1'){
+          customer.set('Travaux manuel description', payload.message.text)
+          customer.save()
+          _this.handymanInput[senderId] = '2'
+          _this.stopAutoReply = true
+          return reply({
+            message:{
+              text:`Quand aimeriez-vous que ce soit fait, vous pouvez être général ou précis?`
+            }
+          })
+
+
+        }
+
+      }else if (_this.entretienInput[senderId] && _this.entretienInput[senderId]== 'Yes'){
+        customer.set(`heure d'entretien`, payload.message.text)
+        customer.save()
+         .then( () => {
+           delete _this.entretienInput[senderId]
+           //_this.stopAutoReply = false
+           reply({
+             message: {
+               text: `À votre service ${customer.metadata.first_name}, veuillez simplement m'envoyer un message si vous sortez durant les heures mentionnées, je viendrai chercher votre clef en moins de 5 minutes, je serai déjà dans l'immeuble.`,
+               quick_replies: [
+                 {
+                   content_type: 'text',
+                   title: 'Retour au menu',
+                   payload: 'SERVICES'
+                 }
+               ]
+             }
+           })
+         })
+      } else if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] > new Date() && payload.message && payload.message.text) {
+        payload.message.text = '';
+        return
+      } else if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] <= new Date()){
         delete _this.pausedUsers[senderId]
       }
       /*******************/
@@ -123,8 +187,11 @@ class DefaultModule extends BaseHandler {
         console.log('In quickreply');
         Postbacks.findOne({trigger: payload.message.quick_reply.payload})
           .then(postback => {
-
-            if (postback.action && postback.action.operation == 'RecordDay') {
+            if (postback.action && postback.action.operation == 'Timeout') {
+              let until = new Date(new Date().getTime() + (Number(postback.action.value) * 1000));
+              _this.pausedUsers[senderId] = until
+            }
+            else if (postback.action && postback.action.operation == 'RecordDay') {
               customer.set('service', {
                 day: postback.action.value
               })
@@ -133,13 +200,72 @@ class DefaultModule extends BaseHandler {
 
 
             } else if (postback.action && postback.action.operation == 'RecordUserInput'){
-              _this.stopAutoReply = true
-              _this.userInput[senderId]= 'Yes'
-              reply({message: postback.response})
+
+              if (postback.action.value && postback.action.value == 'ENTRETIEN'){
+                _this.entretienInput[senderId]='Yes'
+                _this.stopAutoReply = true
+                reply({message: postback.response})
+              } else {
+                _this.stopAutoReply = true
+                _this.userInput[senderId]= 'Yes'
+                reply({message: postback.response})
+              }
             } else if (postback.action && postback.action.operation == 'AddDetail') {
               customer.set('detail', postback.action.value)
               customer.save()
               reply({message: postback.response})
+
+
+            } else if (postback.action && postback.action.operation == 'RecordParking') {
+
+              if (!customer.parking) {
+                reply({message: {'text': 'Quel est votre numéro de stationnement?'}})
+                _this.recordParking[senderId] = 'Yes'
+                _this.stopAutoReply = true
+              } else {
+                let rmsg = {
+                  attachment: {
+                    type: "template",
+                    payload: {
+                      template_type: "button",
+                      text: "Veuillez confirmer que votre numéro de stationnement est " + JSON.stringify(customer.parking),
+                      buttons: [
+                        {
+                          type: "postback",
+                          title: "Confirmer",
+                          payload: "CARWASH_PROCEED"
+                        },
+                        {
+                          type: "postback",
+                          title: "Changer",
+                          payload: "CHANGE_PARKING"
+                        }
+                      ]
+                    }
+                  }
+                };
+                reply({message: rmsg})
+              }
+
+
+            } else if (postback.action && postback.action.operation == 'CarWashConfirm') {
+              reply({
+                message: {
+                  text: `À votre service ${customer.metadata.first_name}, donc ${customer.service.day}, ${customer.detail}.`,
+                  quick_replies:[
+                    {
+                      content_type:'text',
+                      title:'Retour au menu',
+                      payload: 'SERVICES'
+                    },
+                    {
+                      content_type:'text',
+                      title:'Annuler Lave-Auto',
+                      payload: 'CARWASH_CANCEL'
+                    }
+                  ]
+                }
+              })
 
 
             } else if (postback.action && postback.action.operation == 'ConfirmService') {
@@ -151,77 +277,108 @@ class DefaultModule extends BaseHandler {
             }
           })
           .catch(err => {
-            reply({
-              message: {
-                text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?", quick_replies: [
+            if (payload.message.quick_reply.payload == 'HUMAN'){
+              /*Email.send({
+                from: 'admin@majordome.io',
+                to:'han@hanxbox.com',
+                subject: `Customer ${customer.metadata.first_name},${customer.metadata.last_name} asked to speak to a human`,
+                text:'To set the bot to manual mode please change it in the database for now, we are working on a solution asap'
+              })*/
+              let until = new Date(new Date().getTime() + (7200 * 1000));
+              _this.pausedUsers[senderId] = until;
+              customer.set('Request Human',true)
+              customer.save()
+               .then( () => {
+                 return reply({
+                   message:{
+                     text:`À votre service ${customer.metadata.first_name}, un collègue humain prendra la relève dans quelques minutes, entre 9h00 et 23h00. Jusqu'à ce que l'humain prenne le relais, la recherche par mot-clef est désactivée, vous pouvez toujours utiliser les services`,
+                     quick_replies:[
+                       {
+                         content_type:'text',
+                         title:'Retour au menu',
+                         payload: 'SERVICES'
+                       }
+                     ]
+                   }
+                 })
+               })
 
-                  {
-                    content_type: "text",
-                    title: "Oui",
-                    payload: "HUMAN"
-                  },
-                  {
-                    content_type: "text",
-                    title: "Retour au Menu",
-                    payload: "SERVICES"
-                  }
 
-                ]
-              }
-            })
+            } else {
+              return reply({
+                message: {
+                  text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
+                  quick_replies: [
+
+                    {
+                      content_type: "text",
+                      title: "Oui",
+                      payload: "HUMAN"
+                    },
+                    {
+                      content_type: "text",
+                      title: "Retour au Menu",
+                      payload: "SERVICES"
+                    }
+
+                  ]
+                }
+              })
+            }
+
           })
       } else if (payload.message && payload.message.text) {
         payload.message.text = payload.message.text.toLowerCase();
-        const words = payload.message.text.split(' ');
-        //let words2 = payload.message.text.split(' ');
-        //console.log(words);
-        let r = 0;
-        for (let z = 0; z < words.length; z++) {
-          let word = words[z];
+        if(payload.message.text == 'human'){
+          let until = new Date(new Date().getTime() + (3600 * 1000));
+          _this.pausedUsers[senderId] = until
+          payload.message.text = ''
+        } else {
 
-          return Responses.findOne({trigger: word})
-            .then((response) => {
-              _this.stopAutoReply = false;
-              if (response && response.action && response.action.operation == 'Timeout') {
-                let until = new Date(new Date().getTime() + (Number(response.action.value) * 1000));
-                _this.pausedUsers[senderId] = until;
-                return reply({message: response.response});
-              } else if (response) {
-                return reply({message: response.response});
 
-              }
-            })
-            .catch(err => {
-              console.log(err.message)
-              if (!_this.stopAutoReply) {
-                r += 1
-                console.log(`Words is ${words}`);
-                if (r == words.length) {
-                  console.log("None of the words are defined");
-                  return reply({
-                    message: {
-                      text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
-                      quick_replies: [
-                        {
-                          content_type: "text",
-                          title: "Oui",
-                          payload: "HUMAN"
-                        },
-                        {
-                          content_type: "text",
-                          title: "Retour au Menu",
-                          payload: "SERVICES"
-                        }
+          const words = payload.message.text.split(' ');
+          //let words2 = payload.message.text.split(' ');
+          //console.log(words);
+          let r = 0;
+          /*for (let z = 0; z < words.length; z++) {
+           let word = words[z];*/
 
-                      ]
-                    }
-                  });
-                }
-              }
-            })
+          return Responses.findOne({trigger: {$in: words}})
+           .then((response) => {
+             _this.stopAutoReply = false;
 
+             return reply({message: response.response});
+
+
+           })
+           .catch(err => {
+             console.log(err.message)
+             if (!_this.stopAutoReply) {
+               return reply({
+                 message: {
+                   text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
+                   quick_replies: [
+                     {
+                       content_type: "text",
+                       title: "Oui",
+                       payload: "HUMAN"
+                     },
+                     {
+                       content_type: "text",
+                       title: "Retour au Menu",
+                       payload: "SERVICES"
+                     }
+
+                   ]
+                 }
+               });
+
+             }
+
+           })
+
+          /*}*/
         }
-
       } else if (payload.postback) {
 
         Postbacks.findOne({
@@ -232,11 +389,8 @@ class DefaultModule extends BaseHandler {
 
             } else {
 
-              if (data.action && data.action.operation == 'Timeout') {
-                let until = new Date(new Date().getTime() + (Number(data.action.value) * 1000));
-                _this.pausedUsers[senderId] = until
-              }
-              else if (data.action && data.action.operation == 'AddCart') {
+
+              if (data.action && data.action.operation == 'AddCart') {
                 //AddCart action has to be added to the confirmation msg of each item
                 //Check if user already exists else upsert
 
@@ -255,41 +409,15 @@ class DefaultModule extends BaseHandler {
                 }
 
 
-              } else if (data.action && data.action.operation == 'RecordParking') {
-
-                if (!customer.parking) {
-                  reply({message: {'text': 'Quel est votre numéro de stationnement?'}})
-                  _this.recordParking[senderId] = 'Yes'
-                  _this.stopAutoReply = true
-                } else {
-                  let rmsg = {
-                    attachment: {
-                      type: "template",
-                      payload: {
-                        template_type: "button",
-                        text: "Veuillez confirmer que votre numéro de stationnement est " + JSON.stringify(customer.parking),
-                        buttons: [
-                          {
-                            type: "postback",
-                            title: "Confirmer",
-                            payload: "CARWASH_PROCEED"
-                          },
-                          {
-                            type: "postback",
-                            title: "Changer",
-                            payload: "CHANGE_PARKING"
-                          }
-                        ]
-                      }
-                    }
-                  };
-                  reply({message: rmsg})
-                }
-
-
+              } else if (data.action && data.action.operation == 'RecordUserInput' && data.action.value =='HandymanForm'){
+                _this.handymanInput[senderId] = '1'
+                _this.stopAutoReply = true
+                //reply({message: data.response})
               } else if (data.action && data.action.operation == 'ChangeParking') {
                 _this.recordParking[senderId] = 'Yes'
                 _this.stopAutoReply = true
+                reply({message:data.response})
+
 
               }  else if (data.action && data.action.operation == 'CarWashConfirm') {
                 reply({
@@ -319,7 +447,7 @@ class DefaultModule extends BaseHandler {
                         type: "template",
                         payload: {
                           template_type: "button",
-                          text: `Je suis sur place du Lundi au Mercredi, de 7h00 à 18h00, pour faire le ménage des appartements, en n'utilisant que des produits nettoyants locaux et éco-responsables. Veuillez confirmer que votre numéro de porte est le ${customer.room}.`,
+                          text: `Je suis sur place du Lundi au Mercredi, de 7h00 à 18h00, pour faire le ménage des appartements, en n'utilisant que des produits nettoyants locaux et éco-responsables. Pour connaître votre prix, veuillez confirmer que votre numéro de porte est bien le ${customer.room}.`,
                           buttons: [
                             {
                               type: "postback",
@@ -407,10 +535,11 @@ class DefaultModule extends BaseHandler {
           })
           .catch(err => {
             console.log(err)
+
             if (!_this.stopAutoReply){
               return reply({
                 message: {
-                  text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
+                  text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
                   quick_replies: [
                     {
                       content_type: "text",

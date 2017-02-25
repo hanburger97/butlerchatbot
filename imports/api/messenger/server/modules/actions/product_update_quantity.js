@@ -17,23 +17,27 @@ export default class ProductUpdateQuantity extends BaseAction {
 
   handle({payload, reply, senderId, customer, queryUrl}) {
     let query = queryUrl.substring(PRODUCTS_CART_UPDATE_QUANTITY.length)
+    console.log(query)
     if (query) {
       query = JSON.parse(query)
+      console.log(query)
       if (!query.product_id) {
         throw new Meteor.Error('MISSING_PARAM', 'Missing parameter', "Missing parameter product_id.")
       }
     }
     const quantity = query.quantity
     const productId = query.product_id
-    if (quantity) {
+    if (quantity || quantity == 0) {
       return getProduct2(productId)
         .then(product => {
           return customer.getCart()
             .then(cart => {
 
               if (quantity == 0) {
+                reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
                 cart.removeProductId(productId)
-                return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
+                //console.log(JSON.stringify(cart))
+                //return reply({message: {text: `Le produit "${product.title}" a été enlevé de votre panier.`}})
               } else {
                 cart.updateProductId(productId, quantity)
                 return cart._fillShopifyCart()
@@ -44,7 +48,7 @@ export default class ProductUpdateQuantity extends BaseAction {
                         quick_replies:[
                           {
                             content_type: "text",
-                            title: "Voir panier updated",
+                            title: "Voir panier",
                             payload: "//SHOW_CART/"
                           }
                         ]
@@ -62,7 +66,7 @@ export default class ProductUpdateQuantity extends BaseAction {
             {
               "content_type": "text",
               "title": "Retirer du panier",
-              "payload": PRODUCTS_CART_UPDATE_QUANTITY + Object.assign({quantity: 0}, query),
+              "payload": PRODUCTS_CART_UPDATE_QUANTITY + JSON.stringify(Object.assign({quantity: 0}, query)),
             },
             {
               "content_type": "text",

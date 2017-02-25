@@ -43,6 +43,11 @@ export default class ServiceViewMassages extends BaseAction {
 
 
        })
+       reply({
+         message:{
+           text:`${customer.metadata.first_name}, veuillez cliquer sur le traitement de préférence, vous pourrez changer ensuite.   Tous les massothérapeutes sont membres de l'Association et peuvent fournir des reçus pour vos assurances.  J'aurai l'occasion de vous les présenter plus tard dans la conversation. `
+         }
+       })
        return reply({
          message: {
            attachment: {
@@ -57,11 +62,6 @@ export default class ServiceViewMassages extends BaseAction {
                content_type:"text",
                title:"Retour au menu",
                payload:"SERVICE"
-             },
-             {
-               content_type:"text",
-               title:"Voir mon panier",
-               payload:"//SHOW_CART/"
              }
            ]
          }

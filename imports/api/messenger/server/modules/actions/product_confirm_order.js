@@ -61,34 +61,26 @@ export default class ProductConfirmOrder extends BaseAction {
                       financial_status: 'authorized',
                       processing_method: "direct",
                       gateway: 'stripe',
-                      test:true,
                       customer: {
                         id: customer.shopify.id
                       },
                       subtotal: subtotal
                     }
-                    console.log(order)
-                    customer.clearCart()
+                    
                     return createOrder(order)
                         .then(shopifyOrder => {
-                          return Orders.insert({customer_id: customer._id, data: shopifyOrder})
-
+                          return Orders.insert({customer_id: customer._id, data: shopifyOrder, status: 'new'})
                         })
                         .then(orderId => {
+                          customer.clearCart()
                           reply({
                             message: {
                               attachment:{
                                 type:'template',
                                 payload:{
                                   template_type:'button',
-                                  text: `Parfait, la livraison a votre porte se fera le ${day}, une copie de votre commande a ete envoyee a votre courriel`,
+                                  text: `À votre service ${customer.metadata.first_name}, je vous livrerai votre commande ${day} soir, une copie de votre commande vous a été envoyée par courriel. Vous pouvez payer la commande après la livraison.`,
                                   buttons :[
-                                    {
-                                      type:'web_url',
-                                      title:'Passer a la caisse',
-                                      url: Meteor.absoluteUrl(`/charge/${orderId}`),
-                                      webview_height_ratio: 'TALL'
-                                    },
                                     {
                                       type:'postback',
                                       title:'Retour au menu',
@@ -96,7 +88,7 @@ export default class ProductConfirmOrder extends BaseAction {
                                     },
                                     {
                                       type:'postback',
-                                      title:'Continuer dans Epicerie',
+                                      title:'Retour Épicerie',
                                       payload:'Épicerie fine'
                                     }
                                   ]
@@ -109,8 +101,6 @@ export default class ProductConfirmOrder extends BaseAction {
 
                         )
 
-
-
                   })
 
             })
@@ -119,7 +109,7 @@ export default class ProductConfirmOrder extends BaseAction {
     } else {
       return reply({
         message: {
-          text:'Veuillez indiquer le journee de votre livraison',
+          text:`Veuillez indiquer votre journée de livraison, entre 18h00 et 20h30, à l'heure de votre choix`,
           quick_replies: [
             {
               content_type:'text',

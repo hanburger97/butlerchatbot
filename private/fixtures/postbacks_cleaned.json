@@ -92,6 +92,30 @@
     "action": {}
   },
   {
+    "trigger":"ENGLISH",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Dear {{first_name}}, I love to talk and write this beautiful language.. Although, I must admit I still need a few more days before being able to serve you in English. I will message you as soon as my fellow humans are done teaching it to me. Your 20$ discount will still be valid, as long as you like Concierge Hexagone Facebook Page. I will contact you shortly. If you need anything until then, feel free to call me!",
+          "buttons":[
+            {
+              "type": "phone_number",
+              "title": "Call",
+              "payload": "+15143484966"
+            },
+            {
+              "type":"web_url",
+              "url":"https://www.facebook.com/conciergehexagone/",
+              "title":"See Facebook Page"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
     "trigger": "SERVICE_LAVE_AUTO",
     "response": {
       "text": "Quand désirez-vous faire laver votre auto? Choississez parmi les 3 prochaines soirées proposées, entre 18h30 et 20h30, même si c'est aujourd'hui!",
@@ -147,7 +171,7 @@
             {
               "type": "postback",
               "title": "Retour au Menu",
-              "payload": "start"
+              "payload": "START"
             }
           ]
         }
@@ -209,7 +233,7 @@
   {
     "trigger": "CARWASH_MONDAY",
     "response": {
-      "text": "Voulez-vous un lavage seulement extérieur ou complet?",
+      "text": "Et dites-moi, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -241,7 +265,7 @@
   {
     "trigger": "CARWASH_WEDNESDAY",
     "response": {
-      "text": "Voulez-vous un lavage seulement extérieur ou complet? ",
+      "text": "Et dites-moi {{first_name}}, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -273,7 +297,7 @@
   {
     "trigger": "CARWASH_FRIDAY",
     "response": {
-      "text": "Voulez-vous un lavage seulement extérieur ou complet? ",
+      "text": "Et dites-moi {{first_name}}, voulez-vous que nous lavions l'extérieur seulement, ou l'intérieur aussi?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -305,20 +329,19 @@
   {
     "trigger": "CARWASH_EXTERIOR",
     "response": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "Parfait!",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Continuer",
-              "payload": "CARWASH_EXTERIOR_NXT"
-            }
-          ]
+      "text":"à votre service, veuillez simplement confirmer votre demande de lavage extérieur 20$",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Confirmer",
+          "payload":"CARWASH_EXTERIOR_NXT"
+        },
+        {
+          "content_type":"text",
+          "title":"Annuler",
+          "payload":"CARWASH_CANCEL"
         }
-      }
+      ]
     },
     "action": {
       "value": "Votre voiture sera lavée le soir directement dans son espace de stationnement, vous recevrez un message lorsque nous aurons terminé. Veuillez vous assurer qu'elle soit bien centrée dans son espace. Au plaisir de vous servir!",
@@ -335,20 +358,19 @@
   {
     "trigger": "CARWASH_COMPLETE",
     "response": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "Parfait!",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Continuer",
-              "payload": "CARWASH_EXTERIOR_NXT"
-            }
-          ]
+      "text": "à votre service, veuillez simplement confirmer votre demande de lavage complet 25$",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Confirmer",
+          "payload":"CARWASH_INTERIOR_NXT"
+        },
+        {
+          "content_type":"text",
+          "title":"Annuler",
+          "payload":"CARWASH_CANCEL"
         }
-      }
+      ]
     },
     "action": {
       "value": "Je serai à votre porte entre 18h30 et 19h30 afin récupérer votre clef de voiture. Au plaisir de vous servir!",
@@ -358,7 +380,7 @@
   {
     "trigger": "CHANGE_PARKING",
     "response": {
-      "text": "Veuillez entrer votre numéro de stationement:"
+      "text": "Veuillez entrer votre nouveau numéro de stationement:"
     },
     "action": {
       "operation": "ChangeParking"
@@ -381,7 +403,14 @@
   {
     "trigger": "CARWASH_CANCEL",
     "response": {
-      "text": "Votre commande de lave-auto a belle et bien été annulée. Au plaisir de vous servir."
+      "text": "Votre commande de lave-auto a belle et bien été annulée. Au plaisir de vous servir.",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        }
+      ]
     }
   },
   {
@@ -470,31 +499,31 @@
   {
     "trigger":"ENTRETIEN_LUNDI",
     "response":{
-      "text":"À votre service, un humain viendra vous confirmer l'heure"
+      "text":"entre quelles heures idéalement ( example: écrivez 8-17 pour entre 8h00 et 17h00) ?"
     },
     "action":{
-      "operation":"RecordDay",
-      "value":"Lundi"
+      "operation":"RecordUserInput",
+      "value":"ENTRETIEN"
     }
   },
   {
     "trigger":"ENTRETIEN_MARDI",
     "response":{
-      "text":"À votre service, un humain viendra vous confirmer l'heure"
+      "text":"entre quelles heures idéalement ( example: écrivez 8-17 pour entre 8h00 et 17h00) ?"
     },
     "action":{
-      "operation":"RecordDay",
-      "value":"Mardi"
+      "operation":"RecordUserInput",
+      "value":"ENTRETIEN"
     }
   },
   {
     "trigger":"ENTRETIEN_MERCREDI",
     "response":{
-      "text":"À votre service, un humain viendra vous confirmer l'heure"
+      "text":"entre quelles heures idéalement ( example: écrivez 8-17 pour entre 8h00 et 17h00) ?"
     },
     "action":{
-      "operation":"RecordDay",
-      "value":"Mercredi"
+      "operation":"RecordUserInput",
+      "value":"ENTRETIEN"
     }
   },
   {
@@ -594,7 +623,7 @@
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "À votre service, je serai à votre porte Vendredi soir pour récupérer vos vêtements.",
+          "text": "À votre service {{first_name}}, je serai à votre porte Vendredi soir pour récupérer vos vêtements.",
           "buttons": [
             {
               "type": "postback",
@@ -684,7 +713,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "Prêt-à-manger"
                 }
               ]
@@ -696,7 +725,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "Boucherie"
                 }
               ]
@@ -708,7 +737,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits fins du terroir\"}"
                 }
               ]
@@ -720,7 +749,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "Bières et vins"
                 }
               ]
@@ -732,7 +761,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits alexis le gourmand\"}"
                 }
               ]
@@ -744,7 +773,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"breuvages\"}"
                 }
               ]
@@ -756,7 +785,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"chips\"}"
                 }
               ]
@@ -768,7 +797,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"pâtes alimentaires\"}"
                 }
               ]
@@ -780,7 +809,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"produits ménagers\"}"
                 }
               ]
@@ -792,7 +821,7 @@
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "Voir Produit",
+                  "title": "Voir Produits",
                   "payload": "//SHOW_PRODUCTS/{\"product_type\":\"to be defined\"}"
                 }
               ]
@@ -1070,6 +1099,115 @@
           "payload":"SERVICES"
         }
       ]
+    }
+  },
+  {
+    "trigger":"M_REQUEST",
+    "response":{
+      "text":"Décrivez votre besoin de manière générale ( exemple: peinturer 2 pièces,  installer des rideaux, une télé, monter un meuble ikea ), vous aurez l'occasion de préciser plus tard."
+    },
+    "action":{
+      "operation":"RecordUserInput",
+      "value":"HandymanForm"
+    }
+  },
+  {
+    "trigger":"HOW_IT_WORKS",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Je suis Albert, votre concierge personnalisé, exclusif à L'Hexagone.  Dès que vous avez un besoin à domicile, ne vous cassez pas la tête, peu importe ce dont il s'agit, je peux m'en charger. Je suis disponible sur Messenger, facebook,  mais vous pouvez aussi m'appeler directement.",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":"En savoir plus",
+              "payload":"LEARN_MORE"
+            },
+            {
+              "type": "phone_number",
+              "title": "Appeler",
+              "payload": "+15143484966"
+            },
+            {
+              "type":"postback",
+              "title":"Voir les services",
+              "payload":"SERVICES"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger":"LEARN_MORE",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Grâce à moi, sans frais, profitez de services exclusifs, offerts par les meilleurs fournisseurs de Griffintown, dans des conditions plus avantageuses.  Tous nos fournisseurs sont choisis pour leur excellence, leur rapport qualité-prix, ainsi que pour leur engagement responsable. ",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":"Voir les services",
+              "payload":"SERVICES"
+            },
+            {
+              "type": "phone_number",
+              "title": "Appeler",
+              "payload": "+15143484966"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "trigger":"MASSAGE_THERAPEUTES",
+    "response":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title": "Tundi: Massages Suédois, tissus profonds, sportifs et thérapeutiques.",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "Ancienne infirmière, plusieurs fois diplômée, exerce depuis 1995."
+            },
+            {
+              "title": "Martine: Suédois, tissus profonds, shiatsu, thérapeutique.",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "Passionnée de santé et de saines habitudes, prodiguera conseils et soins."
+            },
+            {
+              "title": "Hector: Traitement sur mesure selon vos besoins, vos douleurs, vos objectifs",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "soulagera vos maux de tête, douleurs, tendinites, votre stress."
+            },
+            {
+              "title": "François-Olivier: kynésiologue dîplômé.",
+              "image_url": "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png",
+              "subtitle": "Combine osthéopathie, massothérapie, kynésiologie et neurosciences. "
+            }
+          ]
+        }
+      },
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Retour au menu",
+          "payload":"SERVICES"
+        },
+        {
+          "content_type":"text",
+          "title":"Retour aux massages",
+          "payload":"//SHOW_MASSAGES/{\"vendor\":\"Massage\"}"
+        }
+      ]
+
     }
   }
 
