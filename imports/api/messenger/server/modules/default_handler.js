@@ -287,7 +287,7 @@ class DefaultModule extends BaseHandler {
                .then( () => {
                  return reply({
                    message:{
-                     text: `Parfait ${customer.metadata.first_name}, une notification a été envoyée à un humain, vous auriez la chance de lui faire votre demande, merci de m'avoir utilisé`,
+                     text:`À votre service ${customer.metadata.first_name}, un collègue humain prendra la relève dans quelques minutes, entre 9h00 et 23h00.`,
                      quick_replies:[
                        {
                          content_type:'text',
@@ -303,7 +303,8 @@ class DefaultModule extends BaseHandler {
             } else {
               return reply({
                 message: {
-                  text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?", quick_replies: [
+                  text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
+                  quick_replies: [
 
                     {
                       content_type: "text",
@@ -352,7 +353,7 @@ class DefaultModule extends BaseHandler {
                   console.log("None of the words are defined");
                   return reply({
                     message: {
-                      text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
+                      text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
                       quick_replies: [
                         {
                           content_type: "text",
@@ -537,7 +538,7 @@ class DefaultModule extends BaseHandler {
             if (!_this.stopAutoReply){
               return reply({
                 message: {
-                  text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?",
+                  text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
                   quick_replies: [
                     {
                       content_type: "text",
