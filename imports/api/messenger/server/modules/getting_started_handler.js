@@ -38,7 +38,7 @@ class GettingStarted extends BaseHandler {
                   })
                   .then(() => {
                     reply({message: {text: `Merci ${customer.metadata.first_name}, la porte ${roomNumber} est maintenant associée à votre nom!`}})
-                    emitPayload('START')
+                    emitPayload('START_FRENCH')
                   })
               })
               .catch((err) => {
@@ -101,7 +101,7 @@ class GettingStarted extends BaseHandler {
 
               import {update as updateShopifyCustomer} from '/imports/api/shopify/server/customer'
               const shopifyCustomer = customer.shopify
-              emitPayload('START')
+              emitPayload('START_FRENCH')
               return updateShopifyCustomer(shopifyCustomer.id, {email, send_email_welcome: true})
             })
         }
