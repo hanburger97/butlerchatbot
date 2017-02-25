@@ -24,7 +24,7 @@ bot.setPersistentMenu([
   {
     "type": "postback",
     "title": "Menu principal",
-    "payload": "START"
+    "payload": "START_FRENCH"
   },
   {
     "type":"postback",
