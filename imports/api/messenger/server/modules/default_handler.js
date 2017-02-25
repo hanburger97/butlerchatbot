@@ -329,49 +329,56 @@ class DefaultModule extends BaseHandler {
           })
       } else if (payload.message && payload.message.text) {
         payload.message.text = payload.message.text.toLowerCase();
-        const words = payload.message.text.split(' ');
-        //let words2 = payload.message.text.split(' ');
-        //console.log(words);
-        let r = 0;
-        /*for (let z = 0; z < words.length; z++) {
-          let word = words[z];*/
-
-          return Responses.findOne({trigger: {$in:words}})
-            .then((response) => {
-              _this.stopAutoReply = false;
-
-              return reply({message: response.response});
+        if(payload.message.text == 'human'){
+          let until = new Date(new Date().getTime() + (3600 * 1000));
+          _this.pausedUsers[senderId] = until
+          payload.message.text = ''
+        } else {
 
 
-            })
-            .catch(err => {
-              console.log(err.message)
-              if (!_this.stopAutoReply) {
-                 return reply({
-                    message: {
-                      text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
-                      quick_replies: [
-                        {
-                          content_type: "text",
-                          title: "Oui",
-                          payload: "HUMAN"
-                        },
-                        {
-                          content_type: "text",
-                          title: "Retour au Menu",
-                          payload: "SERVICES"
-                        }
+          const words = payload.message.text.split(' ');
+          //let words2 = payload.message.text.split(' ');
+          //console.log(words);
+          let r = 0;
+          /*for (let z = 0; z < words.length; z++) {
+           let word = words[z];*/
 
-                      ]
-                    }
-                  });
+          return Responses.findOne({trigger: {$in: words}})
+           .then((response) => {
+             _this.stopAutoReply = false;
 
-              }
+             return reply({message: response.response});
 
-            })
 
-        /*}*/
+           })
+           .catch(err => {
+             console.log(err.message)
+             if (!_this.stopAutoReply) {
+               return reply({
+                 message: {
+                   text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
+                   quick_replies: [
+                     {
+                       content_type: "text",
+                       title: "Oui",
+                       payload: "HUMAN"
+                     },
+                     {
+                       content_type: "text",
+                       title: "Retour au Menu",
+                       payload: "SERVICES"
+                     }
 
+                   ]
+                 }
+               });
+
+             }
+
+           })
+
+          /*}*/
+        }
       } else if (payload.postback) {
 
         Postbacks.findOne({
