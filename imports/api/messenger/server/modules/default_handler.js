@@ -177,7 +177,7 @@ class DefaultModule extends BaseHandler {
       } else if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] > new Date() && payload.message && payload.message.text) {
         payload.message.text = '';
         return
-      } else {
+      } else if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] <= new Date()){
         delete _this.pausedUsers[senderId]
       }
       /*******************/
