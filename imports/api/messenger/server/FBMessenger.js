@@ -252,11 +252,107 @@ class Bot extends EventEmitter {
 
   _handleMessage(json) {
     let entries = json.entry
-
-    entries.forEach((entry) => {
+    for(var z=0; z <entries.length; z++){
+      var entry = entries[z]
       let events = entry.messaging
+      for(var i=0; i <events.length; i++){
+        var event = events[i]
+        if (event.message) {
+          if (event.message.is_echo) {
+            this._handleEvent('echo', event)
+          } else {
+            if (this.debug) {
+              logInfo('MessengerBot::HandleMessage')
+              logInfo(event)
+            }
+            this._handleEvent('message', event)
+          }
+        }
 
-      events.forEach((event) => {
+        // handle postbacks
+        if (event.postback) {
+          if (this.debug) {
+            logInfo('MessengerBot::HandlePostback')
+            logInfo(event)
+          }
+          this._handleEvent('postback', event)
+        }
+
+        // handle message delivered
+        if (event.delivery) {
+          this._handleEvent('delivery', event)
+        }
+
+        // handle message read
+        if (event.read) {
+          this._handleEvent('read', event)
+        }
+
+        // handle authentication
+        if (event.optin) {
+          this._handleEvent('authentication', event)
+        }
+
+        // handle account_linking
+        if (event.account_linking && event.account_linking.status) {
+          if (event.account_linking.status === 'linked') {
+            this._handleEvent('accountLinked', event)
+          } else if (event.account_linking.status === 'unlinked') {
+            this._handleEvent('accountUnlinked', event)
+          }
+        }
+      }
+    }
+    /*entries.forEach((entry) => {
+      /!*let events = entry.messaging
+      for(i=0; i <events.length; i++){
+        var event = events[i]
+        if (event.message) {
+          if (event.message.is_echo) {
+            this._handleEvent('echo', event)
+          } else {
+            if (this.debug) {
+              logInfo('MessengerBot::HandleMessage')
+              logInfo(event)
+            }
+            this._handleEvent('message', event)
+          }
+        }
+
+        // handle postbacks
+        if (event.postback) {
+          if (this.debug) {
+            logInfo('MessengerBot::HandlePostback')
+            logInfo(event)
+          }
+          this._handleEvent('postback', event)
+        }
+
+        // handle message delivered
+        if (event.delivery) {
+          this._handleEvent('delivery', event)
+        }
+
+        // handle message read
+        if (event.read) {
+          this._handleEvent('read', event)
+        }
+
+        // handle authentication
+        if (event.optin) {
+          this._handleEvent('authentication', event)
+        }
+
+        // handle account_linking
+        if (event.account_linking && event.account_linking.status) {
+          if (event.account_linking.status === 'linked') {
+            this._handleEvent('accountLinked', event)
+          } else if (event.account_linking.status === 'unlinked') {
+            this._handleEvent('accountUnlinked', event)
+          }
+        }
+      }*!/
+      /!*events.forEach((event) => {
 
         // handle inbound messages and echos
         if (event.message) {
@@ -303,8 +399,8 @@ class Bot extends EventEmitter {
             this._handleEvent('accountUnlinked', event)
           }
         }
-      })
-    })
+      })*!/
+    })*/
   }
 
   _getActionsObject(event) {

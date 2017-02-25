@@ -26,13 +26,10 @@ class DefaultModule extends BaseHandler {
     const promise = new Promise(() => {
 
       /*** TIMEOUT SECTION **/
-      if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] > new Date()) {
-        payload.message.text = '';
-        return
-      }
+
 
       /***Recording + Update Room for specific user**/
-      else if (_this.recordRoom[senderId] && _this.recordRoom[senderId] == 'Yes') {
+      if (_this.recordRoom[senderId] && _this.recordRoom[senderId] == 'Yes') {
         payload.message.text = Number(payload.message.text);
         customer.set('room', payload.message.text)
 
@@ -177,8 +174,10 @@ class DefaultModule extends BaseHandler {
              }
            })
          })
-      }
-      else {
+      } else if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] > new Date()) {
+        payload.message.text = '';
+        return
+      } else {
         delete _this.pausedUsers[senderId]
       }
       /*******************/
@@ -188,8 +187,11 @@ class DefaultModule extends BaseHandler {
         console.log('In quickreply');
         Postbacks.findOne({trigger: payload.message.quick_reply.payload})
           .then(postback => {
-
-            if (postback.action && postback.action.operation == 'RecordDay') {
+            if (postback.action && postback.action.operation == 'Timeout') {
+              let until = new Date(new Date().getTime() + (Number(postback.action.value) * 1000));
+              _this.pausedUsers[senderId] = until
+            }
+            else if (postback.action && postback.action.operation == 'RecordDay') {
               customer.set('service', {
                 day: postback.action.value
               })
@@ -282,6 +284,8 @@ class DefaultModule extends BaseHandler {
                 subject: `Customer ${customer.metadata.first_name},${customer.metadata.last_name} asked to speak to a human`,
                 text:'To set the bot to manual mode please change it in the database for now, we are working on a solution asap'
               })*/
+              let until = new Date(new Date().getTime() + (7200 * 1000));
+              _this.pausedUsers[senderId] = until;
               customer.set('Request Human',true)
               customer.save()
                .then( () => {
@@ -329,29 +333,21 @@ class DefaultModule extends BaseHandler {
         //let words2 = payload.message.text.split(' ');
         //console.log(words);
         let r = 0;
-        for (let z = 0; z < words.length; z++) {
-          let word = words[z];
+        /*for (let z = 0; z < words.length; z++) {
+          let word = words[z];*/
 
-          return Responses.findOne({trigger: word})
+          return Responses.findOne({trigger: {$in:words}})
             .then((response) => {
               _this.stopAutoReply = false;
-              if (response && response.action && response.action.operation == 'Timeout') {
-                let until = new Date(new Date().getTime() + (Number(response.action.value) * 1000));
-                _this.pausedUsers[senderId] = until;
-                return reply({message: response.response});
-              } else if (response) {
-                return reply({message: response.response});
 
-              }
+              return reply({message: response.response});
+
+
             })
             .catch(err => {
               console.log(err.message)
               if (!_this.stopAutoReply) {
-                r += 1
-                console.log(`Words is ${words}`);
-                if (r == words.length) {
-                  console.log("None of the words are defined");
-                  return reply({
+                 return reply({
                     message: {
                       text: `Désolé ${customer.metadata.first_name}, j'ai mal compris votre demande, j'apprends mon métier!  Est-ce que mon collègue humain peut prendre le relais pour vous aider`,
                       quick_replies: [
@@ -369,11 +365,12 @@ class DefaultModule extends BaseHandler {
                       ]
                     }
                   });
-                }
+
               }
+
             })
 
-        }
+        /*}*/
 
       } else if (payload.postback) {
 
@@ -385,11 +382,8 @@ class DefaultModule extends BaseHandler {
 
             } else {
 
-              if (data.action && data.action.operation == 'Timeout') {
-                let until = new Date(new Date().getTime() + (Number(data.action.value) * 1000));
-                _this.pausedUsers[senderId] = until
-              }
-              else if (data.action && data.action.operation == 'AddCart') {
+
+              if (data.action && data.action.operation == 'AddCart') {
                 //AddCart action has to be added to the confirmation msg of each item
                 //Check if user already exists else upsert
 
