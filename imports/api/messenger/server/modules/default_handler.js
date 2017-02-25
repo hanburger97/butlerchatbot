@@ -174,7 +174,7 @@ class DefaultModule extends BaseHandler {
              }
            })
          })
-      } else if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] > new Date()) {
+      } else if (_this.pausedUsers[senderId] && _this.pausedUsers[senderId] > new Date() && payload.message && payload.message.text) {
         payload.message.text = '';
         return
       } else {
@@ -291,7 +291,7 @@ class DefaultModule extends BaseHandler {
                .then( () => {
                  return reply({
                    message:{
-                     text:`À votre service ${customer.metadata.first_name}, un collègue humain prendra la relève dans quelques minutes, entre 9h00 et 23h00.`,
+                     text:`À votre service ${customer.metadata.first_name}, un collègue humain prendra la relève dans quelques minutes, entre 9h00 et 23h00. Jusqu'à ce que l'humain prenne le relais, la recherche par mot-clef est désactivée, vous pouvez toujours utiliser les services`,
                      quick_replies:[
                        {
                          content_type:'text',
