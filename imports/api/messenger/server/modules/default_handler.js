@@ -2,6 +2,7 @@ import {BaseHandler} from './base_handler'
 import Responses from '/imports/api/messenger/Responses'
 import Postbacks from '/imports/api/messenger/Postbacks'
 import Rooms from '/imports/api/rooms/Rooms'
+import { Email } from 'meteor/email'
 
 class DefaultModule extends BaseHandler {
   constructor() {
@@ -274,24 +275,52 @@ class DefaultModule extends BaseHandler {
             }
           })
           .catch(err => {
-            reply({
-              message: {
-                text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?", quick_replies: [
+            if (payload.message.quick_reply.payload == 'HUMAN'){
+              /*Email.send({
+                from: 'admin@majordome.io',
+                to:'han@hanxbox.com',
+                subject: `Customer ${customer.metadata.first_name},${customer.metadata.last_name} asked to speak to a human`,
+                text:'To set the bot to manual mode please change it in the database for now, we are working on a solution asap'
+              })*/
+              customer.set('Request Human',true)
+              customer.save()
+               .then( () => {
+                 return reply({
+                   message:{
+                     text: `Parfait ${customer.metadata.first_name}, une notification a été envoyée à un humain, vous auriez la chance de lui faire votre demande, merci de m'avoir utilisé`,
+                     quick_replies:[
+                       {
+                         content_type:'text',
+                         title:'Retour au menu',
+                         payload: 'SERVICES'
+                       }
+                     ]
+                   }
+                 })
+               })
 
-                  {
-                    content_type: "text",
-                    title: "Oui",
-                    payload: "HUMAN"
-                  },
-                  {
-                    content_type: "text",
-                    title: "Retour au Menu",
-                    payload: "SERVICES"
-                  }
 
-                ]
-              }
-            })
+            } else {
+              return reply({
+                message: {
+                  text: "Désolé je n'ai pas compris votre demande, voulez-vous parler à un humain?", quick_replies: [
+
+                    {
+                      content_type: "text",
+                      title: "Oui",
+                      payload: "HUMAN"
+                    },
+                    {
+                      content_type: "text",
+                      title: "Retour au Menu",
+                      payload: "SERVICES"
+                    }
+
+                  ]
+                }
+              })
+            }
+
           })
       } else if (payload.message && payload.message.text) {
         payload.message.text = payload.message.text.toLowerCase();
@@ -504,6 +533,7 @@ class DefaultModule extends BaseHandler {
           })
           .catch(err => {
             console.log(err)
+
             if (!_this.stopAutoReply){
               return reply({
                 message: {
